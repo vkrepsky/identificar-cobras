@@ -1,0 +1,1351 @@
+PS C:\tcc\modelo> python .\modelo-v5.py --data-dir C:\tcc\imgs --kfold 5 --use-mixup-cutmix --model efficientnet_b3
+
+================================================================================
+           🐍 TREINAMENTO DE MODELO PARA CLASSIFICAÇÃO DE SERPENTES 🐍
+================================================================================
+
+📋 Configurações:
+  - Modelo base: efficientnet_b3
+  - Épocas: 60
+  - Batch size: 32
+  - Dropout: 0.5
+  - Peso extra para peçonhentas: 1.0
+  - Aumento extra para peçonhentas: False
+  - Augmentation forte: True
+  - Label Smoothing: 0.1
+  - Mixup e CutMix: True
+  - Validação Cruzada: 5-fold
+✅ Diretório criado/verificado: resultados_snake\snake_efficientnet_b3_20250510_095647
+✅ Diretório criado/verificado: resultados_snake\snake_efficientnet_b3_20250510_095647\models
+✅ Diretório criado/verificado: resultados_snake\snake_efficientnet_b3_20250510_095647\plots
+✅ Diretório criado/verificado: resultados_snake\snake_efficientnet_b3_20250510_095647\reports
+✅ Diretório criado/verificado: resultados_snake\snake_efficientnet_b3_20250510_095647\folds
+
+================================================================================
+🔄 INICIANDO TREINAMENTO COM 5-FOLD CROSS VALIDATION
+================================================================================
+
+Distribuição de classes no dataset completo:
+  - naopeconhentas (índice 0): 292 imagens
+  - peconhentas (índice 1): 274 imagens
+
+================================================================================
+🔄 TREINANDO FOLD 1/5
+================================================================================
+
+================================================================================
+     🔄 AUMENTAÇÃO DE DADOS - GERANDO IMAGENS SINTÉTICAS (SOMENTE TREINO) 🔄
+================================================================================
+
+📊 Alvo: 800 imagens por classe após aumentação
+
+📸 Classe: naopeconhentas
+  ↳ Imagens originais: 226
+  ↳ Gerando ~2 variações por imagem original
+  ✅ Aumentação concluída: 800 imagens (226 originais + 574 geradas)
+
+📸 Classe: peconhentas
+  ↳ Imagens originais: 226
+  ↳ Gerando ~2 variações por imagem original
+  ✅ Aumentação concluída: 800 imagens (226 originais + 574 geradas)
+
+================================================================================
+                       📊 RESUMO DA AUMENTAÇÃO DE DADOS 📊
+================================================================================
+Classe               Originais  Geradas    Total      % Aumento
+--------------------------------------------------------------------------------
+naopeconhentas       226        574        800        254.0%
+peconhentas          226        574        800        254.0%
+--------------------------------------------------------------------------------
+TOTAL                452        1148       1600       254.0%
+
+✅ Aumentação de dados concluída com sucesso!
+
+Distribuição de classes para Fold 1:
+  - Conjunto de Treino:
+      naopeconhentas (índice 0): 800 imagens
+      peconhentas (índice 1): 800 imagens
+  - Conjunto de Validação:
+      naopeconhentas (índice 0): 66 imagens
+      peconhentas (índice 1): 48 imagens
+🔄 Usando Label Smoothing com valor 0.1
+
+================================================================================
+🔥 Training model for binary snake classification
+================================================================================
+📋 Training plan:
+   - Epochs 1-10: Backbone frozen
+   - Epochs 11-20: 10% of backbone unfrozen
+   - Epochs 21-30: 30% of backbone unfrozen
+   - Epochs 31-42: 70% of backbone unfrozen
+   - Epochs 43-60: Backbone completely unfrozen
+✅ New best model (accuracy) saved! Validation accuracy: 64.04%
+✅ New best model (loss) saved! Validation loss: 2.7682
+Epoch 1/60 | Train: Loss 4.7333, Acc 50.94% | Val: Loss 2.7682, Acc 64.04%
+✅ New best model (accuracy) saved! Validation accuracy: 73.68%
+✅ New best model (loss) saved! Validation loss: 1.5250
+Epoch 2/60 | Train: Loss 3.8220, Acc 55.38% | Val: Loss 1.5250, Acc 73.68%
+✅ New best model (loss) saved! Validation loss: 1.2048
+Epoch 3/60 | Train: Loss 3.3648, Acc 56.31% | Val: Loss 1.2048, Acc 70.18%
+Epoch 4/60 | Train: Loss 3.0556, Acc 54.94% | Val: Loss 1.2246, Acc 67.54%
+✅ New best model (loss) saved! Validation loss: 1.1274
+Epoch 5/60 | Train: Loss 2.8422, Acc 53.88% | Val: Loss 1.1274, Acc 64.91%
+💾 Checkpoint saved: resultados_snake\snake_efficientnet_b3_20250510_095647\folds\fold_1\checkpoint_epoch_5.pth
+Epoch 6/60 | Train: Loss 2.2796, Acc 53.50% | Val: Loss 1.2353, Acc 63.16%
+✅ New best model (loss) saved! Validation loss: 1.0752
+Epoch 7/60 | Train: Loss 1.7324, Acc 55.69% | Val: Loss 1.0752, Acc 57.02%
+✅ New best model (loss) saved! Validation loss: 0.7594
+Epoch 8/60 | Train: Loss 1.2313, Acc 53.25% | Val: Loss 0.7594, Acc 68.42%
+✅ New best model (loss) saved! Validation loss: 0.6876
+Epoch 9/60 | Train: Loss 0.8144, Acc 56.31% | Val: Loss 0.6876, Acc 64.04%
+Epoch 10/60 | Train: Loss 0.7086, Acc 58.56% | Val: Loss 0.6974, Acc 63.16%
+💾 Checkpoint saved: resultados_snake\snake_efficientnet_b3_20250510_095647\folds\fold_1\checkpoint_epoch_10.pth
+
+🔓 Unfreezing 10% of backbone (epoch 11)...
+🔓 Unfrozen 1 of 9 backbone layers
+   - Optimizer and scheduler reset with adjusted learning rates
+✅ New best model (loss) saved! Validation loss: 0.6668
+Epoch 11/60 | Train: Loss 0.6805, Acc 61.25% | Val: Loss 0.6668, Acc 65.79%
+✅ New best model (loss) saved! Validation loss: 0.6661
+Epoch 12/60 | Train: Loss 0.6594, Acc 61.81% | Val: Loss 0.6661, Acc 65.79%
+✅ New best model (loss) saved! Validation loss: 0.6451
+Epoch 13/60 | Train: Loss 0.6762, Acc 59.19% | Val: Loss 0.6451, Acc 65.79%
+✅ New best model (loss) saved! Validation loss: 0.6432
+Epoch 14/60 | Train: Loss 0.6628, Acc 62.38% | Val: Loss 0.6432, Acc 64.91%
+✅ New best model (loss) saved! Validation loss: 0.6264
+Epoch 15/60 | Train: Loss 0.6611, Acc 62.88% | Val: Loss 0.6264, Acc 71.05%
+💾 Checkpoint saved: resultados_snake\snake_efficientnet_b3_20250510_095647\folds\fold_1\checkpoint_epoch_15.pth
+Epoch 16/60 | Train: Loss 0.6508, Acc 66.69% | Val: Loss 0.6305, Acc 69.30%
+✅ New best model (loss) saved! Validation loss: 0.6156
+Epoch 17/60 | Train: Loss 0.6419, Acc 66.62% | Val: Loss 0.6156, Acc 71.05%
+✅ New best model (loss) saved! Validation loss: 0.6116
+Epoch 18/60 | Train: Loss 0.6606, Acc 63.38% | Val: Loss 0.6116, Acc 73.68%
+✅ New best model (accuracy) saved! Validation accuracy: 75.44%
+Epoch 19/60 | Train: Loss 0.6570, Acc 64.94% | Val: Loss 0.6209, Acc 75.44%
+✅ New best model (loss) saved! Validation loss: 0.6114
+Epoch 20/60 | Train: Loss 0.6510, Acc 64.56% | Val: Loss 0.6114, Acc 70.18%
+💾 Checkpoint saved: resultados_snake\snake_efficientnet_b3_20250510_095647\folds\fold_1\checkpoint_epoch_20.pth
+
+🔓 Unfreezing 30% of backbone (epoch 21)...
+🔓 Unfrozen 3 of 9 backbone layers
+   - Optimizer and scheduler reset with adjusted learning rates
+✅ New best model (loss) saved! Validation loss: 0.6111
+Epoch 21/60 | Train: Loss 0.6458, Acc 65.38% | Val: Loss 0.6111, Acc 68.42%
+✅ New best model (loss) saved! Validation loss: 0.6075
+Epoch 22/60 | Train: Loss 0.6359, Acc 67.25% | Val: Loss 0.6075, Acc 71.05%
+✅ New best model (loss) saved! Validation loss: 0.5977
+Epoch 23/60 | Train: Loss 0.6392, Acc 65.81% | Val: Loss 0.5977, Acc 72.81%
+✅ New best model (loss) saved! Validation loss: 0.5917
+Epoch 24/60 | Train: Loss 0.6379, Acc 66.81% | Val: Loss 0.5917, Acc 72.81%
+Epoch 25/60 | Train: Loss 0.6324, Acc 67.44% | Val: Loss 0.6011, Acc 72.81%
+💾 Checkpoint saved: resultados_snake\snake_efficientnet_b3_20250510_095647\folds\fold_1\checkpoint_epoch_25.pth
+Epoch 26/60 | Train: Loss 0.6179, Acc 69.19% | Val: Loss 0.5967, Acc 70.18%
+✅ New best model (accuracy) saved! Validation accuracy: 77.19%
+Epoch 27/60 | Train: Loss 0.6153, Acc 69.88% | Val: Loss 0.6045, Acc 77.19%
+Epoch 28/60 | Train: Loss 0.6184, Acc 71.06% | Val: Loss 0.6021, Acc 73.68%
+✅ New best model (accuracy) saved! Validation accuracy: 78.07%
+✅ New best model (loss) saved! Validation loss: 0.5724
+Epoch 29/60 | Train: Loss 0.6026, Acc 73.31% | Val: Loss 0.5724, Acc 78.07%
+✅ New best model (loss) saved! Validation loss: 0.5641
+Epoch 30/60 | Train: Loss 0.6099, Acc 71.31% | Val: Loss 0.5641, Acc 73.68%
+💾 Checkpoint saved: resultados_snake\snake_efficientnet_b3_20250510_095647\folds\fold_1\checkpoint_epoch_30.pth
+
+🔓 Unfreezing 70% of backbone (epoch 31)...
+🔓 Unfrozen 7 of 9 backbone layers
+   - Optimizer and scheduler reset with more conservative learning rates
+✅ New best model (accuracy) saved! Validation accuracy: 79.82%
+Epoch 31/60 | Train: Loss 0.6020, Acc 72.88% | Val: Loss 0.5659, Acc 79.82%
+Epoch 32/60 | Train: Loss 0.6006, Acc 73.25% | Val: Loss 0.5747, Acc 78.07%
+Epoch 33/60 | Train: Loss 0.5921, Acc 73.75% | Val: Loss 0.5691, Acc 78.07%
+Epoch 34/60 | Train: Loss 0.5963, Acc 73.25% | Val: Loss 0.5669, Acc 76.32%
+Epoch 35/60 | Train: Loss 0.5952, Acc 72.50% | Val: Loss 0.5748, Acc 77.19%
+💾 Checkpoint saved: resultados_snake\snake_efficientnet_b3_20250510_095647\folds\fold_1\checkpoint_epoch_35.pth
+Epoch 36/60 | Train: Loss 0.5862, Acc 75.62% | Val: Loss 0.5775, Acc 76.32%
+✅ New best model (loss) saved! Validation loss: 0.5633
+Epoch 37/60 | Train: Loss 0.5904, Acc 72.88% | Val: Loss 0.5633, Acc 79.82%
+✅ New best model (loss) saved! Validation loss: 0.5588
+Epoch 38/60 | Train: Loss 0.5891, Acc 72.88% | Val: Loss 0.5588, Acc 78.95%
+Epoch 39/60 | Train: Loss 0.5841, Acc 74.69% | Val: Loss 0.5612, Acc 78.95%
+Epoch 40/60 | Train: Loss 0.5838, Acc 75.50% | Val: Loss 0.5696, Acc 76.32%
+💾 Checkpoint saved: resultados_snake\snake_efficientnet_b3_20250510_095647\folds\fold_1\checkpoint_epoch_40.pth
+Epoch 41/60 | Train: Loss 0.5752, Acc 75.00% | Val: Loss 0.5625, Acc 78.95%
+Epoch 42/60 | Train: Loss 0.5743, Acc 76.12% | Val: Loss 0.5637, Acc 75.44%
+
+🔓 Unfreezing entire backbone (epoch 43)...
+   - Optimizer and scheduler reset with very conservative learning rates
+✅ New best model (loss) saved! Validation loss: 0.5582
+Epoch 43/60 | Train: Loss 0.5864, Acc 74.25% | Val: Loss 0.5582, Acc 77.19%
+✅ New best model (accuracy) saved! Validation accuracy: 81.58%
+✅ New best model (loss) saved! Validation loss: 0.5532
+Epoch 44/60 | Train: Loss 0.5821, Acc 75.25% | Val: Loss 0.5532, Acc 81.58%
+Epoch 45/60 | Train: Loss 0.5714, Acc 74.75% | Val: Loss 0.5603, Acc 77.19%
+💾 Checkpoint saved: resultados_snake\snake_efficientnet_b3_20250510_095647\folds\fold_1\checkpoint_epoch_45.pth
+Epoch 46/60 | Train: Loss 0.5724, Acc 76.38% | Val: Loss 0.5598, Acc 77.19%
+✅ New best model (loss) saved! Validation loss: 0.5504
+Epoch 47/60 | Train: Loss 0.5695, Acc 77.12% | Val: Loss 0.5504, Acc 78.07%
+Epoch 48/60 | Train: Loss 0.5666, Acc 75.81% | Val: Loss 0.5608, Acc 76.32%
+Epoch 49/60 | Train: Loss 0.5700, Acc 76.19% | Val: Loss 0.5600, Acc 76.32%
+Epoch 50/60 | Train: Loss 0.5687, Acc 76.81% | Val: Loss 0.5570, Acc 75.44%
+💾 Checkpoint saved: resultados_snake\snake_efficientnet_b3_20250510_095647\folds\fold_1\checkpoint_epoch_50.pth
+Epoch 51/60 | Train: Loss 0.5569, Acc 77.19% | Val: Loss 0.5595, Acc 78.07%
+Epoch 52/60 | Train: Loss 0.5661, Acc 76.75% | Val: Loss 0.5558, Acc 78.07%
+✅ New best model (loss) saved! Validation loss: 0.5490
+Epoch 53/60 | Train: Loss 0.5624, Acc 78.69% | Val: Loss 0.5490, Acc 78.95%
+Epoch 54/60 | Train: Loss 0.5524, Acc 77.69% | Val: Loss 0.5570, Acc 77.19%
+Epoch 55/60 | Train: Loss 0.5624, Acc 77.50% | Val: Loss 0.5629, Acc 77.19%
+💾 Checkpoint saved: resultados_snake\snake_efficientnet_b3_20250510_095647\folds\fold_1\checkpoint_epoch_55.pth
+Epoch 56/60 | Train: Loss 0.5605, Acc 76.88% | Val: Loss 0.5551, Acc 77.19%
+Epoch 57/60 | Train: Loss 0.5632, Acc 78.88% | Val: Loss 0.5547, Acc 80.70%
+✅ New best model (loss) saved! Validation loss: 0.5477
+Epoch 58/60 | Train: Loss 0.5583, Acc 77.12% | Val: Loss 0.5477, Acc 78.95%
+Epoch 59/60 | Train: Loss 0.5651, Acc 76.19% | Val: Loss 0.5605, Acc 78.95%
+Epoch 60/60 | Train: Loss 0.5577, Acc 78.44% | Val: Loss 0.5478, Acc 81.58%
+💾 Checkpoint saved: resultados_snake\snake_efficientnet_b3_20250510_095647\folds\fold_1\checkpoint_epoch_60.pth
+
+🔍 Comparing models based on accuracy and loss...
+📊 Model with best accuracy: 81.58%
+📊 Model with best loss: 81.58%
+✅ Using model with best accuracy as final model
+✅ Fold 1 concluído. Acurácia de validação: 81.58%
+
+================================================================================
+🔄 TREINANDO FOLD 2/5
+================================================================================
+
+================================================================================
+     🔄 AUMENTAÇÃO DE DADOS - GERANDO IMAGENS SINTÉTICAS (SOMENTE TREINO) 🔄
+================================================================================
+
+📊 Alvo: 800 imagens por classe após aumentação
+
+📸 Classe: naopeconhentas
+  ↳ Imagens originais: 235
+  ↳ Gerando ~2 variações por imagem original
+  ✅ Aumentação concluída: 800 imagens (235 originais + 565 geradas)
+
+📸 Classe: peconhentas
+  ↳ Imagens originais: 218
+  ↳ Gerando ~2 variações por imagem original
+  ✅ Aumentação concluída: 800 imagens (218 originais + 582 geradas)
+
+================================================================================
+                       📊 RESUMO DA AUMENTAÇÃO DE DADOS 📊
+================================================================================
+Classe               Originais  Geradas    Total      % Aumento
+--------------------------------------------------------------------------------
+naopeconhentas       235        565        800        240.4%
+peconhentas          218        582        800        267.0%
+--------------------------------------------------------------------------------
+TOTAL                453        1147       1600       253.2%
+
+✅ Aumentação de dados concluída com sucesso!
+
+Distribuição de classes para Fold 2:
+  - Conjunto de Treino:
+      naopeconhentas (índice 0): 800 imagens
+      peconhentas (índice 1): 800 imagens
+  - Conjunto de Validação:
+      naopeconhentas (índice 0): 57 imagens
+      peconhentas (índice 1): 56 imagens
+🔄 Usando Label Smoothing com valor 0.1
+
+================================================================================
+🔥 Training model for binary snake classification
+================================================================================
+📋 Training plan:
+   - Epochs 1-10: Backbone frozen
+   - Epochs 11-20: 10% of backbone unfrozen
+   - Epochs 21-30: 30% of backbone unfrozen
+   - Epochs 31-42: 70% of backbone unfrozen
+   - Epochs 43-60: Backbone completely unfrozen
+✅ New best model (accuracy) saved! Validation accuracy: 64.60%
+✅ New best model (loss) saved! Validation loss: 1.9167
+Epoch 1/60 | Train: Loss 6.9849, Acc 49.94% | Val: Loss 1.9167, Acc 64.60%
+✅ New best model (accuracy) saved! Validation accuracy: 68.14%
+✅ New best model (loss) saved! Validation loss: 1.1763
+Epoch 2/60 | Train: Loss 4.6551, Acc 55.38% | Val: Loss 1.1763, Acc 68.14%
+Epoch 3/60 | Train: Loss 4.2027, Acc 51.88% | Val: Loss 1.2731, Acc 65.49%
+✅ New best model (accuracy) saved! Validation accuracy: 69.03%
+Epoch 4/60 | Train: Loss 3.6752, Acc 54.19% | Val: Loss 1.4048, Acc 69.03%
+Epoch 5/60 | Train: Loss 3.1912, Acc 56.56% | Val: Loss 1.5748, Acc 63.72%
+💾 Checkpoint saved: resultados_snake\snake_efficientnet_b3_20250510_095647\folds\fold_2\checkpoint_epoch_5.pth
+Epoch 6/60 | Train: Loss 3.0071, Acc 53.75% | Val: Loss 1.3933, Acc 61.06%
+✅ New best model (loss) saved! Validation loss: 0.9398
+Epoch 7/60 | Train: Loss 2.2808, Acc 54.38% | Val: Loss 0.9398, Acc 68.14%
+✅ New best model (loss) saved! Validation loss: 0.8971
+Epoch 8/60 | Train: Loss 1.6996, Acc 55.00% | Val: Loss 0.8971, Acc 68.14%
+✅ New best model (loss) saved! Validation loss: 0.7798
+Epoch 9/60 | Train: Loss 1.0178, Acc 54.88% | Val: Loss 0.7798, Acc 62.83%
+✅ New best model (loss) saved! Validation loss: 0.6363
+Epoch 10/60 | Train: Loss 0.7448, Acc 54.75% | Val: Loss 0.6363, Acc 67.26%
+💾 Checkpoint saved: resultados_snake\snake_efficientnet_b3_20250510_095647\folds\fold_2\checkpoint_epoch_10.pth
+
+🔓 Unfreezing 10% of backbone (epoch 11)...
+🔓 Unfrozen 1 of 9 backbone layers
+   - Optimizer and scheduler reset with adjusted learning rates
+✅ New best model (accuracy) saved! Validation accuracy: 72.57%
+✅ New best model (loss) saved! Validation loss: 0.6264
+Epoch 11/60 | Train: Loss 0.6919, Acc 57.69% | Val: Loss 0.6264, Acc 72.57%
+✅ New best model (loss) saved! Validation loss: 0.6249
+Epoch 12/60 | Train: Loss 0.6785, Acc 60.44% | Val: Loss 0.6249, Acc 72.57%
+Epoch 13/60 | Train: Loss 0.6709, Acc 60.38% | Val: Loss 0.6292, Acc 67.26%
+✅ New best model (loss) saved! Validation loss: 0.6158
+Epoch 14/60 | Train: Loss 0.6820, Acc 59.94% | Val: Loss 0.6158, Acc 72.57%
+✅ New best model (loss) saved! Validation loss: 0.6152
+Epoch 15/60 | Train: Loss 0.6623, Acc 61.56% | Val: Loss 0.6152, Acc 69.03%
+💾 Checkpoint saved: resultados_snake\snake_efficientnet_b3_20250510_095647\folds\fold_2\checkpoint_epoch_15.pth
+Epoch 16/60 | Train: Loss 0.6637, Acc 63.75% | Val: Loss 0.6255, Acc 66.37%
+Epoch 17/60 | Train: Loss 0.6547, Acc 63.75% | Val: Loss 0.6496, Acc 64.60%
+✅ New best model (loss) saved! Validation loss: 0.5923
+Epoch 18/60 | Train: Loss 0.6535, Acc 64.50% | Val: Loss 0.5923, Acc 72.57%
+✅ New best model (accuracy) saved! Validation accuracy: 79.65%
+Epoch 19/60 | Train: Loss 0.6626, Acc 61.81% | Val: Loss 0.5933, Acc 79.65%
+Epoch 20/60 | Train: Loss 0.6575, Acc 64.50% | Val: Loss 0.6371, Acc 67.26%
+💾 Checkpoint saved: resultados_snake\snake_efficientnet_b3_20250510_095647\folds\fold_2\checkpoint_epoch_20.pth
+
+🔓 Unfreezing 30% of backbone (epoch 21)...
+🔓 Unfrozen 3 of 9 backbone layers
+   - Optimizer and scheduler reset with adjusted learning rates
+Epoch 21/60 | Train: Loss 0.6582, Acc 61.88% | Val: Loss 0.6179, Acc 72.57%
+Epoch 22/60 | Train: Loss 0.6490, Acc 65.62% | Val: Loss 0.6046, Acc 76.11%
+Epoch 23/60 | Train: Loss 0.6453, Acc 65.06% | Val: Loss 0.5991, Acc 76.11%
+Epoch 24/60 | Train: Loss 0.6408, Acc 66.81% | Val: Loss 0.9179, Acc 73.45%
+✅ New best model (accuracy) saved! Validation accuracy: 81.42%
+✅ New best model (loss) saved! Validation loss: 0.5669
+Epoch 25/60 | Train: Loss 0.6350, Acc 68.69% | Val: Loss 0.5669, Acc 81.42%
+💾 Checkpoint saved: resultados_snake\snake_efficientnet_b3_20250510_095647\folds\fold_2\checkpoint_epoch_25.pth
+✅ New best model (loss) saved! Validation loss: 0.5625
+Epoch 26/60 | Train: Loss 0.6371, Acc 67.44% | Val: Loss 0.5625, Acc 81.42%
+✅ New best model (accuracy) saved! Validation accuracy: 82.30%
+✅ New best model (loss) saved! Validation loss: 0.5397
+Epoch 27/60 | Train: Loss 0.6311, Acc 68.69% | Val: Loss 0.5397, Acc 82.30%
+Epoch 28/60 | Train: Loss 0.6343, Acc 67.94% | Val: Loss 0.5599, Acc 77.88%
+✅ New best model (loss) saved! Validation loss: 0.5332
+Epoch 29/60 | Train: Loss 0.6225, Acc 70.12% | Val: Loss 0.5332, Acc 81.42%
+✅ New best model (accuracy) saved! Validation accuracy: 83.19%
+✅ New best model (loss) saved! Validation loss: 0.5077
+Epoch 30/60 | Train: Loss 0.6119, Acc 71.06% | Val: Loss 0.5077, Acc 83.19%
+💾 Checkpoint saved: resultados_snake\snake_efficientnet_b3_20250510_095647\folds\fold_2\checkpoint_epoch_30.pth
+
+🔓 Unfreezing 70% of backbone (epoch 31)...
+🔓 Unfrozen 7 of 9 backbone layers
+   - Optimizer and scheduler reset with more conservative learning rates
+Epoch 31/60 | Train: Loss 0.6022, Acc 72.75% | Val: Loss 0.5176, Acc 82.30%
+✅ New best model (accuracy) saved! Validation accuracy: 86.73%
+✅ New best model (loss) saved! Validation loss: 0.4981
+Epoch 32/60 | Train: Loss 0.6119, Acc 71.12% | Val: Loss 0.4981, Acc 86.73%
+Epoch 33/60 | Train: Loss 0.6066, Acc 71.19% | Val: Loss 0.5208, Acc 84.07%
+Epoch 34/60 | Train: Loss 0.6024, Acc 72.94% | Val: Loss 0.5226, Acc 82.30%
+Epoch 35/60 | Train: Loss 0.6017, Acc 71.56% | Val: Loss 0.5124, Acc 84.07%
+💾 Checkpoint saved: resultados_snake\snake_efficientnet_b3_20250510_095647\folds\fold_2\checkpoint_epoch_35.pth
+Epoch 36/60 | Train: Loss 0.6022, Acc 72.31% | Val: Loss 0.5306, Acc 83.19%
+Epoch 37/60 | Train: Loss 0.5938, Acc 73.75% | Val: Loss 0.5417, Acc 81.42%
+Epoch 38/60 | Train: Loss 0.6014, Acc 72.19% | Val: Loss 0.5398, Acc 80.53%
+Epoch 39/60 | Train: Loss 0.5973, Acc 72.94% | Val: Loss 0.5307, Acc 84.07%
+Epoch 40/60 | Train: Loss 0.5903, Acc 73.69% | Val: Loss 0.5625, Acc 81.42%
+💾 Checkpoint saved: resultados_snake\snake_efficientnet_b3_20250510_095647\folds\fold_2\checkpoint_epoch_40.pth
+Epoch 41/60 | Train: Loss 0.6081, Acc 72.25% | Val: Loss 0.5373, Acc 85.84%
+Epoch 42/60 | Train: Loss 0.5871, Acc 74.75% | Val: Loss 0.5450, Acc 84.07%
+
+🔓 Unfreezing entire backbone (epoch 43)...
+   - Optimizer and scheduler reset with very conservative learning rates
+Epoch 43/60 | Train: Loss 0.5958, Acc 73.25% | Val: Loss 0.5483, Acc 82.30%
+Epoch 44/60 | Train: Loss 0.5879, Acc 73.00% | Val: Loss 0.5337, Acc 82.30%
+Epoch 45/60 | Train: Loss 0.5775, Acc 75.44% | Val: Loss 0.5345, Acc 83.19%
+💾 Checkpoint saved: resultados_snake\snake_efficientnet_b3_20250510_095647\folds\fold_2\checkpoint_epoch_45.pth
+Epoch 46/60 | Train: Loss 0.5794, Acc 75.12% | Val: Loss 0.5285, Acc 84.07%
+Epoch 47/60 | Train: Loss 0.5788, Acc 75.12% | Val: Loss 0.5303, Acc 84.96%
+Epoch 48/60 | Train: Loss 0.5777, Acc 75.44% | Val: Loss 0.5318, Acc 83.19%
+Epoch 49/60 | Train: Loss 0.5772, Acc 76.06% | Val: Loss 0.5424, Acc 83.19%
+Epoch 50/60 | Train: Loss 0.5761, Acc 75.62% | Val: Loss 0.5335, Acc 82.30%
+💾 Checkpoint saved: resultados_snake\snake_efficientnet_b3_20250510_095647\folds\fold_2\checkpoint_epoch_50.pth
+Epoch 51/60 | Train: Loss 0.5817, Acc 75.56% | Val: Loss 0.5351, Acc 84.07%
+Epoch 52/60 | Train: Loss 0.5807, Acc 74.88% | Val: Loss 0.5319, Acc 84.96%
+⚠️ Early stopping activated (no improvement for 20 epochs)
+
+🔍 Comparing models based on accuracy and loss...
+📊 Model with best accuracy: 84.96%
+📊 Model with best loss: 84.96%
+✅ Using model with best accuracy as final model
+✅ Fold 2 concluído. Acurácia de validação: 84.96%
+
+================================================================================
+🔄 TREINANDO FOLD 3/5
+================================================================================
+
+================================================================================
+     🔄 AUMENTAÇÃO DE DADOS - GERANDO IMAGENS SINTÉTICAS (SOMENTE TREINO) 🔄
+================================================================================
+
+📊 Alvo: 800 imagens por classe após aumentação
+
+📸 Classe: naopeconhentas
+  ↳ Imagens originais: 236
+  ↳ Gerando ~2 variações por imagem original
+  ✅ Aumentação concluída: 800 imagens (236 originais + 564 geradas)
+
+📸 Classe: peconhentas
+  ↳ Imagens originais: 217
+  ↳ Gerando ~2 variações por imagem original
+  ✅ Aumentação concluída: 800 imagens (217 originais + 583 geradas)
+
+================================================================================
+                       📊 RESUMO DA AUMENTAÇÃO DE DADOS 📊
+================================================================================
+Classe               Originais  Geradas    Total      % Aumento
+--------------------------------------------------------------------------------
+naopeconhentas       236        564        800        239.0%
+peconhentas          217        583        800        268.7%
+--------------------------------------------------------------------------------
+TOTAL                453        1147       1600       253.2%
+
+✅ Aumentação de dados concluída com sucesso!
+
+Distribuição de classes para Fold 3:
+  - Conjunto de Treino:
+      naopeconhentas (índice 0): 800 imagens
+      peconhentas (índice 1): 800 imagens
+  - Conjunto de Validação:
+      naopeconhentas (índice 0): 56 imagens
+      peconhentas (índice 1): 57 imagens
+🔄 Usando Label Smoothing com valor 0.1
+
+================================================================================
+🔥 Training model for binary snake classification
+================================================================================
+📋 Training plan:
+   - Epochs 1-10: Backbone frozen
+   - Epochs 11-20: 10% of backbone unfrozen
+   - Epochs 21-30: 30% of backbone unfrozen
+   - Epochs 31-42: 70% of backbone unfrozen
+   - Epochs 43-60: Backbone completely unfrozen
+✅ New best model (accuracy) saved! Validation accuracy: 56.64%
+✅ New best model (loss) saved! Validation loss: 3.0866
+Epoch 1/60 | Train: Loss 5.2640, Acc 53.12% | Val: Loss 3.0866, Acc 56.64%
+✅ New best model (accuracy) saved! Validation accuracy: 59.29%
+✅ New best model (loss) saved! Validation loss: 1.9310
+Epoch 2/60 | Train: Loss 4.6044, Acc 56.38% | Val: Loss 1.9310, Acc 59.29%
+✅ New best model (loss) saved! Validation loss: 1.9308
+Epoch 3/60 | Train: Loss 3.7820, Acc 55.56% | Val: Loss 1.9308, Acc 55.75%
+✅ New best model (accuracy) saved! Validation accuracy: 61.06%
+Epoch 4/60 | Train: Loss 3.5223, Acc 56.12% | Val: Loss 2.0023, Acc 61.06%
+✅ New best model (accuracy) saved! Validation accuracy: 63.72%
+✅ New best model (loss) saved! Validation loss: 1.4354
+Epoch 5/60 | Train: Loss 3.3327, Acc 54.56% | Val: Loss 1.4354, Acc 63.72%
+💾 Checkpoint saved: resultados_snake\snake_efficientnet_b3_20250510_095647\folds\fold_3\checkpoint_epoch_5.pth
+✅ New best model (loss) saved! Validation loss: 1.3111
+Epoch 6/60 | Train: Loss 2.6914, Acc 56.50% | Val: Loss 1.3111, Acc 62.83%
+✅ New best model (accuracy) saved! Validation accuracy: 66.37%
+✅ New best model (loss) saved! Validation loss: 0.9326
+Epoch 7/60 | Train: Loss 2.4042, Acc 53.56% | Val: Loss 0.9326, Acc 66.37%
+✅ New best model (loss) saved! Validation loss: 0.8443
+Epoch 8/60 | Train: Loss 1.6509, Acc 56.25% | Val: Loss 0.8443, Acc 63.72%
+✅ New best model (loss) saved! Validation loss: 0.6517
+Epoch 9/60 | Train: Loss 1.0255, Acc 56.81% | Val: Loss 0.6517, Acc 60.18%
+Epoch 10/60 | Train: Loss 0.7414, Acc 57.75% | Val: Loss 0.6611, Acc 61.95%
+💾 Checkpoint saved: resultados_snake\snake_efficientnet_b3_20250510_095647\folds\fold_3\checkpoint_epoch_10.pth
+
+🔓 Unfreezing 10% of backbone (epoch 11)...
+🔓 Unfrozen 1 of 9 backbone layers
+   - Optimizer and scheduler reset with adjusted learning rates
+Epoch 11/60 | Train: Loss 0.6898, Acc 57.75% | Val: Loss 0.6591, Acc 61.06%
+✅ New best model (loss) saved! Validation loss: 0.6486
+Epoch 12/60 | Train: Loss 0.6788, Acc 60.69% | Val: Loss 0.6486, Acc 61.06%
+✅ New best model (accuracy) saved! Validation accuracy: 67.26%
+Epoch 13/60 | Train: Loss 0.6759, Acc 61.62% | Val: Loss 0.6511, Acc 67.26%
+✅ New best model (loss) saved! Validation loss: 0.6446
+Epoch 14/60 | Train: Loss 0.6634, Acc 62.19% | Val: Loss 0.6446, Acc 63.72%
+Epoch 15/60 | Train: Loss 0.6611, Acc 63.06% | Val: Loss 0.6453, Acc 67.26%
+💾 Checkpoint saved: resultados_snake\snake_efficientnet_b3_20250510_095647\folds\fold_3\checkpoint_epoch_15.pth
+Epoch 16/60 | Train: Loss 0.6518, Acc 65.38% | Val: Loss 0.6721, Acc 65.49%
+Epoch 17/60 | Train: Loss 0.6594, Acc 64.75% | Val: Loss 0.6992, Acc 61.06%
+Epoch 18/60 | Train: Loss 0.6524, Acc 65.62% | Val: Loss 0.6780, Acc 64.60%
+Epoch 19/60 | Train: Loss 0.6633, Acc 62.44% | Val: Loss 0.6798, Acc 62.83%
+Epoch 20/60 | Train: Loss 0.6538, Acc 65.19% | Val: Loss 0.6931, Acc 63.72%
+💾 Checkpoint saved: resultados_snake\snake_efficientnet_b3_20250510_095647\folds\fold_3\checkpoint_epoch_20.pth
+
+🔓 Unfreezing 30% of backbone (epoch 21)...
+🔓 Unfrozen 3 of 9 backbone layers
+   - Optimizer and scheduler reset with adjusted learning rates
+Epoch 21/60 | Train: Loss 0.6471, Acc 65.62% | Val: Loss 0.6924, Acc 66.37%
+✅ New best model (accuracy) saved! Validation accuracy: 68.14%
+Epoch 22/60 | Train: Loss 0.6450, Acc 66.94% | Val: Loss 0.6601, Acc 68.14%
+✅ New best model (accuracy) saved! Validation accuracy: 69.91%
+Epoch 23/60 | Train: Loss 0.6465, Acc 66.44% | Val: Loss 0.6635, Acc 69.91%
+✅ New best model (loss) saved! Validation loss: 0.6385
+Epoch 24/60 | Train: Loss 0.6395, Acc 66.94% | Val: Loss 0.6385, Acc 69.03%
+✅ New best model (accuracy) saved! Validation accuracy: 73.45%
+✅ New best model (loss) saved! Validation loss: 0.6168
+Epoch 25/60 | Train: Loss 0.6288, Acc 67.94% | Val: Loss 0.6168, Acc 73.45%
+💾 Checkpoint saved: resultados_snake\snake_efficientnet_b3_20250510_095647\folds\fold_3\checkpoint_epoch_25.pth
+Epoch 26/60 | Train: Loss 0.6210, Acc 69.00% | Val: Loss 0.6471, Acc 69.91%
+Epoch 27/60 | Train: Loss 0.6211, Acc 69.81% | Val: Loss 0.6512, Acc 71.68%
+Epoch 28/60 | Train: Loss 0.6156, Acc 72.31% | Val: Loss 0.6423, Acc 72.57%
+✅ New best model (accuracy) saved! Validation accuracy: 74.34%
+✅ New best model (loss) saved! Validation loss: 0.6030
+Epoch 29/60 | Train: Loss 0.6119, Acc 71.88% | Val: Loss 0.6030, Acc 74.34%
+Epoch 30/60 | Train: Loss 0.6125, Acc 71.50% | Val: Loss 0.6144, Acc 72.57%
+💾 Checkpoint saved: resultados_snake\snake_efficientnet_b3_20250510_095647\folds\fold_3\checkpoint_epoch_30.pth
+
+🔓 Unfreezing 70% of backbone (epoch 31)...
+🔓 Unfrozen 7 of 9 backbone layers
+   - Optimizer and scheduler reset with more conservative learning rates
+Epoch 31/60 | Train: Loss 0.5973, Acc 72.25% | Val: Loss 0.6175, Acc 71.68%
+Epoch 32/60 | Train: Loss 0.5800, Acc 74.81% | Val: Loss 0.6185, Acc 69.91%
+✅ New best model (accuracy) saved! Validation accuracy: 75.22%
+Epoch 33/60 | Train: Loss 0.6025, Acc 72.06% | Val: Loss 0.6231, Acc 75.22%
+Epoch 34/60 | Train: Loss 0.5951, Acc 72.81% | Val: Loss 0.6445, Acc 74.34%
+Epoch 35/60 | Train: Loss 0.5849, Acc 74.44% | Val: Loss 0.6565, Acc 72.57%
+💾 Checkpoint saved: resultados_snake\snake_efficientnet_b3_20250510_095647\folds\fold_3\checkpoint_epoch_35.pth
+Epoch 36/60 | Train: Loss 0.5833, Acc 75.00% | Val: Loss 0.6354, Acc 74.34%
+✅ New best model (accuracy) saved! Validation accuracy: 76.11%
+Epoch 37/60 | Train: Loss 0.5931, Acc 74.75% | Val: Loss 0.6388, Acc 76.11%
+Epoch 38/60 | Train: Loss 0.5896, Acc 73.88% | Val: Loss 0.6532, Acc 74.34%
+Epoch 39/60 | Train: Loss 0.5761, Acc 76.00% | Val: Loss 0.6466, Acc 74.34%
+Epoch 40/60 | Train: Loss 0.5802, Acc 75.50% | Val: Loss 0.6485, Acc 73.45%
+💾 Checkpoint saved: resultados_snake\snake_efficientnet_b3_20250510_095647\folds\fold_3\checkpoint_epoch_40.pth
+Epoch 41/60 | Train: Loss 0.5849, Acc 75.81% | Val: Loss 0.6567, Acc 70.80%
+Epoch 42/60 | Train: Loss 0.5718, Acc 76.12% | Val: Loss 0.6251, Acc 74.34%
+
+🔓 Unfreezing entire backbone (epoch 43)...
+   - Optimizer and scheduler reset with very conservative learning rates
+Epoch 43/60 | Train: Loss 0.5746, Acc 77.12% | Val: Loss 0.6486, Acc 70.80%
+Epoch 44/60 | Train: Loss 0.5756, Acc 76.25% | Val: Loss 0.6502, Acc 72.57%
+Epoch 45/60 | Train: Loss 0.5780, Acc 76.75% | Val: Loss 0.6405, Acc 74.34%
+💾 Checkpoint saved: resultados_snake\snake_efficientnet_b3_20250510_095647\folds\fold_3\checkpoint_epoch_45.pth
+Epoch 46/60 | Train: Loss 0.5709, Acc 76.25% | Val: Loss 0.6242, Acc 74.34%
+Epoch 47/60 | Train: Loss 0.5663, Acc 77.44% | Val: Loss 0.6189, Acc 75.22%
+Epoch 48/60 | Train: Loss 0.5737, Acc 76.56% | Val: Loss 0.6129, Acc 73.45%
+Epoch 49/60 | Train: Loss 0.5676, Acc 76.69% | Val: Loss 0.6492, Acc 71.68%
+Epoch 50/60 | Train: Loss 0.5672, Acc 77.12% | Val: Loss 0.6399, Acc 73.45%
+💾 Checkpoint saved: resultados_snake\snake_efficientnet_b3_20250510_095647\folds\fold_3\checkpoint_epoch_50.pth
+Epoch 51/60 | Train: Loss 0.5641, Acc 77.12% | Val: Loss 0.6421, Acc 71.68%
+Epoch 52/60 | Train: Loss 0.5565, Acc 77.75% | Val: Loss 0.6379, Acc 73.45%
+Epoch 53/60 | Train: Loss 0.5649, Acc 76.50% | Val: Loss 0.6453, Acc 71.68%
+Epoch 54/60 | Train: Loss 0.5589, Acc 77.31% | Val: Loss 0.6637, Acc 69.91%
+Epoch 55/60 | Train: Loss 0.5663, Acc 76.19% | Val: Loss 0.6326, Acc 72.57%
+💾 Checkpoint saved: resultados_snake\snake_efficientnet_b3_20250510_095647\folds\fold_3\checkpoint_epoch_55.pth
+Epoch 56/60 | Train: Loss 0.5613, Acc 75.44% | Val: Loss 0.6165, Acc 74.34%
+Epoch 57/60 | Train: Loss 0.5630, Acc 76.31% | Val: Loss 0.6403, Acc 70.80%
+⚠️ Early stopping activated (no improvement for 20 epochs)
+
+🔍 Comparing models based on accuracy and loss...
+📊 Model with best accuracy: 70.80%
+📊 Model with best loss: 70.80%
+✅ Using model with best accuracy as final model
+✅ Fold 3 concluído. Acurácia de validação: 70.80%
+
+================================================================================
+🔄 TREINANDO FOLD 4/5
+================================================================================
+
+================================================================================
+     🔄 AUMENTAÇÃO DE DADOS - GERANDO IMAGENS SINTÉTICAS (SOMENTE TREINO) 🔄
+================================================================================
+
+📊 Alvo: 800 imagens por classe após aumentação
+
+📸 Classe: naopeconhentas
+  ↳ Imagens originais: 236
+  ↳ Gerando ~2 variações por imagem original
+  ✅ Aumentação concluída: 800 imagens (236 originais + 564 geradas)
+
+📸 Classe: peconhentas
+  ↳ Imagens originais: 217
+  ↳ Gerando ~2 variações por imagem original
+  ✅ Aumentação concluída: 800 imagens (217 originais + 583 geradas)
+
+================================================================================
+                       📊 RESUMO DA AUMENTAÇÃO DE DADOS 📊
+================================================================================
+Classe               Originais  Geradas    Total      % Aumento
+--------------------------------------------------------------------------------
+naopeconhentas       236        564        800        239.0%
+peconhentas          217        583        800        268.7%
+--------------------------------------------------------------------------------
+TOTAL                453        1147       1600       253.2%
+
+✅ Aumentação de dados concluída com sucesso!
+
+Distribuição de classes para Fold 4:
+  - Conjunto de Treino:
+      naopeconhentas (índice 0): 800 imagens
+      peconhentas (índice 1): 800 imagens
+  - Conjunto de Validação:
+      naopeconhentas (índice 0): 56 imagens
+      peconhentas (índice 1): 57 imagens
+🔄 Usando Label Smoothing com valor 0.1
+
+================================================================================
+🔥 Training model for binary snake classification
+================================================================================
+📋 Training plan:
+   - Epochs 1-10: Backbone frozen
+   - Epochs 11-20: 10% of backbone unfrozen
+   - Epochs 21-30: 30% of backbone unfrozen
+   - Epochs 31-42: 70% of backbone unfrozen
+   - Epochs 43-60: Backbone completely unfrozen
+✅ New best model (accuracy) saved! Validation accuracy: 54.87%
+✅ New best model (loss) saved! Validation loss: 3.4133
+Epoch 1/60 | Train: Loss 4.8463, Acc 51.31% | Val: Loss 3.4133, Acc 54.87%
+✅ New best model (accuracy) saved! Validation accuracy: 55.75%
+✅ New best model (loss) saved! Validation loss: 2.7669
+Epoch 2/60 | Train: Loss 4.2179, Acc 53.88% | Val: Loss 2.7669, Acc 55.75%
+✅ New best model (loss) saved! Validation loss: 1.8021
+Epoch 3/60 | Train: Loss 3.8504, Acc 52.50% | Val: Loss 1.8021, Acc 55.75%
+✅ New best model (accuracy) saved! Validation accuracy: 60.18%
+✅ New best model (loss) saved! Validation loss: 1.7587
+Epoch 4/60 | Train: Loss 3.4034, Acc 54.44% | Val: Loss 1.7587, Acc 60.18%
+✅ New best model (loss) saved! Validation loss: 1.5285
+Epoch 5/60 | Train: Loss 2.9639, Acc 54.31% | Val: Loss 1.5285, Acc 60.18%
+💾 Checkpoint saved: resultados_snake\snake_efficientnet_b3_20250510_095647\folds\fold_4\checkpoint_epoch_5.pth
+✅ New best model (accuracy) saved! Validation accuracy: 63.72%
+Epoch 6/60 | Train: Loss 2.6068, Acc 54.94% | Val: Loss 1.8781, Acc 63.72%
+✅ New best model (accuracy) saved! Validation accuracy: 65.49%
+✅ New best model (loss) saved! Validation loss: 1.1460
+Epoch 7/60 | Train: Loss 2.0794, Acc 55.62% | Val: Loss 1.1460, Acc 65.49%
+✅ New best model (accuracy) saved! Validation accuracy: 69.91%
+✅ New best model (loss) saved! Validation loss: 0.7537
+Epoch 8/60 | Train: Loss 1.3948, Acc 54.31% | Val: Loss 0.7537, Acc 69.91%
+Epoch 9/60 | Train: Loss 0.9551, Acc 56.62% | Val: Loss 0.7997, Acc 55.75%
+✅ New best model (loss) saved! Validation loss: 0.6235
+Epoch 10/60 | Train: Loss 0.7299, Acc 55.50% | Val: Loss 0.6235, Acc 69.03%
+💾 Checkpoint saved: resultados_snake\snake_efficientnet_b3_20250510_095647\folds\fold_4\checkpoint_epoch_10.pth
+🔓 Unfreezing 10% of backbone (epoch 11)...
+🔓 Unfrozen 1 of 9 backbone layers
+   - Optimizer and scheduler reset with adjusted learning rates
+✅ New best model (loss) saved! Validation loss: 0.6168
+Epoch 11/60 | Train: Loss 0.6945, Acc 59.00% | Val: Loss 0.6168, Acc 69.91%
+Epoch 12/60 | Train: Loss 0.6804, Acc 58.75% | Val: Loss 0.6521, Acc 64.60%
+✅ New best model (accuracy) saved! Validation accuracy: 71.68%
+✅ New best model (loss) saved! Validation loss: 0.6057
+Epoch 13/60 | Train: Loss 0.6816, Acc 59.06% | Val: Loss 0.6057, Acc 71.68%
+✅ New best model (accuracy) saved! Validation accuracy: 76.11%
+✅ New best model (loss) saved! Validation loss: 0.5977
+Epoch 14/60 | Train: Loss 0.6663, Acc 62.62% | Val: Loss 0.5977, Acc 76.11%
+Epoch 15/60 | Train: Loss 0.6681, Acc 62.38% | Val: Loss 0.5979, Acc 73.45%
+💾 Checkpoint saved: resultados_snake\snake_efficientnet_b3_20250510_095647\folds\fold_4\checkpoint_epoch_15.pth
+Epoch 16/60 | Train: Loss 0.6708, Acc 61.75% | Val: Loss 0.6041, Acc 71.68%
+✅ New best model (loss) saved! Validation loss: 0.5900
+Epoch 17/60 | Train: Loss 0.6545, Acc 63.62% | Val: Loss 0.5900, Acc 73.45%
+Epoch 18/60 | Train: Loss 0.6616, Acc 64.25% | Val: Loss 0.6311, Acc 68.14%
+Epoch 19/60 | Train: Loss 0.6516, Acc 63.81% | Val: Loss 0.6443, Acc 69.91%
+✅ New best model (loss) saved! Validation loss: 0.5846
+Epoch 20/60 | Train: Loss 0.6532, Acc 64.31% | Val: Loss 0.5846, Acc 75.22%
+💾 Checkpoint saved: resultados_snake\snake_efficientnet_b3_20250510_095647\folds\fold_4\checkpoint_epoch_20.pth
+
+🔓 Unfreezing 30% of backbone (epoch 21)...
+🔓 Unfrozen 3 of 9 backbone layers
+   - Optimizer and scheduler reset with adjusted learning rates
+Epoch 21/60 | Train: Loss 0.6502, Acc 63.88% | Val: Loss 0.5942, Acc 76.11%
+Epoch 22/60 | Train: Loss 0.6446, Acc 65.31% | Val: Loss 0.5973, Acc 74.34%
+Epoch 23/60 | Train: Loss 0.6434, Acc 66.62% | Val: Loss 0.5925, Acc 71.68%
+✅ New best model (loss) saved! Validation loss: 0.5830
+Epoch 24/60 | Train: Loss 0.6371, Acc 66.81% | Val: Loss 0.5830, Acc 75.22%
+✅ New best model (accuracy) saved! Validation accuracy: 76.99%
+✅ New best model (loss) saved! Validation loss: 0.5678
+Epoch 25/60 | Train: Loss 0.6316, Acc 68.44% | Val: Loss 0.5678, Acc 76.99%
+💾 Checkpoint saved: resultados_snake\snake_efficientnet_b3_20250510_095647\folds\fold_4\checkpoint_epoch_25.pth
+✅ New best model (accuracy) saved! Validation accuracy: 77.88%
+✅ New best model (loss) saved! Validation loss: 0.5644
+Epoch 26/60 | Train: Loss 0.6439, Acc 65.12% | Val: Loss 0.5644, Acc 77.88%
+Epoch 27/60 | Train: Loss 0.6332, Acc 68.75% | Val: Loss 0.5747, Acc 75.22%
+Epoch 28/60 | Train: Loss 0.6212, Acc 71.50% | Val: Loss 0.5644, Acc 75.22%
+✅ New best model (loss) saved! Validation loss: 0.5599
+Epoch 29/60 | Train: Loss 0.6271, Acc 68.81% | Val: Loss 0.5599, Acc 76.11%
+Epoch 30/60 | Train: Loss 0.6259, Acc 69.38% | Val: Loss 0.5730, Acc 75.22%
+💾 Checkpoint saved: resultados_snake\snake_efficientnet_b3_20250510_095647\folds\fold_4\checkpoint_epoch_30.pth
+
+🔓 Unfreezing 70% of backbone (epoch 31)...
+🔓 Unfrozen 7 of 9 backbone layers
+   - Optimizer and scheduler reset with more conservative learning rates
+Epoch 31/60 | Train: Loss 0.6048, Acc 72.69% | Val: Loss 0.5919, Acc 71.68%
+Epoch 32/60 | Train: Loss 0.6006, Acc 72.25% | Val: Loss 0.5687, Acc 75.22%
+Epoch 33/60 | Train: Loss 0.6091, Acc 72.56% | Val: Loss 0.5784, Acc 73.45%
+Epoch 34/60 | Train: Loss 0.5949, Acc 72.81% | Val: Loss 0.5663, Acc 75.22%
+Epoch 35/60 | Train: Loss 0.6041, Acc 71.62% | Val: Loss 0.5791, Acc 72.57%
+💾 Checkpoint saved: resultados_snake\snake_efficientnet_b3_20250510_095647\folds\fold_4\checkpoint_epoch_35.pth
+✅ New best model (loss) saved! Validation loss: 0.5591
+Epoch 36/60 | Train: Loss 0.5920, Acc 73.06% | Val: Loss 0.5591, Acc 77.88%
+✅ New best model (accuracy) saved! Validation accuracy: 78.76%
+✅ New best model (loss) saved! Validation loss: 0.5482
+Epoch 37/60 | Train: Loss 0.5965, Acc 73.00% | Val: Loss 0.5482, Acc 78.76%
+✅ New best model (accuracy) saved! Validation accuracy: 80.53%
+Epoch 38/60 | Train: Loss 0.5932, Acc 73.50% | Val: Loss 0.5511, Acc 80.53%
+Epoch 39/60 | Train: Loss 0.5900, Acc 74.06% | Val: Loss 0.5809, Acc 74.34%
+Epoch 40/60 | Train: Loss 0.5981, Acc 72.44% | Val: Loss 0.5558, Acc 79.65%
+💾 Checkpoint saved: resultados_snake\snake_efficientnet_b3_20250510_095647\folds\fold_4\checkpoint_epoch_40.pth
+✅ New best model (accuracy) saved! Validation accuracy: 84.96%
+✅ New best model (loss) saved! Validation loss: 0.5293
+Epoch 41/60 | Train: Loss 0.5946, Acc 74.38% | Val: Loss 0.5293, Acc 84.96%
+Epoch 42/60 | Train: Loss 0.5815, Acc 74.31% | Val: Loss 0.5463, Acc 79.65%
+
+🔓 Unfreezing entire backbone (epoch 43)...
+   - Optimizer and scheduler reset with very conservative learning rates
+Epoch 43/60 | Train: Loss 0.5919, Acc 73.38% | Val: Loss 0.5455, Acc 76.99%
+Epoch 44/60 | Train: Loss 0.5803, Acc 74.88% | Val: Loss 0.5434, Acc 80.53%
+✅ New best model (loss) saved! Validation loss: 0.5283
+Epoch 45/60 | Train: Loss 0.5836, Acc 74.94% | Val: Loss 0.5283, Acc 83.19%
+💾 Checkpoint saved: resultados_snake\snake_efficientnet_b3_20250510_095647\folds\fold_4\checkpoint_epoch_45.pth
+Epoch 46/60 | Train: Loss 0.5841, Acc 75.31% | Val: Loss 0.5342, Acc 80.53%
+Epoch 47/60 | Train: Loss 0.5702, Acc 77.00% | Val: Loss 0.5557, Acc 76.11%
+Epoch 48/60 | Train: Loss 0.5720, Acc 75.88% | Val: Loss 0.5441, Acc 78.76%
+✅ New best model (loss) saved! Validation loss: 0.5257
+Epoch 49/60 | Train: Loss 0.5694, Acc 77.56% | Val: Loss 0.5257, Acc 82.30%
+Epoch 50/60 | Train: Loss 0.5624, Acc 77.69% | Val: Loss 0.5354, Acc 77.88%
+💾 Checkpoint saved: resultados_snake\snake_efficientnet_b3_20250510_095647\folds\fold_4\checkpoint_epoch_50.pth
+✅ New best model (loss) saved! Validation loss: 0.5231
+Epoch 51/60 | Train: Loss 0.5786, Acc 74.62% | Val: Loss 0.5231, Acc 80.53%
+Epoch 52/60 | Train: Loss 0.5606, Acc 77.50% | Val: Loss 0.5282, Acc 78.76%
+Epoch 53/60 | Train: Loss 0.5685, Acc 75.38% | Val: Loss 0.5314, Acc 77.88%
+Epoch 54/60 | Train: Loss 0.5731, Acc 76.06% | Val: Loss 0.5429, Acc 77.88%
+Epoch 55/60 | Train: Loss 0.5825, Acc 75.00% | Val: Loss 0.5352, Acc 78.76%
+💾 Checkpoint saved: resultados_snake\snake_efficientnet_b3_20250510_095647\folds\fold_4\checkpoint_epoch_55.pth
+Epoch 56/60 | Train: Loss 0.5573, Acc 76.88% | Val: Loss 0.5272, Acc 78.76%
+✅ New best model (loss) saved! Validation loss: 0.5203
+Epoch 57/60 | Train: Loss 0.5654, Acc 77.00% | Val: Loss 0.5203, Acc 81.42%
+Epoch 58/60 | Train: Loss 0.5612, Acc 76.88% | Val: Loss 0.5425, Acc 77.88%
+✅ New best model (loss) saved! Validation loss: 0.5181
+Epoch 59/60 | Train: Loss 0.5687, Acc 76.19% | Val: Loss 0.5181, Acc 80.53%
+Epoch 60/60 | Train: Loss 0.5668, Acc 76.75% | Val: Loss 0.5307, Acc 79.65%
+💾 Checkpoint saved: resultados_snake\snake_efficientnet_b3_20250510_095647\folds\fold_4\checkpoint_epoch_60.pth
+
+🔍 Comparing models based on accuracy and loss...
+📊 Model with best accuracy: 79.65%
+📊 Model with best loss: 79.65%
+✅ Using model with best accuracy as final model
+✅ Fold 4 concluído. Acurácia de validação: 79.65%
+
+================================================================================
+🔄 TREINANDO FOLD 5/5
+================================================================================
+
+================================================================================
+     🔄 AUMENTAÇÃO DE DADOS - GERANDO IMAGENS SINTÉTICAS (SOMENTE TREINO) 🔄
+================================================================================
+
+📊 Alvo: 800 imagens por classe após aumentação
+
+📸 Classe: naopeconhentas
+  ↳ Imagens originais: 235
+  ↳ Gerando ~2 variações por imagem original
+  ✅ Aumentação concluída: 800 imagens (235 originais + 565 geradas)
+
+📸 Classe: peconhentas
+  ↳ Imagens originais: 218
+  ↳ Gerando ~2 variações por imagem original
+  ✅ Aumentação concluída: 800 imagens (218 originais + 582 geradas)
+
+================================================================================
+                       📊 RESUMO DA AUMENTAÇÃO DE DADOS 📊
+================================================================================
+Classe               Originais  Geradas    Total      % Aumento
+--------------------------------------------------------------------------------
+naopeconhentas       235        565        800        240.4%
+peconhentas          218        582        800        267.0%
+--------------------------------------------------------------------------------
+TOTAL                453        1147       1600       253.2%
+
+✅ Aumentação de dados concluída com sucesso!
+
+Distribuição de classes para Fold 5:
+  - Conjunto de Treino:
+      naopeconhentas (índice 0): 800 imagens
+      peconhentas (índice 1): 800 imagens
+  - Conjunto de Validação:
+      naopeconhentas (índice 0): 57 imagens
+      peconhentas (índice 1): 56 imagens
+🔄 Usando Label Smoothing com valor 0.1
+
+================================================================================
+🔥 Training model for binary snake classification
+================================================================================
+📋 Training plan:
+   - Epochs 1-10: Backbone frozen
+   - Epochs 11-20: 10% of backbone unfrozen
+   - Epochs 21-30: 30% of backbone unfrozen
+   - Epochs 31-42: 70% of backbone unfrozen
+   - Epochs 43-60: Backbone completely unfrozen
+✅ New best model (accuracy) saved! Validation accuracy: 53.98%
+✅ New best model (loss) saved! Validation loss: 2.4753
+Epoch 1/60 | Train: Loss 4.7210, Acc 52.62% | Val: Loss 2.4753, Acc 53.98%
+Epoch 2/60 | Train: Loss 3.9423, Acc 52.25% | Val: Loss 15.5964, Acc 51.33%
+✅ New best model (accuracy) saved! Validation accuracy: 61.06%
+✅ New best model (loss) saved! Validation loss: 2.0734
+Epoch 3/60 | Train: Loss 3.5035, Acc 57.06% | Val: Loss 2.0734, Acc 61.06%
+Epoch 4/60 | Train: Loss 3.0317, Acc 53.56% | Val: Loss 49.9348, Acc 59.29%
+✅ New best model (loss) saved! Validation loss: 1.8549
+Epoch 5/60 | Train: Loss 2.8072, Acc 54.50% | Val: Loss 1.8549, Acc 57.52%
+💾 Checkpoint saved: resultados_snake\snake_efficientnet_b3_20250510_095647\folds\fold_5\checkpoint_epoch_5.pth
+✅ New best model (accuracy) saved! Validation accuracy: 62.83%
+Epoch 6/60 | Train: Loss 2.5486, Acc 53.62% | Val: Loss 6.2987, Acc 62.83%
+Epoch 7/60 | Train: Loss 1.9661, Acc 54.00% | Val: Loss 155.4824, Acc 59.29%
+✅ New best model (accuracy) saved! Validation accuracy: 67.26%
+Epoch 8/60 | Train: Loss 1.4205, Acc 54.69% | Val: Loss 5.5680, Acc 67.26%
+Epoch 9/60 | Train: Loss 0.9180, Acc 56.00% | Val: Loss 3.3648, Acc 48.67%
+✅ New best model (loss) saved! Validation loss: 0.7349
+Epoch 10/60 | Train: Loss 0.7334, Acc 57.00% | Val: Loss 0.7349, Acc 66.37%
+💾 Checkpoint saved: resultados_snake\snake_efficientnet_b3_20250510_095647\folds\fold_5\checkpoint_epoch_10.pth
+
+🔓 Unfreezing 10% of backbone (epoch 11)...
+🔓 Unfrozen 1 of 9 backbone layers
+   - Optimizer and scheduler reset with adjusted learning rates
+Epoch 11/60 | Train: Loss 0.6962, Acc 59.44% | Val: Loss 2.4138, Acc 54.87%
+Epoch 12/60 | Train: Loss 0.6825, Acc 59.25% | Val: Loss 2.7886, Acc 62.83%
+Epoch 13/60 | Train: Loss 0.6686, Acc 62.50% | Val: Loss 1.2894, Acc 65.49%
+✅ New best model (accuracy) saved! Validation accuracy: 69.03%
+Epoch 14/60 | Train: Loss 0.6649, Acc 60.75% | Val: Loss 2.8559, Acc 69.03%
+Epoch 15/60 | Train: Loss 0.6712, Acc 59.50% | Val: Loss 3.3136, Acc 68.14%
+💾 Checkpoint saved: resultados_snake\snake_efficientnet_b3_20250510_095647\folds\fold_5\checkpoint_epoch_15.pth
+Epoch 16/60 | Train: Loss 0.6558, Acc 63.56% | Val: Loss 2.8745, Acc 69.03%
+✅ New best model (accuracy) saved! Validation accuracy: 73.45%
+Epoch 17/60 | Train: Loss 0.6632, Acc 60.81% | Val: Loss 0.7423, Acc 73.45%
+✅ New best model (loss) saved! Validation loss: 0.6012
+Epoch 18/60 | Train: Loss 0.6597, Acc 63.38% | Val: Loss 0.6012, Acc 69.91%
+Epoch 19/60 | Train: Loss 0.6594, Acc 63.81% | Val: Loss 1.4637, Acc 71.68%
+Epoch 20/60 | Train: Loss 0.6558, Acc 63.69% | Val: Loss 1.0770, Acc 70.80%
+💾 Checkpoint saved: resultados_snake\snake_efficientnet_b3_20250510_095647\folds\fold_5\checkpoint_epoch_20.pth
+
+🔓 Unfreezing 30% of backbone (epoch 21)...
+🔓 Unfrozen 3 of 9 backbone layers
+   - Optimizer and scheduler reset with adjusted learning rates
+Epoch 21/60 | Train: Loss 0.6501, Acc 64.94% | Val: Loss 0.8328, Acc 72.57%
+✅ New best model (accuracy) saved! Validation accuracy: 76.11%
+Epoch 22/60 | Train: Loss 0.6485, Acc 64.19% | Val: Loss 1.2663, Acc 76.11%
+Epoch 23/60 | Train: Loss 0.6381, Acc 67.81% | Val: Loss 0.8444, Acc 75.22%
+Epoch 24/60 | Train: Loss 0.6343, Acc 66.19% | Val: Loss 10.3056, Acc 74.34%
+✅ New best model (loss) saved! Validation loss: 0.5953
+Epoch 25/60 | Train: Loss 0.6330, Acc 67.19% | Val: Loss 0.5953, Acc 76.11%
+💾 Checkpoint saved: resultados_snake\snake_efficientnet_b3_20250510_095647\folds\fold_5\checkpoint_epoch_25.pth
+Epoch 26/60 | Train: Loss 0.6293, Acc 66.50% | Val: Loss 3.7854, Acc 75.22%
+✅ New best model (accuracy) saved! Validation accuracy: 77.88%
+Epoch 27/60 | Train: Loss 0.6294, Acc 66.69% | Val: Loss 0.8887, Acc 77.88%
+Epoch 28/60 | Train: Loss 0.6235, Acc 69.31% | Val: Loss 1.7440, Acc 74.34%
+✅ New best model (accuracy) saved! Validation accuracy: 78.76%
+Epoch 29/60 | Train: Loss 0.6172, Acc 70.69% | Val: Loss 1.6955, Acc 78.76%
+Epoch 30/60 | Train: Loss 0.6019, Acc 73.44% | Val: Loss 2.0025, Acc 77.88%
+💾 Checkpoint saved: resultados_snake\snake_efficientnet_b3_20250510_095647\folds\fold_5\checkpoint_epoch_30.pth
+
+🔓 Unfreezing 70% of backbone (epoch 31)...
+🔓 Unfrozen 7 of 9 backbone layers
+   - Optimizer and scheduler reset with more conservative learning rates
+Epoch 31/60 | Train: Loss 0.6106, Acc 72.75% | Val: Loss 1.6247, Acc 76.99%
+✅ New best model (accuracy) saved! Validation accuracy: 80.53%
+Epoch 32/60 | Train: Loss 0.6105, Acc 70.25% | Val: Loss 1.7431, Acc 80.53%
+Epoch 33/60 | Train: Loss 0.6060, Acc 71.94% | Val: Loss 0.7319, Acc 76.99%
+✅ New best model (accuracy) saved! Validation accuracy: 82.30%
+Epoch 34/60 | Train: Loss 0.5925, Acc 73.94% | Val: Loss 1.1622, Acc 82.30%
+Epoch 35/60 | Train: Loss 0.5998, Acc 74.12% | Val: Loss 1.2740, Acc 77.88%
+💾 Checkpoint saved: resultados_snake\snake_efficientnet_b3_20250510_095647\folds\fold_5\checkpoint_epoch_35.pth
+Epoch 36/60 | Train: Loss 0.6071, Acc 73.25% | Val: Loss 1.8008, Acc 80.53%
+Epoch 37/60 | Train: Loss 0.5972, Acc 72.25% | Val: Loss 5.2260, Acc 78.76%
+Epoch 38/60 | Train: Loss 0.5938, Acc 73.31% | Val: Loss 6.7894, Acc 76.11%
+Epoch 39/60 | Train: Loss 0.5873, Acc 74.38% | Val: Loss 0.9043, Acc 77.88%
+Epoch 40/60 | Train: Loss 0.6014, Acc 73.12% | Val: Loss 1.3537, Acc 77.88%
+💾 Checkpoint saved: resultados_snake\snake_efficientnet_b3_20250510_095647\folds\fold_5\checkpoint_epoch_40.pth
+Epoch 41/60 | Train: Loss 0.6019, Acc 72.06% | Val: Loss 0.8100, Acc 82.30%
+Epoch 42/60 | Train: Loss 0.5864, Acc 75.00% | Val: Loss 2.3527, Acc 76.99%
+
+🔓 Unfreezing entire backbone (epoch 43)...
+   - Optimizer and scheduler reset with very conservative learning rates
+Epoch 43/60 | Train: Loss 0.5862, Acc 74.44% | Val: Loss 3.1137, Acc 79.65%
+Epoch 44/60 | Train: Loss 0.5831, Acc 75.50% | Val: Loss 0.9611, Acc 80.53%
+Epoch 45/60 | Train: Loss 0.5844, Acc 75.25% | Val: Loss 0.7255, Acc 80.53%
+💾 Checkpoint saved: resultados_snake\snake_efficientnet_b3_20250510_095647\folds\fold_5\checkpoint_epoch_45.pth
+Epoch 46/60 | Train: Loss 0.5659, Acc 76.44% | Val: Loss 6.3071, Acc 78.76%
+Epoch 47/60 | Train: Loss 0.5820, Acc 74.88% | Val: Loss 1.2599, Acc 81.42%
+Epoch 48/60 | Train: Loss 0.5756, Acc 75.75% | Val: Loss 0.7600, Acc 80.53%
+Epoch 49/60 | Train: Loss 0.5789, Acc 75.88% | Val: Loss 2.8964, Acc 80.53%
+Epoch 50/60 | Train: Loss 0.5797, Acc 74.81% | Val: Loss 1.5287, Acc 79.65%
+💾 Checkpoint saved: resultados_snake\snake_efficientnet_b3_20250510_095647\folds\fold_5\checkpoint_epoch_50.pth
+Epoch 51/60 | Train: Loss 0.5728, Acc 75.50% | Val: Loss 1.0080, Acc 81.42%
+Epoch 52/60 | Train: Loss 0.5776, Acc 76.19% | Val: Loss 0.6759, Acc 79.65%
+Epoch 53/60 | Train: Loss 0.5718, Acc 76.19% | Val: Loss 1.1039, Acc 81.42%
+Epoch 54/60 | Train: Loss 0.5823, Acc 75.00% | Val: Loss 20.4543, Acc 80.53%
+⚠️ Early stopping activated (no improvement for 20 epochs)
+
+🔍 Comparing models based on accuracy and loss...
+📊 Model with best accuracy: 80.53%
+📊 Model with best loss: 80.53%
+✅ Using model with best accuracy as final model
+✅ Fold 5 concluído. Acurácia de validação: 80.53%
+
+================================================================================
+📊 RESULTADOS DA VALIDAÇÃO CRUZADA 5-FOLD
+================================================================================
+Acurácia média: 79.50%
+Fold 1: 81.58%
+Fold 2: 84.96%
+Fold 3: 70.80%
+Fold 4: 79.65%
+Fold 5: 80.53%
+
+✅ Melhor modelo: Fold 2 com acurácia 84.96%
+
+✅ Treinamento com validação cruzada 5-fold concluído!
+📊 Acurácia média: 79.50%
+📊 Melhor fold: 2 - Acurácia: 84.96%
+
+✅ Melhor modelo salvo em: resultados_snake\snake_efficientnet_b3_20250510_095647\best_fold_2_model.pth
+✅ Modelo simplificado salvo em: resultados_snake\snake_model_efficientnet_b3_kfold.pth
+
+💡 Para inferência, use o script de inferência com:
+  python snake_inference.py --model resultados_snake\snake_model_efficientnet_b3_kfold.pth --high-recall --dir sua_pasta_com_imagens
+PS C:\tcc\modelo> python inferencia-v4.py --model C:\tcc\modelo\resultados_snake\snake_efficientnet_b3_20250510_095647\best_fold_2_model.pth --dir C:\tcc\modelo\teste_overfitting
+📂 Carregando modelo de C:\tcc\modelo\resultados_snake\snake_efficientnet_b3_20250510_095647\best_fold_2_model.pth
+🧠 Inicializando modelo binário efficientnet_b3 para classificação de serpentes
+⚙️ Usando threshold padrão: 0.5
+📁 Processando 39 imagens de C:\tcc\modelo\teste_overfitting
+[1/39] Processando np-Chironius bicarinatus.jpg...
+
+============================================================
+Resultados para np-Chironius bicarinatus.jpg:
+Classificação: NÃO PEÇONHENTA ✅
+Resultado: ✓ CORRETA (esperado: naopeconhentas)
+Confiança: 85.64% (MÉDIA)
+Probabilidade Não Peçonhenta: 85.64%
+Probabilidade Peçonhenta: 14.36%
+Threshold utilizado: 0.5
+Tempo de inferência: 45.45 ms
+[2/39] Processando np-Chironius exoletusjpg.jpg...
+
+============================================================
+Resultados para np-Chironius exoletusjpg.jpg:
+Classificação: NÃO PEÇONHENTA ✅
+Resultado: ✓ CORRETA (esperado: naopeconhentas)
+Confiança: 79.27% (MÉDIA)
+Probabilidade Não Peçonhenta: 79.27%
+Probabilidade Peçonhenta: 20.73%
+Threshold utilizado: 0.5
+Tempo de inferência: 21.06 ms
+[3/39] Processando np-Chironius foveatus.jpg...
+
+============================================================
+Resultados para np-Chironius foveatus.jpg:
+Classificação: NÃO PEÇONHENTA ✅
+Resultado: ✓ CORRETA (esperado: naopeconhentas)
+Confiança: 87.64% (MÉDIA)
+Probabilidade Não Peçonhenta: 87.64%
+Probabilidade Peçonhenta: 12.36%
+Threshold utilizado: 0.5
+Tempo de inferência: 23.53 ms
+[4/39] Processando np-Chironius laevicollis.jpg...
+
+============================================================
+Resultados para np-Chironius laevicollis.jpg:
+Classificação: NÃO PEÇONHENTA ✅
+Resultado: ✓ CORRETA (esperado: naopeconhentas)
+Confiança: 73.21% (MÉDIA)
+Probabilidade Não Peçonhenta: 73.21%
+Probabilidade Peçonhenta: 26.79%
+Threshold utilizado: 0.5
+Tempo de inferência: 22.43 ms
+[5/39] Processando np-Dipsas albifrons.jpg...
+
+============================================================
+Resultados para np-Dipsas albifrons.jpg:
+Classificação: NÃO PEÇONHENTA ✅
+Resultado: ✓ CORRETA (esperado: naopeconhentas)
+Confiança: 74.54% (MÉDIA)
+Probabilidade Não Peçonhenta: 74.54%
+Probabilidade Peçonhenta: 25.46%
+Threshold utilizado: 0.5
+Tempo de inferência: 25.12 ms
+[6/39] Processando np-Dipsas albifrons2.jpg...
+
+============================================================
+Resultados para np-Dipsas albifrons2.jpg:
+Classificação: NÃO PEÇONHENTA ✅
+Resultado: ✓ CORRETA (esperado: naopeconhentas)
+Confiança: 78.53% (MÉDIA)
+Probabilidade Não Peçonhenta: 78.53%
+Probabilidade Peçonhenta: 21.47%
+Threshold utilizado: 0.5
+Tempo de inferência: 20.97 ms
+[7/39] Processando np-Dipsas alternans.jpg...
+
+============================================================
+Resultados para np-Dipsas alternans.jpg:
+Classificação: NÃO PEÇONHENTA ✅
+Resultado: ✓ CORRETA (esperado: naopeconhentas)
+Confiança: 68.60% (BAIXA)
+Probabilidade Não Peçonhenta: 68.60%
+Probabilidade Peçonhenta: 31.40%
+Threshold utilizado: 0.5
+Tempo de inferência: 23.04 ms
+
+⚠️ ATENÇÃO: Classificação com baixa confiança! Por segurança, trate como potencialmente peçonhenta.
+[8/39] Processando np-Dipsas neuwiedi.jpg...
+
+============================================================
+Resultados para np-Dipsas neuwiedi.jpg:
+Classificação: PEÇONHENTA 🚨
+Resultado: ✗ INCORRETA (esperado: naopeconhentas)
+Confiança: 73.12% (MÉDIA)
+Probabilidade Não Peçonhenta: 26.88%
+Probabilidade Peçonhenta: 73.12%
+Threshold utilizado: 0.5
+Tempo de inferência: 20.19 ms
+[9/39] Processando np-Echinantera cyanopleura.jpg...
+
+============================================================
+Resultados para np-Echinantera cyanopleura.jpg:
+Classificação: NÃO PEÇONHENTA ✅
+Resultado: ✓ CORRETA (esperado: naopeconhentas)
+Confiança: 79.42% (MÉDIA)
+Probabilidade Não Peçonhenta: 79.42%
+Probabilidade Peçonhenta: 20.58%
+Threshold utilizado: 0.5
+Tempo de inferência: 22.00 ms
+[10/39] Processando np-Echinanthera undulata.jpg...
+
+============================================================
+Resultados para np-Echinanthera undulata.jpg:
+Classificação: NÃO PEÇONHENTA ✅
+Resultado: ✓ CORRETA (esperado: naopeconhentas)
+Confiança: 82.47% (MÉDIA)
+Probabilidade Não Peçonhenta: 82.47%
+Probabilidade Peçonhenta: 17.53%
+Threshold utilizado: 0.5
+Tempo de inferência: 22.41 ms
+[11/39] Processando np-Erythrolamprus miliaris.jpg...
+
+============================================================
+Resultados para np-Erythrolamprus miliaris.jpg:
+Classificação: NÃO PEÇONHENTA ✅
+Resultado: ✓ CORRETA (esperado: naopeconhentas)
+Confiança: 84.43% (MÉDIA)
+Probabilidade Não Peçonhenta: 84.43%
+Probabilidade Peçonhenta: 15.57%
+Threshold utilizado: 0.5
+Tempo de inferência: 19.28 ms
+[12/39] Processando np-Helicops carinicaudus.jpg...
+
+============================================================
+Resultados para np-Helicops carinicaudus.jpg:
+Classificação: NÃO PEÇONHENTA ✅
+Resultado: ✓ CORRETA (esperado: naopeconhentas)
+Confiança: 77.38% (MÉDIA)
+Probabilidade Não Peçonhenta: 77.38%
+Probabilidade Peçonhenta: 22.62%
+Threshold utilizado: 0.5
+Tempo de inferência: 20.21 ms
+[13/39] Processando np-helicops-leopardinus.jpg...
+
+============================================================
+Resultados para np-helicops-leopardinus.jpg:
+Classificação: NÃO PEÇONHENTA ✅
+Resultado: ✓ CORRETA (esperado: naopeconhentas)
+Confiança: 68.14% (BAIXA)
+Probabilidade Não Peçonhenta: 68.14%
+Probabilidade Peçonhenta: 31.86%
+Threshold utilizado: 0.5
+Tempo de inferência: 21.98 ms
+
+⚠️ ATENÇÃO: Classificação com baixa confiança! Por segurança, trate como potencialmente peçonhenta.
+[14/39] Processando np-Oxyrhopus clathratus.jpg...
+
+============================================================
+Resultados para np-Oxyrhopus clathratus.jpg:
+Classificação: PEÇONHENTA 🚨
+Resultado: ✗ INCORRETA (esperado: naopeconhentas)
+Confiança: 78.74% (MÉDIA)
+Probabilidade Não Peçonhenta: 21.26%
+Probabilidade Peçonhenta: 78.74%
+Threshold utilizado: 0.5
+Tempo de inferência: 22.01 ms
+[15/39] Processando np-Oxyrhopus clathratus2.jpg...
+
+============================================================
+Resultados para np-Oxyrhopus clathratus2.jpg:
+Classificação: PEÇONHENTA 🚨
+Resultado: ✗ INCORRETA (esperado: naopeconhentas)
+Confiança: 73.52% (MÉDIA)
+Probabilidade Não Peçonhenta: 26.48%
+Probabilidade Peçonhenta: 73.52%
+Threshold utilizado: 0.5
+Tempo de inferência: 18.52 ms
+[16/39] Processando np-Philodryas aestiva.kpg.jpg...
+
+============================================================
+Resultados para np-Philodryas aestiva.kpg.jpg:
+Classificação: NÃO PEÇONHENTA ✅
+Resultado: ✓ CORRETA (esperado: naopeconhentas)
+Confiança: 75.99% (MÉDIA)
+Probabilidade Não Peçonhenta: 75.99%
+Probabilidade Peçonhenta: 24.01%
+Threshold utilizado: 0.5
+Tempo de inferência: 22.54 ms
+[17/39] Processando np-Spilotes pullatus.jpg...
+
+============================================================
+Resultados para np-Spilotes pullatus.jpg:
+Classificação: PEÇONHENTA 🚨
+Resultado: ✗ INCORRETA (esperado: naopeconhentas)
+Confiança: 51.82% (BAIXA)
+Probabilidade Não Peçonhenta: 48.18%
+Probabilidade Peçonhenta: 51.82%
+Threshold utilizado: 0.5
+Tempo de inferência: 21.01 ms
+
+⚠️ ATENÇÃO: Classificação com baixa confiança! Por segurança, trate como potencialmente peçonhenta.
+[18/39] Processando np-Taeniophallus bilineatus.jpg...
+
+============================================================
+Resultados para np-Taeniophallus bilineatus.jpg:
+Classificação: NÃO PEÇONHENTA ✅
+Resultado: ✓ CORRETA (esperado: naopeconhentas)
+Confiança: 81.91% (MÉDIA)
+Probabilidade Não Peçonhenta: 81.91%
+Probabilidade Peçonhenta: 18.09%
+Threshold utilizado: 0.5
+Tempo de inferência: 21.00 ms
+[19/39] Processando np-tomodon 2.jpeg...
+
+============================================================
+Resultados para np-tomodon 2.jpeg:
+Classificação: NÃO PEÇONHENTA ✅
+Resultado: ✓ CORRETA (esperado: naopeconhentas)
+Confiança: 74.45% (MÉDIA)
+Probabilidade Não Peçonhenta: 74.45%
+Probabilidade Peçonhenta: 25.55%
+Threshold utilizado: 0.5
+Tempo de inferência: 18.50 ms
+[20/39] Processando np-Tomodon dorsatus.jpg...
+
+============================================================
+Resultados para np-Tomodon dorsatus.jpg:
+Classificação: NÃO PEÇONHENTA ✅
+Resultado: ✓ CORRETA (esperado: naopeconhentas)
+Confiança: 52.46% (BAIXA)
+Probabilidade Não Peçonhenta: 52.46%
+Probabilidade Peçonhenta: 47.54%
+Threshold utilizado: 0.5
+Tempo de inferência: 22.93 ms
+
+⚠️ ATENÇÃO: Classificação com baixa confiança! Por segurança, trate como potencialmente peçonhenta.
+[21/39] Processando np-Tomodon dorsatus2.jpg...
+
+============================================================
+Resultados para np-Tomodon dorsatus2.jpg:
+Classificação: NÃO PEÇONHENTA ✅
+Resultado: ✓ CORRETA (esperado: naopeconhentas)
+Confiança: 71.15% (MÉDIA)
+Probabilidade Não Peçonhenta: 71.15%
+Probabilidade Peçonhenta: 28.85%
+Threshold utilizado: 0.5
+Tempo de inferência: 22.10 ms
+[22/39] Processando np-Tomodon.jpeg...
+
+============================================================
+Resultados para np-Tomodon.jpeg:
+Classificação: PEÇONHENTA 🚨
+Resultado: ✗ INCORRETA (esperado: naopeconhentas)
+Confiança: 74.19% (MÉDIA)
+Probabilidade Não Peçonhenta: 25.81%
+Probabilidade Peçonhenta: 74.19%
+Threshold utilizado: 0.5
+Tempo de inferência: 21.95 ms
+[23/39] Processando np-Tropidodryas serra.jpg...
+
+============================================================
+Resultados para np-Tropidodryas serra.jpg:
+Classificação: NÃO PEÇONHENTA ✅
+Resultado: ✓ CORRETA (esperado: naopeconhentas)
+Confiança: 72.24% (MÉDIA)
+Probabilidade Não Peçonhenta: 72.24%
+Probabilidade Peçonhenta: 27.76%
+Threshold utilizado: 0.5
+Tempo de inferência: 23.27 ms
+[24/39] Processando np-Xenodon neuwiedii.jpg...
+
+============================================================
+Resultados para np-Xenodon neuwiedii.jpg:
+Classificação: PEÇONHENTA 🚨
+Resultado: ✗ INCORRETA (esperado: naopeconhentas)
+Confiança: 62.27% (BAIXA)
+Probabilidade Não Peçonhenta: 37.73%
+Probabilidade Peçonhenta: 62.27%
+Threshold utilizado: 0.5
+Tempo de inferência: 23.05 ms
+
+⚠️ ATENÇÃO: Classificação com baixa confiança! Por segurança, trate como potencialmente peçonhenta.
+[25/39] Processando p-Bothrops jararacussu.jpg...
+
+============================================================
+Resultados para p-Bothrops jararacussu.jpg:
+Classificação: PEÇONHENTA 🚨
+Resultado: ✓ CORRETA (esperado: peconhentas)
+Confiança: 79.08% (MÉDIA)
+Probabilidade Não Peçonhenta: 20.92%
+Probabilidade Peçonhenta: 79.08%
+Threshold utilizado: 0.5
+Tempo de inferência: 18.92 ms
+[26/39] Processando p-coral.jpeg...
+
+============================================================
+Resultados para p-coral.jpeg:
+Classificação: PEÇONHENTA 🚨
+Resultado: ✓ CORRETA (esperado: peconhentas)
+Confiança: 57.77% (BAIXA)
+Probabilidade Não Peçonhenta: 42.23%
+Probabilidade Peçonhenta: 57.77%
+Threshold utilizado: 0.5
+Tempo de inferência: 19.95 ms
+
+⚠️ ATENÇÃO: Classificação com baixa confiança! Por segurança, trate como potencialmente peçonhenta.
+[27/39] Processando p-coral2.jpeg...
+
+============================================================
+Resultados para p-coral2.jpeg:
+Classificação: PEÇONHENTA 🚨
+Resultado: ✓ CORRETA (esperado: peconhentas)
+Confiança: 66.93% (BAIXA)
+Probabilidade Não Peçonhenta: 33.07%
+Probabilidade Peçonhenta: 66.93%
+Threshold utilizado: 0.5
+Tempo de inferência: 22.86 ms
+
+⚠️ ATENÇÃO: Classificação com baixa confiança! Por segurança, trate como potencialmente peçonhenta.
+[28/39] Processando p-coral5.jpg...
+
+============================================================
+Resultados para p-coral5.jpg:
+Classificação: PEÇONHENTA 🚨
+Resultado: ✓ CORRETA (esperado: peconhentas)
+Confiança: 76.27% (MÉDIA)
+Probabilidade Não Peçonhenta: 23.73%
+Probabilidade Peçonhenta: 76.27%
+Threshold utilizado: 0.5
+Tempo de inferência: 23.68 ms
+[29/39] Processando p-coral6.jpg...
+
+============================================================
+Resultados para p-coral6.jpg:
+Classificação: PEÇONHENTA 🚨
+Resultado: ✓ CORRETA (esperado: peconhentas)
+Confiança: 88.17% (MÉDIA)
+Probabilidade Não Peçonhenta: 11.83%
+Probabilidade Peçonhenta: 88.17%
+Threshold utilizado: 0.5
+Tempo de inferência: 19.84 ms
+[30/39] Processando p-jararaca.jpg...
+
+============================================================
+Resultados para p-jararaca.jpg:
+Classificação: NÃO PEÇONHENTA ✅
+Resultado: ✗ INCORRETA (esperado: peconhentas)
+Confiança: 71.71% (MÉDIA)
+Probabilidade Não Peçonhenta: 71.71%
+Probabilidade Peçonhenta: 28.29%
+Threshold utilizado: 0.5
+Tempo de inferência: 21.46 ms
+[31/39] Processando p-jararaca2.jpg...
+
+============================================================
+Resultados para p-jararaca2.jpg:
+Classificação: NÃO PEÇONHENTA ✅
+Resultado: ✗ INCORRETA (esperado: peconhentas)
+Confiança: 57.99% (BAIXA)
+Probabilidade Não Peçonhenta: 57.99%
+Probabilidade Peçonhenta: 42.01%
+Threshold utilizado: 0.5
+Tempo de inferência: 23.62 ms
+
+⚠️ ATENÇÃO: Classificação com baixa confiança! Por segurança, trate como potencialmente peçonhenta.
+[32/39] Processando p-jararaca3.jpeg...
+
+============================================================
+Resultados para p-jararaca3.jpeg:
+Classificação: PEÇONHENTA 🚨
+Resultado: ✓ CORRETA (esperado: peconhentas)
+Confiança: 80.79% (MÉDIA)
+Probabilidade Não Peçonhenta: 19.21%
+Probabilidade Peçonhenta: 80.79%
+Threshold utilizado: 0.5
+Tempo de inferência: 21.27 ms
+[33/39] Processando p-jararaca3.jpg...
+
+============================================================
+Resultados para p-jararaca3.jpg:
+Classificação: NÃO PEÇONHENTA ✅
+Resultado: ✗ INCORRETA (esperado: peconhentas)
+Confiança: 64.77% (BAIXA)
+Probabilidade Não Peçonhenta: 64.77%
+Probabilidade Peçonhenta: 35.23%
+Threshold utilizado: 0.5
+Tempo de inferência: 19.48 ms
+
+⚠️ ATENÇÃO: Classificação com baixa confiança! Por segurança, trate como potencialmente peçonhenta.
+[34/39] Processando p-jararaca5.jpg...
+
+============================================================
+Resultados para p-jararaca5.jpg:
+Classificação: PEÇONHENTA 🚨
+Resultado: ✓ CORRETA (esperado: peconhentas)
+Confiança: 73.37% (MÉDIA)
+Probabilidade Não Peçonhenta: 26.63%
+Probabilidade Peçonhenta: 73.37%
+Threshold utilizado: 0.5
+Tempo de inferência: 20.98 ms
+[35/39] Processando p-jararaca6.jpg...
+
+============================================================
+Resultados para p-jararaca6.jpg:
+Classificação: PEÇONHENTA 🚨
+Resultado: ✓ CORRETA (esperado: peconhentas)
+Confiança: 71.23% (MÉDIA)
+Probabilidade Não Peçonhenta: 28.77%
+Probabilidade Peçonhenta: 71.23%
+Threshold utilizado: 0.5
+Tempo de inferência: 20.57 ms
+[36/39] Processando p-jararaca7.jpg...
+
+============================================================
+Resultados para p-jararaca7.jpg:
+Classificação: PEÇONHENTA 🚨
+Resultado: ✓ CORRETA (esperado: peconhentas)
+Confiança: 71.85% (MÉDIA)
+Probabilidade Não Peçonhenta: 28.15%
+Probabilidade Peçonhenta: 71.85%
+Threshold utilizado: 0.5
+Tempo de inferência: 20.64 ms
+[37/39] Processando p-jararacossu2.jpg...
+
+============================================================
+Resultados para p-jararacossu2.jpg:
+Classificação: NÃO PEÇONHENTA ✅
+Resultado: ✗ INCORRETA (esperado: peconhentas)
+Confiança: 56.17% (BAIXA)
+Probabilidade Não Peçonhenta: 56.17%
+Probabilidade Peçonhenta: 43.83%
+Threshold utilizado: 0.5
+Tempo de inferência: 20.55 ms
+
+⚠️ ATENÇÃO: Classificação com baixa confiança! Por segurança, trate como potencialmente peçonhenta.
+[38/39] Processando p-jararacossu3.jpg...
+
+============================================================
+Resultados para p-jararacossu3.jpg:
+Classificação: PEÇONHENTA 🚨
+Resultado: ✓ CORRETA (esperado: peconhentas)
+Confiança: 71.66% (MÉDIA)
+Probabilidade Não Peçonhenta: 28.34%
+Probabilidade Peçonhenta: 71.66%
+Threshold utilizado: 0.5
+  - Verdadeiros Positivos (VP): 11 (cobras peçonhentas corretamente identificadas)
+  - Falsos Positivos (FP): 6 (cobras não peçonhentas classificadas como peçonhentas)
+  - Verdadeiros Negativos (VN): 18 (cobras não peçonhentas corretamente identificadas)
+  - Falsos Negativos (FN): 4 (cobras peçonhentas classificadas como não peçonhentas)
+
+Métricas detalhadas:
+  - Precisão (cobras peçonhentas): 0.6471
+  - Recall (cobras peçonhentas): 0.7333
+  - Especificidade: 0.7500
+  - F1-Score: 0.6875
+
+Níveis de confiança:
+  - Alta confiança: 0 (0.0%)
+  - Média confiança: 29 (74.4%)
+  - Baixa confiança: 10 (25.6%)
+PS C:\tcc\modelo>

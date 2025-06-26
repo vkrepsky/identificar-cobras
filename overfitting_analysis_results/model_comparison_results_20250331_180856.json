@@ -1,0 +1,299 @@
+{
+    "timestamp": "20250331_180856",
+    "paper_model": {
+        "model_name": "Paper Model",
+        "predictions": [
+            {
+                "image_path": "C:\\tcc\\modelo\\teste_overfitting\\coral.jpeg",
+                "image_name": "coral.jpeg",
+                "top_class": "Micrurus corallinus",
+                "top_probability": 0.3077535331249237,
+                "top_k_classes": [
+                    "Micrurus corallinus",
+                    "Dipsas neuwiedi",
+                    "Echinanthera undulata"
+                ],
+                "top_k_probabilities": [
+                    0.3077535331249237,
+                    0.1985052078962326,
+                    0.1871720403432846
+                ]
+            },
+            {
+                "image_path": "C:\\tcc\\modelo\\teste_overfitting\\coral2.jpeg",
+                "image_name": "coral2.jpeg",
+                "top_class": "Helicops carinicaudus",
+                "top_probability": 0.37275761365890503,
+                "top_k_classes": [
+                    "Helicops carinicaudus",
+                    "Erythrolamprus miliaris",
+                    "Xenodon neuwiedii"
+                ],
+                "top_k_probabilities": [
+                    0.37275761365890503,
+                    0.19542299211025238,
+                    0.18339243531227112
+                ]
+            },
+            {
+                "image_path": "C:\\tcc\\modelo\\teste_overfitting\\jararaca.jpg",
+                "image_name": "jararaca.jpg",
+                "top_class": "Bothrops jararacussu",
+                "top_probability": 0.26068708300590515,
+                "top_k_classes": [
+                    "Bothrops jararacussu",
+                    "Xenodon neuwiedii",
+                    "Chironius laevicollis"
+                ],
+                "top_k_probabilities": [
+                    0.26068708300590515,
+                    0.20320351421833038,
+                    0.08531846851110458
+                ]
+            },
+            {
+                "image_path": "C:\\tcc\\modelo\\teste_overfitting\\jararaca2.jpg",
+                "image_name": "jararaca2.jpg",
+                "top_class": "Tropidodryas serra",
+                "top_probability": 0.34089693427085876,
+                "top_k_classes": [
+                    "Tropidodryas serra",
+                    "Echinantera cyanopleura",
+                    "Bothrops jararacussu"
+                ],
+                "top_k_probabilities": [
+                    0.34089693427085876,
+                    0.17864686250686646,
+                    0.13416196405887604
+                ]
+            },
+            {
+                "image_path": "C:\\tcc\\modelo\\teste_overfitting\\jararaca3.jpeg",
+                "image_name": "jararaca3.jpeg",
+                "top_class": "Taeniophallus bilineatus",
+                "top_probability": 0.3782525956630707,
+                "top_k_classes": [
+                    "Taeniophallus bilineatus",
+                    "Tomodon dorsatus",
+                    "Bothrops jararacussu"
+                ],
+                "top_k_probabilities": [
+                    0.3782525956630707,
+                    0.31960785388946533,
+                    0.09529263526201248
+                ]
+            },
+            {
+                "image_path": "C:\\tcc\\modelo\\teste_overfitting\\jararaca3.jpg",
+                "image_name": "jararaca3.jpg",
+                "top_class": "Dipsas neuwiedi",
+                "top_probability": 0.476276159286499,
+                "top_k_classes": [
+                    "Dipsas neuwiedi",
+                    "Bothrops jararacussu",
+                    "Erythrolamprus miliaris"
+                ],
+                "top_k_probabilities": [
+                    0.476276159286499,
+                    0.10405869036912918,
+                    0.08754967898130417
+                ]
+            },
+            {
+                "image_path": "C:\\tcc\\modelo\\teste_overfitting\\tomodon 2.jpeg",
+                "image_name": "tomodon 2.jpeg",
+                "top_class": "Spilotes pullatus",
+                "top_probability": 0.2486628144979477,
+                "top_k_classes": [
+                    "Spilotes pullatus",
+                    "Philodryas aestiva",
+                    "Helicops carinicaudus"
+                ],
+                "top_k_probabilities": [
+                    0.2486628144979477,
+                    0.16280736029148102,
+                    0.154878631234169
+                ]
+            },
+            {
+                "image_path": "C:\\tcc\\modelo\\teste_overfitting\\Tomodon.jpeg",
+                "image_name": "Tomodon.jpeg",
+                "top_class": "Dipsas albifrons",
+                "top_probability": 0.43434303998947144,
+                "top_k_classes": [
+                    "Dipsas albifrons",
+                    "Tropidodryas serra",
+                    "Taeniophallus bilineatus"
+                ],
+                "top_k_probabilities": [
+                    0.43434303998947144,
+                    0.20543736219406128,
+                    0.1554034799337387
+                ]
+            }
+        ],
+        "timings": [
+            0.18937301635742188,
+            0.010250329971313477,
+            0.006502389907836914,
+            0.009236812591552734,
+            0.010918378829956055,
+            0.0010287761688232422,
+            0.009460926055908203,
+            0.006330728530883789
+        ],
+        "avg_inference_time": 0.030387669801712036
+    },
+    "deeper_model": {
+        "model_name": "Deeper Model",
+        "predictions": [
+            {
+                "image_path": "C:\\tcc\\modelo\\teste_overfitting\\coral.jpeg",
+                "image_name": "coral.jpeg",
+                "top_class": "Micrurus corallinus",
+                "top_probability": 0.45516687631607056,
+                "top_k_classes": [
+                    "Micrurus corallinus",
+                    "Spilotes pullatus",
+                    "Echinanthera undulata"
+                ],
+                "top_k_probabilities": [
+                    0.45516687631607056,
+                    0.1835424304008484,
+                    0.1654301881790161
+                ]
+            },
+            {
+                "image_path": "C:\\tcc\\modelo\\teste_overfitting\\coral2.jpeg",
+                "image_name": "coral2.jpeg",
+                "top_class": "Erythrolamprus miliaris",
+                "top_probability": 0.9526137113571167,
+                "top_k_classes": [
+                    "Erythrolamprus miliaris",
+                    "Helicops carinicaudus",
+                    "Chironius bicarinatus"
+                ],
+                "top_k_probabilities": [
+                    0.9526137113571167,
+                    0.018775543197989464,
+                    0.01151480432599783
+                ]
+            },
+            {
+                "image_path": "C:\\tcc\\modelo\\teste_overfitting\\jararaca.jpg",
+                "image_name": "jararaca.jpg",
+                "top_class": "Spilotes pullatus",
+                "top_probability": 0.9063694477081299,
+                "top_k_classes": [
+                    "Spilotes pullatus",
+                    "Chironius foveatus",
+                    "Xenodon neuwiedii"
+                ],
+                "top_k_probabilities": [
+                    0.9063694477081299,
+                    0.0763392448425293,
+                    0.006569460034370422
+                ]
+            },
+            {
+                "image_path": "C:\\tcc\\modelo\\teste_overfitting\\jararaca2.jpg",
+                "image_name": "jararaca2.jpg",
+                "top_class": "Tomodon dorsatus",
+                "top_probability": 0.7561032772064209,
+                "top_k_classes": [
+                    "Tomodon dorsatus",
+                    "Tropidodryas serra",
+                    "Dipsas albifrons"
+                ],
+                "top_k_probabilities": [
+                    0.7561032772064209,
+                    0.09495179355144501,
+                    0.09201139211654663
+                ]
+            },
+            {
+                "image_path": "C:\\tcc\\modelo\\teste_overfitting\\jararaca3.jpeg",
+                "image_name": "jararaca3.jpeg",
+                "top_class": "Bothrops jararacussu",
+                "top_probability": 0.5840783715248108,
+                "top_k_classes": [
+                    "Bothrops jararacussu",
+                    "Tomodon dorsatus",
+                    "Tropidodryas serra"
+                ],
+                "top_k_probabilities": [
+                    0.5840783715248108,
+                    0.284161776304245,
+                    0.043249282985925674
+                ]
+            },
+            {
+                "image_path": "C:\\tcc\\modelo\\teste_overfitting\\jararaca3.jpg",
+                "image_name": "jararaca3.jpg",
+                "top_class": "Tomodon dorsatus",
+                "top_probability": 0.8481491208076477,
+                "top_k_classes": [
+                    "Tomodon dorsatus",
+                    "Dipsas neuwiedi",
+                    "Tropidodryas serra"
+                ],
+                "top_k_probabilities": [
+                    0.8481491208076477,
+                    0.09256012737751007,
+                    0.03971822187304497
+                ]
+            },
+            {
+                "image_path": "C:\\tcc\\modelo\\teste_overfitting\\tomodon 2.jpeg",
+                "image_name": "tomodon 2.jpeg",
+                "top_class": "Bothrops jararacussu",
+                "top_probability": 0.5674329996109009,
+                "top_k_classes": [
+                    "Bothrops jararacussu",
+                    "Helicops carinicaudus",
+                    "Chironius exoletus"
+                ],
+                "top_k_probabilities": [
+                    0.5674329996109009,
+                    0.12946994602680206,
+                    0.09614346921443939
+                ]
+            },
+            {
+                "image_path": "C:\\tcc\\modelo\\teste_overfitting\\Tomodon.jpeg",
+                "image_name": "Tomodon.jpeg",
+                "top_class": "Dipsas albifrons",
+                "top_probability": 0.8556140661239624,
+                "top_k_classes": [
+                    "Dipsas albifrons",
+                    "Tropidodryas serra",
+                    "Spilotes pullatus"
+                ],
+                "top_k_probabilities": [
+                    0.8556140661239624,
+                    0.062217507511377335,
+                    0.03680079057812691
+                ]
+            }
+        ],
+        "timings": [
+            0.02708911895751953,
+            0.010002374649047852,
+            0.006001472473144531,
+            0.007997512817382812,
+            0.01050257682800293,
+            0.0020008087158203125,
+            0.010002851486206055,
+            0.007001638412475586
+        ],
+        "avg_inference_time": 0.010074794292449951
+    },
+    "comparison": {
+        "paper_accuracy": null,
+        "deeper_accuracy": null,
+        "accuracy_difference": null,
+        "paper_inference_time": 0.030387669801712036,
+        "deeper_inference_time": 0.010074794292449951,
+        "inference_time_difference": -0.020312875509262085
+    }
+}

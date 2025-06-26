@@ -1,0 +1,682 @@
+PS C:\tcc\modelo> python modelo_v2.py --model-variant=deeper --epochs=300 --learning-rate=0.001 --target-per-class=500
+Diretório de aumentação configurado: C:\tcc\modelo\output\paper
+Épocas configuradas: 300
+Batch size configurado: 64
+Learning rate configurado: 0.001
+
+================================================================================
+          🐍 INICIANDO TREINAMENTO DO CLASSIFICADOR DE SERPENTES CNN 🐍
+                  🏷️  Nome da execução: deeper_20250331_103827
+================================================================================
+
+✅ Diretório criado/verificado: output\deeper_20250331_103827
+✅ Diretório criado/verificado: output\deeper_20250331_103827\models
+✅ Diretório criado/verificado: output\deeper_20250331_103827\plots
+✅ Diretório criado/verificado: output\deeper_20250331_103827\reports
+✅ Diretório criado/verificado: output\deeper_20250331_103827\augmented
+📁 Diretório fixo para imagens aumentadas: C:\tcc\modelo\output\paper
+💾 Configuração salva em 'output\deeper_20250331_103827\config.json'
+
+=== DIAGNÓSTICO CUDA/GPU ===
+PyTorch versão: 2.5.1+cu121
+CUDA disponível: True
+GPU atual: NVIDIA GeForce RTX 4090
+Número de GPUs: 1
+CUDA versão: 12.1
+Memória GPU total: 24.0 GB
+cuDNN habilitado: True
+cuDNN benchmark: True
+
+✅ Teste de operação na GPU realizado com sucesso!
+
+🔍 Verificando diretório fixo de imagens aumentadas: C:\tcc\modelo\output\paper
+
+🔍 Verificando se diretório de imagens aumentadas já existe: C:\tcc\modelo\output\paper
+  ↳ Classes com imagens insuficientes: Philodryas aestiva (300 imagens), Echinanthera undulata (300 imagens), Taeniophallus bilineatus (300 imagens), Oxyrhopus clathratus (300 imagens), Chironius laevicollis (300 imagens), E
+rythrolamprus miliaris (300 imagens), Spilotes pullatus (300 imagens), Tomodon dorsatus (300 imagens), Chironius bicarinatus (300 imagens), Bothrops jararaca (300 imagens), Helicops carinicaudus (300 imagens), Chironius exol
+etus (300 imagens), Dipsas neuwiedi (300 imagens), Dipsas albifrons (300 imagens), Tropidodryas serra (300 imagens), Micrurus corallinus (300 imagens), Bothrops jararacussu (300 imagens), Echinantera cyanopleura (300 imagens), Xenodon neuwiedii (300 imagens), Chironius foveatus (300 imagens)
+  ↳ Regenerando imagens aumentadas...
+
+================================================================================
+              🔄 AUMENTAÇÃO DE DADOS - GERANDO IMAGENS SINTÉTICAS 🔄
+================================================================================
+
+📊 Alvo: 500 imagens por classe após aumentação
+📁 Diretório original: C:\tcc\imgs-inaturalist
+📁 Diretório de saída: C:\tcc\modelo\output\paper
+
+📸 Classe: Bothrops jararaca
+  ↳ Imagens originais: 44
+  ↳ Gerando ~10 variações por imagem original
+  ✅ Aumentação concluída: 500 imagens (44 originais + 456 geradas)
+
+📸 Classe: Bothrops jararacussu
+  ↳ Imagens originais: 30
+  ↳ Gerando ~15 variações por imagem original
+  ✅ Aumentação concluída: 500 imagens (30 originais + 470 geradas)
+
+📸 Classe: Chironius bicarinatus
+  ↳ Imagens originais: 30
+  ↳ Gerando ~15 variações por imagem original
+  ✅ Aumentação concluída: 500 imagens (30 originais + 470 geradas)
+
+📸 Classe: Chironius exoletus
+  ↳ Imagens originais: 30
+  ↳ Gerando ~15 variações por imagem original
+  ✅ Aumentação concluída: 500 imagens (30 originais + 470 geradas)
+
+📸 Classe: Chironius foveatus
+  ↳ Imagens originais: 30
+  ↳ Gerando ~15 variações por imagem original
+  ✅ Aumentação concluída: 500 imagens (30 originais + 470 geradas)
+
+📸 Classe: Chironius laevicollis
+  ↳ Imagens originais: 30
+  ↳ Gerando ~15 variações por imagem original
+  ✅ Aumentação concluída: 500 imagens (30 originais + 470 geradas)
+
+📸 Classe: Dipsas albifrons
+  ↳ Imagens originais: 24
+  ↳ Gerando ~19 variações por imagem original
+  ✅ Aumentação concluída: 500 imagens (24 originais + 476 geradas)
+
+📸 Classe: Dipsas alternans
+  ↳ Imagens originais: 7
+  ↳ Gerando ~70 variações por imagem original
+  ✅ Aumentação concluída: 500 imagens (7 originais + 493 geradas)
+
+📸 Classe: Dipsas neuwiedi
+  ↳ Imagens originais: 30
+  ↳ Gerando ~15 variações por imagem original
+  ✅ Aumentação concluída: 500 imagens (30 originais + 470 geradas)
+
+📸 Classe: Echinantera cyanopleura
+  ↳ Imagens originais: 30
+  ↳ Gerando ~15 variações por imagem original
+  ✅ Aumentação concluída: 500 imagens (30 originais + 470 geradas)
+
+📸 Classe: Echinanthera undulata
+  ↳ Imagens originais: 30
+  ↳ Gerando ~15 variações por imagem original
+  ✅ Aumentação concluída: 500 imagens (30 originais + 470 geradas)
+
+📸 Classe: Erythrolamprus miliaris
+  ↳ Imagens originais: 30
+  ↳ Gerando ~15 variações por imagem original
+  ✅ Aumentação concluída: 500 imagens (30 originais + 470 geradas)
+
+📸 Classe: Helicops carinicaudus
+  ↳ Imagens originais: 21
+  ↳ Gerando ~22 variações por imagem original
+  ✅ Aumentação concluída: 500 imagens (21 originais + 479 geradas)
+
+📸 Classe: Micrurus corallinus
+  ↳ Imagens originais: 19
+  ↳ Gerando ~25 variações por imagem original
+  ✅ Aumentação concluída: 500 imagens (19 originais + 481 geradas)
+
+📸 Classe: Oxyrhopus clathratus
+  ↳ Imagens originais: 30
+  ↳ Gerando ~15 variações por imagem original
+  ✅ Aumentação concluída: 500 imagens (30 originais + 470 geradas)
+
+📸 Classe: Philodryas aestiva
+  ↳ Imagens originais: 30
+  ↳ Gerando ~15 variações por imagem original
+  ✅ Aumentação concluída: 500 imagens (30 originais + 470 geradas)
+
+📸 Classe: Spilotes pullatus
+  ↳ Imagens originais: 32
+  ↳ Gerando ~14 variações por imagem original
+  ✅ Aumentação concluída: 500 imagens (32 originais + 468 geradas)
+
+📸 Classe: Taeniophallus bilineatus
+  ↳ Imagens originais: 30
+  ↳ Gerando ~15 variações por imagem original
+  ✅ Aumentação concluída: 500 imagens (30 originais + 470 geradas)
+
+📸 Classe: Tomodon dorsatus
+  ↳ Imagens originais: 30
+  ↳ Gerando ~15 variações por imagem original
+  ✅ Aumentação concluída: 500 imagens (30 originais + 470 geradas)
+
+📸 Classe: Tropidodryas serra
+  ↳ Imagens originais: 28
+  ↳ Gerando ~16 variações por imagem original
+  ✅ Aumentação concluída: 500 imagens (28 originais + 472 geradas)
+
+📸 Classe: Xenodon neuwiedii
+  ↳ Imagens originais: 31
+  ↳ Gerando ~15 variações por imagem original
+  ✅ Aumentação concluída: 500 imagens (31 originais + 469 geradas)
+
+================================================================================
+                       📊 RESUMO DA AUMENTAÇÃO DE DADOS 📊
+================================================================================
+Classe               Originais  Geradas    Total      % Aumento
+--------------------------------------------------------------------------------
+Bothrops jararaca    44         456        500        1036.4%
+Bothrops jararacussu 30         470        500        1566.7%
+Chironius bicarinatus 30         470        500        1566.7%
+Chironius exoletus   30         470        500        1566.7%
+Chironius foveatus   30         470        500        1566.7%
+Chironius laevicollis 30         470        500        1566.7%
+Dipsas albifrons     24         476        500        1983.3%
+Dipsas alternans     7          493        500        7042.9%
+Dipsas neuwiedi      30         470        500        1566.7%
+Echinantera cyanopleura 30         470        500        1566.7%
+Echinanthera undulata 30         470        500        1566.7%
+Erythrolamprus miliaris 30         470        500        1566.7%
+Helicops carinicaudus 21         479        500        2281.0%
+Micrurus corallinus  19         481        500        2531.6%
+Oxyrhopus clathratus 30         470        500        1566.7%
+Philodryas aestiva   30         470        500        1566.7%
+Spilotes pullatus    32         468        500        1462.5%
+Taeniophallus bilineatus 30         470        500        1566.7%
+Tomodon dorsatus     30         470        500        1566.7%
+Tropidodryas serra   28         472        500        1685.7%
+Xenodon neuwiedii    31         469        500        1512.9%
+--------------------------------------------------------------------------------
+TOTAL                596        9904       10500      1661.7%
+
+✅ Aumentação de dados concluída com sucesso!
+
+📁 Diretório de dados para treinamento: C:\tcc\modelo\output\paper
+
+Contando imagens em cada classe:
+Classe Bothrops jararaca: 500 imagens
+Classe Bothrops jararacussu: 500 imagens
+Classe Chironius bicarinatus: 500 imagens
+Classe Chironius exoletus: 500 imagens
+Classe Chironius foveatus: 500 imagens
+Classe Chironius laevicollis: 500 imagens
+Classe Dipsas albifrons: 500 imagens
+Classe Dipsas alternans: 500 imagens
+Classe Dipsas neuwiedi: 500 imagens
+Classe Echinantera cyanopleura: 500 imagens
+Classe Echinanthera undulata: 500 imagens
+Classe Erythrolamprus miliaris: 500 imagens
+Classe Helicops carinicaudus: 500 imagens
+Classe Micrurus corallinus: 500 imagens
+Classe Oxyrhopus clathratus: 500 imagens
+Classe Philodryas aestiva: 500 imagens
+Classe Spilotes pullatus: 500 imagens
+Classe Taeniophallus bilineatus: 500 imagens
+Classe Tomodon dorsatus: 500 imagens
+Classe Tropidodryas serra: 500 imagens
+Classe Xenodon neuwiedii: 500 imagens
+
+Classes incluídas no treinamento:
+Classe Bothrops jararaca (índice 0): 500 imagens
+Classe Bothrops jararacussu (índice 1): 500 imagens
+Classe Chironius bicarinatus (índice 2): 500 imagens
+Classe Chironius exoletus (índice 3): 500 imagens
+Classe Chironius foveatus (índice 4): 500 imagens
+Classe Chironius laevicollis (índice 5): 500 imagens
+Classe Dipsas albifrons (índice 6): 500 imagens
+Classe Dipsas alternans (índice 7): 500 imagens
+Classe Dipsas neuwiedi (índice 8): 500 imagens
+Classe Echinantera cyanopleura (índice 9): 500 imagens
+Classe Echinanthera undulata (índice 10): 500 imagens
+Classe Erythrolamprus miliaris (índice 11): 500 imagens
+Classe Helicops carinicaudus (índice 12): 500 imagens
+Classe Micrurus corallinus (índice 13): 500 imagens
+Classe Oxyrhopus clathratus (índice 14): 500 imagens
+Classe Philodryas aestiva (índice 15): 500 imagens
+Classe Spilotes pullatus (índice 16): 500 imagens
+Classe Taeniophallus bilineatus (índice 17): 500 imagens
+Classe Tomodon dorsatus (índice 18): 500 imagens
+Classe Tropidodryas serra (índice 19): 500 imagens
+Classe Xenodon neuwiedii (índice 20): 500 imagens
+
+Total de classes válidas: 21
+Total de imagens: 10500
+
+📊 Dividindo dados em conjuntos de treinamento (80%) e validação (20%)...
+Conjunto de treinamento: 8400 imagens
+Conjunto de validação: 2100 imagens
+💾 Informações de divisão do dataset salvas em 'output\deeper_20250331_103827\reports\dataset_split.json'
+
+🔄 Configurando transformações de imagem e aumentação de dados...
+
+⚙️ Configurando DataLoaders...
+
+🧠 Inicializando modelo CNN para classificar 21 espécies de serpentes...
+Usando variante do modelo: deeper - Versão melhorada
+
+Arquitetura do modelo:
+SnakeCNNDeeper(
+  (features): Sequential(
+    (0): Conv2d(3, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (1): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (2): ReLU(inplace=True)
+    (3): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (4): Conv2d(16, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (5): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (6): ReLU(inplace=True)
+    (7): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (8): Conv2d(32, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (9): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (10): ReLU(inplace=True)
+    (11): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (12): Conv2d(64, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (13): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (14): ReLU(inplace=True)
+    (15): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (classifier): Sequential(
+    (0): Flatten(start_dim=1, end_dim=-1)
+    (1): Linear(in_features=25088, out_features=512, bias=True)
+    (2): BatchNorm1d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (3): ReLU(inplace=True)
+    (4): Dropout(p=0.3, inplace=False)
+    (5): Linear(in_features=512, out_features=256, bias=True)
+    (6): BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (7): ReLU(inplace=True)
+    (8): Dropout(p=0.3, inplace=False)
+    (9): Linear(in_features=256, out_features=21, bias=True)
+  )
+)
+💾 Resumo da arquitetura salvo em 'output\deeper_20250331_103827\models\model_architecture_deeper.txt'
+
+🚀 Iniciando treinamento do modelo...
+Épocas: 300, Batch Size: 64, Learning Rate: 0.001, Weight Decay: 0.0001
+
+🚀 Iniciando treinamento: 20250331_105707
+📊 Monitorando progresso... Paciência para early stopping: 10 épocas
+⚙️ Configuração: 300 épocas, LR inicial: 0.001, Weight decay: 0.0001
+C:\tcc\modelo\modelo_v2.py:505: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with torch.cuda.amp.autocast():
+C:\tcc\modelo\modelo_v2.py:533: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with torch.cuda.amp.autocast():
+Época 1/300 | Tempo: 64.6s | LR: 0.001000 | Treino: Perda 2.9578, Acc 10.11% | Val: Perda 2.7686, Acc 16.95%
+✅ Novo melhor modelo! Val Loss: 2.7686, Val Acc: 16.95%
+Época 2/300 | Tempo: 30.7s | LR: 0.001000 | Treino: Perda 2.8180, Acc 13.81% | Val: Perda 2.6468, Acc 20.67%
+✅ Novo melhor modelo! Val Loss: 2.6468, Val Acc: 20.67%
+Época 3/300 | Tempo: 29.8s | LR: 0.001000 | Treino: Perda 2.7200, Acc 17.26% | Val: Perda 2.5465, Acc 23.90%
+✅ Novo melhor modelo! Val Loss: 2.5465, Val Acc: 23.90%
+Época 4/300 | Tempo: 30.6s | LR: 0.001000 | Treino: Perda 2.6521, Acc 19.13% | Val: Perda 2.5174, Acc 24.33%
+✅ Novo melhor modelo! Val Loss: 2.5174, Val Acc: 24.33%
+Época 5/300 | Tempo: 31.7s | LR: 0.001000 | Treino: Perda 2.6011, Acc 21.44% | Val: Perda 2.4608, Acc 25.52%
+✅ Novo melhor modelo! Val Loss: 2.4608, Val Acc: 25.52%
+Época 6/300 | Tempo: 29.9s | LR: 0.001000 | Treino: Perda 2.5477, Acc 22.68% | Val: Perda 2.4124, Acc 26.86%
+✅ Novo melhor modelo! Val Loss: 2.4124, Val Acc: 26.86%
+Época 7/300 | Tempo: 27.2s | LR: 0.001000 | Treino: Perda 2.4862, Acc 23.61% | Val: Perda 2.2489, Acc 33.71%
+✅ Novo melhor modelo! Val Loss: 2.2489, Val Acc: 33.71%
+Época 8/300 | Tempo: 29.4s | LR: 0.001000 | Treino: Perda 2.4364, Acc 26.11% | Val: Perda 2.2051, Acc 33.67%
+✅ Novo melhor modelo! Val Loss: 2.2051, Val Acc: 33.67%
+Época 9/300 | Tempo: 30.0s | LR: 0.001000 | Treino: Perda 2.4001, Acc 27.25% | Val: Perda 2.1805, Acc 34.95%
+✅ Novo melhor modelo! Val Loss: 2.1805, Val Acc: 34.95%
+Época 10/300 | Tempo: 30.6s | LR: 0.001000 | Treino: Perda 2.3514, Acc 28.21% | Val: Perda 2.1192, Acc 36.14%
+✅ Novo melhor modelo! Val Loss: 2.1192, Val Acc: 36.14%
+Época 11/300 | Tempo: 28.7s | LR: 0.001000 | Treino: Perda 2.3182, Acc 29.52% | Val: Perda 2.0395, Acc 37.95%
+✅ Novo melhor modelo! Val Loss: 2.0395, Val Acc: 37.95%
+Época 12/300 | Tempo: 29.0s | LR: 0.001000 | Treino: Perda 2.2786, Acc 30.39% | Val: Perda 2.0150, Acc 38.57%
+✅ Novo melhor modelo! Val Loss: 2.0150, Val Acc: 38.57%
+Época 13/300 | Tempo: 29.3s | LR: 0.001000 | Treino: Perda 2.2245, Acc 31.95% | Val: Perda 1.9448, Acc 41.86%
+✅ Novo melhor modelo! Val Loss: 1.9448, Val Acc: 41.86%
+Época 14/300 | Tempo: 28.7s | LR: 0.001000 | Treino: Perda 2.2053, Acc 32.73% | Val: Perda 1.9660, Acc 38.90%
+⏳ Aguardando melhoria... (1/10)
+Época 15/300 | Tempo: 28.4s | LR: 0.001000 | Treino: Perda 2.1481, Acc 34.06% | Val: Perda 1.8932, Acc 43.05%
+✅ Novo melhor modelo! Val Loss: 1.8932, Val Acc: 43.05%
+Época 16/300 | Tempo: 28.4s | LR: 0.001000 | Treino: Perda 2.1193, Acc 35.45% | Val: Perda 1.7935, Acc 46.62%
+✅ Novo melhor modelo! Val Loss: 1.7935, Val Acc: 46.62%
+Época 17/300 | Tempo: 28.8s | LR: 0.001000 | Treino: Perda 2.0992, Acc 36.00% | Val: Perda 1.7567, Acc 46.86%
+✅ Novo melhor modelo! Val Loss: 1.7567, Val Acc: 46.86%
+Época 18/300 | Tempo: 29.0s | LR: 0.001000 | Treino: Perda 2.0482, Acc 38.08% | Val: Perda 1.6433, Acc 50.62%
+✅ Novo melhor modelo! Val Loss: 1.6433, Val Acc: 50.62%
+Época 19/300 | Tempo: 28.6s | LR: 0.001000 | Treino: Perda 2.0253, Acc 37.73% | Val: Perda 1.6259, Acc 49.67%
+✅ Novo melhor modelo! Val Loss: 1.6259, Val Acc: 49.67%
+Época 20/300 | Tempo: 28.3s | LR: 0.001000 | Treino: Perda 1.9977, Acc 38.80% | Val: Perda 1.6352, Acc 51.14%
+⏳ Aguardando melhoria... (1/10)
+Época 21/300 | Tempo: 28.7s | LR: 0.001000 | Treino: Perda 1.9722, Acc 40.19% | Val: Perda 1.6224, Acc 51.76%
+✅ Novo melhor modelo! Val Loss: 1.6224, Val Acc: 51.76%
+Época 22/300 | Tempo: 28.7s | LR: 0.001000 | Treino: Perda 1.9419, Acc 40.65% | Val: Perda 1.5627, Acc 51.76%
+✅ Novo melhor modelo! Val Loss: 1.5627, Val Acc: 51.76%
+Época 23/300 | Tempo: 28.8s | LR: 0.001000 | Treino: Perda 1.8969, Acc 41.87% | Val: Perda 1.5880, Acc 53.19%
+⏳ Aguardando melhoria... (1/10)
+Época 24/300 | Tempo: 28.7s | LR: 0.001000 | Treino: Perda 1.8883, Acc 41.86% | Val: Perda 1.4659, Acc 56.10%
+✅ Novo melhor modelo! Val Loss: 1.4659, Val Acc: 56.10%
+Época 25/300 | Tempo: 29.1s | LR: 0.001000 | Treino: Perda 1.8360, Acc 43.43% | Val: Perda 1.5991, Acc 50.38%
+⏳ Aguardando melhoria... (1/10)
+Época 26/300 | Tempo: 29.5s | LR: 0.001000 | Treino: Perda 1.8094, Acc 44.70% | Val: Perda 1.4198, Acc 57.38%
+✅ Novo melhor modelo! Val Loss: 1.4198, Val Acc: 57.38%
+Época 27/300 | Tempo: 28.8s | LR: 0.001000 | Treino: Perda 1.7894, Acc 45.13% | Val: Perda 1.3772, Acc 58.95%
+✅ Novo melhor modelo! Val Loss: 1.3772, Val Acc: 58.95%
+Época 28/300 | Tempo: 30.0s | LR: 0.001000 | Treino: Perda 1.7439, Acc 46.76% | Val: Perda 1.3178, Acc 62.95%
+✅ Novo melhor modelo! Val Loss: 1.3178, Val Acc: 62.95%
+Época 29/300 | Tempo: 29.0s | LR: 0.001000 | Treino: Perda 1.7291, Acc 46.92% | Val: Perda 1.2472, Acc 63.10%
+✅ Novo melhor modelo! Val Loss: 1.2472, Val Acc: 63.10%
+Época 30/300 | Tempo: 30.1s | LR: 0.001000 | Treino: Perda 1.6935, Acc 48.48% | Val: Perda 1.2365, Acc 64.48%
+✅ Novo melhor modelo! Val Loss: 1.2365, Val Acc: 64.48%
+Época 31/300 | Tempo: 28.4s | LR: 0.001000 | Treino: Perda 1.6773, Acc 48.04% | Val: Perda 1.2987, Acc 60.10%
+⏳ Aguardando melhoria... (1/10)
+Época 32/300 | Tempo: 28.2s | LR: 0.001000 | Treino: Perda 1.6571, Acc 49.13% | Val: Perda 1.2981, Acc 60.29%
+⏳ Aguardando melhoria... (2/10)
+Época 33/300 | Tempo: 29.0s | LR: 0.001000 | Treino: Perda 1.6214, Acc 50.25% | Val: Perda 1.2044, Acc 63.33%
+✅ Novo melhor modelo! Val Loss: 1.2044, Val Acc: 63.33%
+Época 34/300 | Tempo: 28.9s | LR: 0.001000 | Treino: Perda 1.5936, Acc 50.93% | Val: Perda 1.2531, Acc 60.71%
+⏳ Aguardando melhoria... (1/10)
+Época 35/300 | Tempo: 28.8s | LR: 0.001000 | Treino: Perda 1.5651, Acc 52.13% | Val: Perda 1.1153, Acc 66.48%
+✅ Novo melhor modelo! Val Loss: 1.1153, Val Acc: 66.48%
+Época 36/300 | Tempo: 27.8s | LR: 0.001000 | Treino: Perda 1.5197, Acc 52.35% | Val: Perda 1.0775, Acc 67.05%
+✅ Novo melhor modelo! Val Loss: 1.0775, Val Acc: 67.05%
+Época 37/300 | Tempo: 28.7s | LR: 0.001000 | Treino: Perda 1.5038, Acc 53.77% | Val: Perda 1.0339, Acc 69.43%
+✅ Novo melhor modelo! Val Loss: 1.0339, Val Acc: 69.43%
+Época 38/300 | Tempo: 28.4s | LR: 0.001000 | Treino: Perda 1.4868, Acc 53.64% | Val: Perda 1.1011, Acc 66.71%
+⏳ Aguardando melhoria... (1/10)
+Época 39/300 | Tempo: 28.9s | LR: 0.001000 | Treino: Perda 1.4608, Acc 55.43% | Val: Perda 0.9609, Acc 71.48%
+✅ Novo melhor modelo! Val Loss: 0.9609, Val Acc: 71.48%
+Época 40/300 | Tempo: 28.6s | LR: 0.001000 | Treino: Perda 1.4475, Acc 55.01% | Val: Perda 1.0849, Acc 67.62%
+⏳ Aguardando melhoria... (1/10)
+Época 41/300 | Tempo: 29.2s | LR: 0.001000 | Treino: Perda 1.4176, Acc 55.81% | Val: Perda 0.9042, Acc 73.67%
+✅ Novo melhor modelo! Val Loss: 0.9042, Val Acc: 73.67%
+Época 42/300 | Tempo: 28.8s | LR: 0.001000 | Treino: Perda 1.4080, Acc 56.23% | Val: Perda 0.9351, Acc 70.90%
+⏳ Aguardando melhoria... (1/10)
+Época 43/300 | Tempo: 28.6s | LR: 0.001000 | Treino: Perda 1.3839, Acc 56.89% | Val: Perda 0.8692, Acc 74.05%
+✅ Novo melhor modelo! Val Loss: 0.8692, Val Acc: 74.05%
+Época 44/300 | Tempo: 28.0s | LR: 0.001000 | Treino: Perda 1.3415, Acc 58.43% | Val: Perda 0.8173, Acc 76.62%
+✅ Novo melhor modelo! Val Loss: 0.8173, Val Acc: 76.62%
+Época 45/300 | Tempo: 29.5s | LR: 0.001000 | Treino: Perda 1.3461, Acc 57.94% | Val: Perda 0.8855, Acc 74.57%
+⏳ Aguardando melhoria... (1/10)
+Época 46/300 | Tempo: 28.7s | LR: 0.001000 | Treino: Perda 1.3342, Acc 58.50% | Val: Perda 0.8206, Acc 76.00%
+⏳ Aguardando melhoria... (2/10)
+Época 47/300 | Tempo: 28.7s | LR: 0.001000 | Treino: Perda 1.3060, Acc 59.20% | Val: Perda 0.8211, Acc 75.71%
+⏳ Aguardando melhoria... (3/10)
+Época 48/300 | Tempo: 29.5s | LR: 0.001000 | Treino: Perda 1.2850, Acc 60.18% | Val: Perda 0.8690, Acc 73.19%
+⏳ Aguardando melhoria... (4/10)
+Época 49/300 | Tempo: 29.1s | LR: 0.001000 | Treino: Perda 1.2624, Acc 60.71% | Val: Perda 0.6863, Acc 81.38%
+✅ Novo melhor modelo! Val Loss: 0.6863, Val Acc: 81.38%
+Época 50/300 | Tempo: 29.7s | LR: 0.001000 | Treino: Perda 1.2551, Acc 61.33% | Val: Perda 0.7503, Acc 78.29%
+⏳ Aguardando melhoria... (1/10)
+Época 51/300 | Tempo: 30.0s | LR: 0.001000 | Treino: Perda 1.2201, Acc 62.46% | Val: Perda 0.6292, Acc 83.67%
+✅ Novo melhor modelo! Val Loss: 0.6292, Val Acc: 83.67%
+Época 52/300 | Tempo: 28.8s | LR: 0.001000 | Treino: Perda 1.2194, Acc 62.38% | Val: Perda 0.5984, Acc 83.57%
+✅ Novo melhor modelo! Val Loss: 0.5984, Val Acc: 83.57%
+Época 53/300 | Tempo: 28.5s | LR: 0.001000 | Treino: Perda 1.1937, Acc 62.50% | Val: Perda 0.6889, Acc 80.05%
+⏳ Aguardando melhoria... (1/10)
+Época 54/300 | Tempo: 29.9s | LR: 0.001000 | Treino: Perda 1.1709, Acc 63.82% | Val: Perda 0.7171, Acc 80.14%
+⏳ Aguardando melhoria... (2/10)
+Época 55/300 | Tempo: 28.6s | LR: 0.001000 | Treino: Perda 1.1278, Acc 65.43% | Val: Perda 0.5873, Acc 84.52%
+✅ Novo melhor modelo! Val Loss: 0.5873, Val Acc: 84.52%
+Época 56/300 | Tempo: 29.3s | LR: 0.001000 | Treino: Perda 1.1244, Acc 65.06% | Val: Perda 0.6788, Acc 80.19%
+⏳ Aguardando melhoria... (1/10)
+Época 57/300 | Tempo: 28.6s | LR: 0.001000 | Treino: Perda 1.1133, Acc 65.93% | Val: Perda 0.6738, Acc 79.43%
+⏳ Aguardando melhoria... (2/10)
+Época 58/300 | Tempo: 29.1s | LR: 0.001000 | Treino: Perda 1.1107, Acc 65.64% | Val: Perda 0.7482, Acc 77.43%
+⏳ Aguardando melhoria... (3/10)
+Época 59/300 | Tempo: 29.6s | LR: 0.001000 | Treino: Perda 1.1038, Acc 65.30% | Val: Perda 0.6298, Acc 81.57%
+⏳ Aguardando melhoria... (4/10)
+Época 60/300 | Tempo: 28.8s | LR: 0.001000 | Treino: Perda 1.0765, Acc 66.30% | Val: Perda 0.6093, Acc 82.81%
+⏳ Aguardando melhoria... (5/10)
+Época 61/300 | Tempo: 28.7s | LR: 0.000500 | Treino: Perda 1.0600, Acc 67.18% | Val: Perda 0.6922, Acc 79.38%
+⏳ Aguardando melhoria... (6/10)
+Época 62/300 | Tempo: 29.4s | LR: 0.000500 | Treino: Perda 0.9821, Acc 69.69% | Val: Perda 0.4085, Acc 89.05%
+✅ Novo melhor modelo! Val Loss: 0.4085, Val Acc: 89.05%
+Época 63/300 | Tempo: 29.1s | LR: 0.000500 | Treino: Perda 0.9473, Acc 70.81% | Val: Perda 0.4280, Acc 88.95%
+⏳ Aguardando melhoria... (1/10)
+Época 64/300 | Tempo: 28.9s | LR: 0.000500 | Treino: Perda 0.9204, Acc 71.76% | Val: Perda 0.4082, Acc 90.00%
+✅ Novo melhor modelo! Val Loss: 0.4082, Val Acc: 90.00%
+Época 65/300 | Tempo: 28.3s | LR: 0.000500 | Treino: Perda 0.9266, Acc 71.30% | Val: Perda 0.3958, Acc 89.71%
+✅ Novo melhor modelo! Val Loss: 0.3958, Val Acc: 89.71%
+Época 66/300 | Tempo: 29.2s | LR: 0.000500 | Treino: Perda 0.9207, Acc 71.61% | Val: Perda 0.4044, Acc 89.24%
+⏳ Aguardando melhoria... (1/10)
+Época 67/300 | Tempo: 28.5s | LR: 0.000500 | Treino: Perda 0.9093, Acc 72.18% | Val: Perda 0.3620, Acc 90.86%
+✅ Novo melhor modelo! Val Loss: 0.3620, Val Acc: 90.86%
+Época 68/300 | Tempo: 29.0s | LR: 0.000500 | Treino: Perda 0.8932, Acc 72.58% | Val: Perda 0.3789, Acc 90.57%
+⏳ Aguardando melhoria... (1/10)
+Época 69/300 | Tempo: 29.6s | LR: 0.000500 | Treino: Perda 0.8850, Acc 72.21% | Val: Perda 0.4111, Acc 88.95%
+⏳ Aguardando melhoria... (2/10)
+Época 70/300 | Tempo: 29.1s | LR: 0.000500 | Treino: Perda 0.8643, Acc 73.54% | Val: Perda 0.3836, Acc 89.86%
+⏳ Aguardando melhoria... (3/10)
+Época 71/300 | Tempo: 28.6s | LR: 0.000500 | Treino: Perda 0.8670, Acc 73.37% | Val: Perda 0.3852, Acc 90.00%
+⏳ Aguardando melhoria... (4/10)
+Época 72/300 | Tempo: 28.1s | LR: 0.000500 | Treino: Perda 0.8580, Acc 73.26% | Val: Perda 0.3719, Acc 90.24%
+⏳ Aguardando melhoria... (5/10)
+Época 73/300 | Tempo: 28.4s | LR: 0.000500 | Treino: Perda 0.8467, Acc 73.77% | Val: Perda 0.3278, Acc 91.86%
+✅ Novo melhor modelo! Val Loss: 0.3278, Val Acc: 91.86%
+Época 74/300 | Tempo: 28.3s | LR: 0.000500 | Treino: Perda 0.8427, Acc 73.69% | Val: Perda 0.3806, Acc 89.71%
+⏳ Aguardando melhoria... (1/10)
+Época 75/300 | Tempo: 28.3s | LR: 0.000500 | Treino: Perda 0.8278, Acc 74.88% | Val: Perda 0.3663, Acc 90.76%
+⏳ Aguardando melhoria... (2/10)
+Época 76/300 | Tempo: 28.9s | LR: 0.000500 | Treino: Perda 0.8311, Acc 74.04% | Val: Perda 0.5125, Acc 83.86%
+⏳ Aguardando melhoria... (3/10)
+Época 77/300 | Tempo: 29.9s | LR: 0.000500 | Treino: Perda 0.8140, Acc 74.87% | Val: Perda 0.3426, Acc 90.43%
+⏳ Aguardando melhoria... (4/10)
+Época 78/300 | Tempo: 29.1s | LR: 0.000500 | Treino: Perda 0.8193, Acc 74.79% | Val: Perda 0.3162, Acc 92.19%
+✅ Novo melhor modelo! Val Loss: 0.3162, Val Acc: 92.19%
+Época 79/300 | Tempo: 28.3s | LR: 0.000500 | Treino: Perda 0.8264, Acc 74.43% | Val: Perda 0.3377, Acc 90.86%
+⏳ Aguardando melhoria... (1/10)
+Época 80/300 | Tempo: 29.5s | LR: 0.000500 | Treino: Perda 0.8190, Acc 75.18% | Val: Perda 0.3441, Acc 91.10%
+⏳ Aguardando melhoria... (2/10)
+Época 81/300 | Tempo: 28.3s | LR: 0.000500 | Treino: Perda 0.8074, Acc 74.96% | Val: Perda 0.3081, Acc 92.67%
+✅ Novo melhor modelo! Val Loss: 0.3081, Val Acc: 92.67%
+Época 82/300 | Tempo: 28.9s | LR: 0.000500 | Treino: Perda 0.7835, Acc 75.70% | Val: Perda 0.3246, Acc 91.48%
+⏳ Aguardando melhoria... (1/10)
+Época 83/300 | Tempo: 28.3s | LR: 0.000500 | Treino: Perda 0.7916, Acc 75.61% | Val: Perda 0.2908, Acc 92.48%
+✅ Novo melhor modelo! Val Loss: 0.2908, Val Acc: 92.48%
+Época 84/300 | Tempo: 28.9s | LR: 0.000500 | Treino: Perda 0.7593, Acc 76.40% | Val: Perda 0.3086, Acc 92.05%
+⏳ Aguardando melhoria... (1/10)
+Época 85/300 | Tempo: 28.5s | LR: 0.000500 | Treino: Perda 0.7700, Acc 76.37% | Val: Perda 0.2805, Acc 92.90%
+✅ Novo melhor modelo! Val Loss: 0.2805, Val Acc: 92.90%
+Época 86/300 | Tempo: 29.4s | LR: 0.000500 | Treino: Perda 0.7682, Acc 75.71% | Val: Perda 0.2893, Acc 92.19%
+⏳ Aguardando melhoria... (1/10)
+Época 87/300 | Tempo: 29.4s | LR: 0.000500 | Treino: Perda 0.7385, Acc 77.15% | Val: Perda 0.2627, Acc 93.76%
+✅ Novo melhor modelo! Val Loss: 0.2627, Val Acc: 93.76%
+Época 88/300 | Tempo: 28.6s | LR: 0.000500 | Treino: Perda 0.7407, Acc 77.19% | Val: Perda 0.2731, Acc 93.62%
+⏳ Aguardando melhoria... (1/10)
+Época 89/300 | Tempo: 29.8s | LR: 0.000500 | Treino: Perda 0.7372, Acc 77.20% | Val: Perda 0.2916, Acc 92.29%
+⏳ Aguardando melhoria... (2/10)
+Época 90/300 | Tempo: 28.1s | LR: 0.000500 | Treino: Perda 0.7257, Acc 77.44% | Val: Perda 0.2549, Acc 93.76%
+✅ Novo melhor modelo! Val Loss: 0.2549, Val Acc: 93.76%
+Época 91/300 | Tempo: 29.0s | LR: 0.000500 | Treino: Perda 0.7168, Acc 77.35% | Val: Perda 0.2785, Acc 92.71%
+⏳ Aguardando melhoria... (1/10)
+Época 92/300 | Tempo: 28.6s | LR: 0.000500 | Treino: Perda 0.7332, Acc 78.00% | Val: Perda 0.2976, Acc 92.14%
+⏳ Aguardando melhoria... (2/10)
+Época 93/300 | Tempo: 31.0s | LR: 0.000500 | Treino: Perda 0.7170, Acc 77.68% | Val: Perda 0.2443, Acc 94.24%
+✅ Novo melhor modelo! Val Loss: 0.2443, Val Acc: 94.24%
+Época 94/300 | Tempo: 28.2s | LR: 0.000500 | Treino: Perda 0.7056, Acc 77.92% | Val: Perda 0.2563, Acc 92.95%
+⏳ Aguardando melhoria... (1/10)
+Época 95/300 | Tempo: 28.9s | LR: 0.000500 | Treino: Perda 0.6961, Acc 78.74% | Val: Perda 0.2527, Acc 93.90%
+⏳ Aguardando melhoria... (2/10)
+Época 96/300 | Tempo: 28.6s | LR: 0.000500 | Treino: Perda 0.6914, Acc 79.21% | Val: Perda 0.2550, Acc 93.43%
+⏳ Aguardando melhoria... (3/10)
+Época 97/300 | Tempo: 29.3s | LR: 0.000500 | Treino: Perda 0.7025, Acc 78.25% | Val: Perda 0.2511, Acc 93.76%
+⏳ Aguardando melhoria... (4/10)
+Época 98/300 | Tempo: 27.9s | LR: 0.000500 | Treino: Perda 0.7095, Acc 77.94% | Val: Perda 0.2481, Acc 94.10%
+⏳ Aguardando melhoria... (5/10)
+Época 99/300 | Tempo: 28.7s | LR: 0.000500 | Treino: Perda 0.6923, Acc 78.54% | Val: Perda 0.2149, Acc 94.33%
+✅ Novo melhor modelo! Val Loss: 0.2149, Val Acc: 94.33%
+Época 100/300 | Tempo: 29.1s | LR: 0.000500 | Treino: Perda 0.6867, Acc 78.92% | Val: Perda 0.2518, Acc 93.10%
+⏳ Aguardando melhoria... (1/10)
+Época 101/300 | Tempo: 29.0s | LR: 0.000500 | Treino: Perda 0.6750, Acc 79.38% | Val: Perda 0.2399, Acc 94.00%
+⏳ Aguardando melhoria... (2/10)
+Época 102/300 | Tempo: 29.3s | LR: 0.000500 | Treino: Perda 0.6585, Acc 79.63% | Val: Perda 0.2033, Acc 94.90%
+✅ Novo melhor modelo! Val Loss: 0.2033, Val Acc: 94.90%
+Época 103/300 | Tempo: 29.1s | LR: 0.000500 | Treino: Perda 0.6533, Acc 80.01% | Val: Perda 0.2661, Acc 92.86%
+⏳ Aguardando melhoria... (1/10)
+Época 104/300 | Tempo: 28.7s | LR: 0.000500 | Treino: Perda 0.6474, Acc 79.86% | Val: Perda 0.1937, Acc 95.43%
+✅ Novo melhor modelo! Val Loss: 0.1937, Val Acc: 95.43%
+Época 105/300 | Tempo: 29.1s | LR: 0.000500 | Treino: Perda 0.6480, Acc 79.75% | Val: Perda 0.2823, Acc 92.33%
+⏳ Aguardando melhoria... (1/10)
+Época 106/300 | Tempo: 29.6s | LR: 0.000500 | Treino: Perda 0.6374, Acc 80.33% | Val: Perda 0.2084, Acc 94.48%
+⏳ Aguardando melhoria... (2/10)
+Época 107/300 | Tempo: 29.2s | LR: 0.000500 | Treino: Perda 0.6700, Acc 79.15% | Val: Perda 0.2107, Acc 94.95%
+⏳ Aguardando melhoria... (3/10)
+Época 108/300 | Tempo: 29.4s | LR: 0.000500 | Treino: Perda 0.6385, Acc 80.23% | Val: Perda 0.2951, Acc 90.95%
+⏳ Aguardando melhoria... (4/10)
+Época 109/300 | Tempo: 28.6s | LR: 0.000500 | Treino: Perda 0.6235, Acc 80.44% | Val: Perda 0.2400, Acc 93.29%
+⏳ Aguardando melhoria... (5/10)
+Época 110/300 | Tempo: 28.9s | LR: 0.000250 | Treino: Perda 0.6098, Acc 81.15% | Val: Perda 0.1984, Acc 94.48%
+⏳ Aguardando melhoria... (6/10)
+Época 111/300 | Tempo: 29.9s | LR: 0.000250 | Treino: Perda 0.5718, Acc 82.75% | Val: Perda 0.1444, Acc 96.95%
+✅ Novo melhor modelo! Val Loss: 0.1444, Val Acc: 96.95%
+Época 112/300 | Tempo: 28.9s | LR: 0.000250 | Treino: Perda 0.5791, Acc 82.14% | Val: Perda 0.1611, Acc 96.48%
+⏳ Aguardando melhoria... (1/10)
+Época 113/300 | Tempo: 29.2s | LR: 0.000250 | Treino: Perda 0.5777, Acc 82.26% | Val: Perda 0.1466, Acc 96.90%
+⏳ Aguardando melhoria... (2/10)
+Época 114/300 | Tempo: 29.7s | LR: 0.000250 | Treino: Perda 0.5576, Acc 82.94% | Val: Perda 0.1625, Acc 96.14%
+⏳ Aguardando melhoria... (3/10)
+Época 115/300 | Tempo: 29.4s | LR: 0.000250 | Treino: Perda 0.5677, Acc 82.88% | Val: Perda 0.1575, Acc 96.57%
+⏳ Aguardando melhoria... (4/10)
+Época 116/300 | Tempo: 28.9s | LR: 0.000250 | Treino: Perda 0.5600, Acc 82.45% | Val: Perda 0.1518, Acc 97.00%
+⏳ Aguardando melhoria... (5/10)
+Época 117/300 | Tempo: 28.2s | LR: 0.000250 | Treino: Perda 0.5479, Acc 83.73% | Val: Perda 0.1383, Acc 97.24%
+✅ Novo melhor modelo! Val Loss: 0.1383, Val Acc: 97.24%
+Época 118/300 | Tempo: 29.0s | LR: 0.000250 | Treino: Perda 0.5442, Acc 83.17% | Val: Perda 0.1678, Acc 96.10%
+⏳ Aguardando melhoria... (1/10)
+Época 119/300 | Tempo: 29.4s | LR: 0.000250 | Treino: Perda 0.5443, Acc 83.75% | Val: Perda 0.1432, Acc 96.62%
+⏳ Aguardando melhoria... (2/10)
+Época 120/300 | Tempo: 28.5s | LR: 0.000250 | Treino: Perda 0.5514, Acc 83.23% | Val: Perda 0.1386, Acc 97.33%
+⏳ Aguardando melhoria... (3/10)
+Época 121/300 | Tempo: 29.6s | LR: 0.000250 | Treino: Perda 0.5331, Acc 83.48% | Val: Perda 0.1470, Acc 97.19%
+⏳ Aguardando melhoria... (4/10)
+Época 122/300 | Tempo: 29.0s | LR: 0.000250 | Treino: Perda 0.5304, Acc 83.58% | Val: Perda 0.1405, Acc 96.71%
+⏳ Aguardando melhoria... (5/10)
+Época 123/300 | Tempo: 29.6s | LR: 0.000125 | Treino: Perda 0.5300, Acc 83.74% | Val: Perda 0.1542, Acc 96.38%
+⏳ Aguardando melhoria... (6/10)
+Época 124/300 | Tempo: 28.9s | LR: 0.000125 | Treino: Perda 0.5217, Acc 84.00% | Val: Perda 0.1291, Acc 97.48%
+✅ Novo melhor modelo! Val Loss: 0.1291, Val Acc: 97.48%
+Época 125/300 | Tempo: 28.4s | LR: 0.000125 | Treino: Perda 0.5002, Acc 84.51% | Val: Perda 0.1223, Acc 97.67%
+✅ Novo melhor modelo! Val Loss: 0.1223, Val Acc: 97.67%
+Época 126/300 | Tempo: 29.6s | LR: 0.000125 | Treino: Perda 0.5037, Acc 84.77% | Val: Perda 0.1205, Acc 97.57%
+✅ Novo melhor modelo! Val Loss: 0.1205, Val Acc: 97.57%
+Época 127/300 | Tempo: 29.3s | LR: 0.000125 | Treino: Perda 0.4940, Acc 84.94% | Val: Perda 0.1335, Acc 97.29%
+⏳ Aguardando melhoria... (1/10)
+Época 128/300 | Tempo: 28.6s | LR: 0.000125 | Treino: Perda 0.5040, Acc 85.11% | Val: Perda 0.1190, Acc 97.62%
+✅ Novo melhor modelo! Val Loss: 0.1190, Val Acc: 97.62%
+Época 129/300 | Tempo: 29.5s | LR: 0.000125 | Treino: Perda 0.4952, Acc 85.07% | Val: Perda 0.1274, Acc 97.67%
+⏳ Aguardando melhoria... (1/10)
+Época 130/300 | Tempo: 29.4s | LR: 0.000125 | Treino: Perda 0.4965, Acc 84.43% | Val: Perda 0.1171, Acc 97.52%
+✅ Novo melhor modelo! Val Loss: 0.1171, Val Acc: 97.52%
+Época 131/300 | Tempo: 28.2s | LR: 0.000125 | Treino: Perda 0.4796, Acc 85.30% | Val: Perda 0.1188, Acc 97.81%
+⏳ Aguardando melhoria... (1/10)
+Época 132/300 | Tempo: 28.6s | LR: 0.000125 | Treino: Perda 0.5086, Acc 84.43% | Val: Perda 0.1145, Acc 97.76%
+✅ Novo melhor modelo! Val Loss: 0.1145, Val Acc: 97.76%
+Época 133/300 | Tempo: 29.2s | LR: 0.000125 | Treino: Perda 0.4781, Acc 85.63% | Val: Perda 0.1243, Acc 97.48%
+⏳ Aguardando melhoria... (1/10)
+Época 134/300 | Tempo: 28.1s | LR: 0.000125 | Treino: Perda 0.4891, Acc 85.00% | Val: Perda 0.1196, Acc 97.52%
+⏳ Aguardando melhoria... (2/10)
+Época 135/300 | Tempo: 28.8s | LR: 0.000125 | Treino: Perda 0.4884, Acc 85.05% | Val: Perda 0.1162, Acc 97.86%
+⏳ Aguardando melhoria... (3/10)
+Época 136/300 | Tempo: 29.3s | LR: 0.000125 | Treino: Perda 0.4940, Acc 85.19% | Val: Perda 0.1256, Acc 97.67%
+⏳ Aguardando melhoria... (4/10)
+Época 137/300 | Tempo: 29.1s | LR: 0.000125 | Treino: Perda 0.4875, Acc 85.27% | Val: Perda 0.1126, Acc 97.90%
+✅ Novo melhor modelo! Val Loss: 0.1126, Val Acc: 97.90%
+Época 138/300 | Tempo: 28.9s | LR: 0.000125 | Treino: Perda 0.5053, Acc 84.85% | Val: Perda 0.1095, Acc 97.57%
+✅ Novo melhor modelo! Val Loss: 0.1095, Val Acc: 97.57%
+Época 139/300 | Tempo: 28.4s | LR: 0.000125 | Treino: Perda 0.4865, Acc 85.33% | Val: Perda 0.1113, Acc 97.57%
+⏳ Aguardando melhoria... (1/10)
+Época 140/300 | Tempo: 29.2s | LR: 0.000125 | Treino: Perda 0.4781, Acc 85.70% | Val: Perda 0.1091, Acc 97.62%
+✅ Novo melhor modelo! Val Loss: 0.1091, Val Acc: 97.62%
+Época 141/300 | Tempo: 29.3s | LR: 0.000125 | Treino: Perda 0.4627, Acc 86.44% | Val: Perda 0.1153, Acc 97.67%
+⏳ Aguardando melhoria... (1/10)
+Época 142/300 | Tempo: 29.3s | LR: 0.000125 | Treino: Perda 0.4727, Acc 85.40% | Val: Perda 0.1111, Acc 97.81%
+⏳ Aguardando melhoria... (2/10)
+Época 143/300 | Tempo: 28.8s | LR: 0.000125 | Treino: Perda 0.4802, Acc 85.23% | Val: Perda 0.1167, Acc 97.33%
+⏳ Aguardando melhoria... (3/10)
+Época 144/300 | Tempo: 29.4s | LR: 0.000125 | Treino: Perda 0.4912, Acc 85.21% | Val: Perda 0.1128, Acc 97.48%
+⏳ Aguardando melhoria... (4/10)
+Época 145/300 | Tempo: 29.5s | LR: 0.000125 | Treino: Perda 0.4656, Acc 85.85% | Val: Perda 0.1057, Acc 97.90%
+✅ Novo melhor modelo! Val Loss: 0.1057, Val Acc: 97.90%
+Época 146/300 | Tempo: 29.4s | LR: 0.000125 | Treino: Perda 0.4860, Acc 85.19% | Val: Perda 0.1062, Acc 97.76%
+⏳ Aguardando melhoria... (1/10)
+Época 147/300 | Tempo: 29.2s | LR: 0.000125 | Treino: Perda 0.4784, Acc 85.23% | Val: Perda 0.1062, Acc 97.71%
+⏳ Aguardando melhoria... (2/10)
+Época 148/300 | Tempo: 29.1s | LR: 0.000125 | Treino: Perda 0.4771, Acc 86.05% | Val: Perda 0.1090, Acc 97.76%
+⏳ Aguardando melhoria... (3/10)
+Época 149/300 | Tempo: 30.9s | LR: 0.000125 | Treino: Perda 0.4812, Acc 85.20% | Val: Perda 0.1032, Acc 97.90%
+✅ Novo melhor modelo! Val Loss: 0.1032, Val Acc: 97.90%
+Época 150/300 | Tempo: 28.6s | LR: 0.000125 | Treino: Perda 0.4693, Acc 85.79% | Val: Perda 0.1049, Acc 97.95%
+⏳ Aguardando melhoria... (1/10)
+Época 151/300 | Tempo: 29.3s | LR: 0.000125 | Treino: Perda 0.4667, Acc 86.21% | Val: Perda 0.1061, Acc 98.10%
+⏳ Aguardando melhoria... (2/10)
+Época 152/300 | Tempo: 29.1s | LR: 0.000125 | Treino: Perda 0.4829, Acc 85.46% | Val: Perda 0.1093, Acc 97.86%
+⏳ Aguardando melhoria... (3/10)
+Época 153/300 | Tempo: 29.1s | LR: 0.000125 | Treino: Perda 0.4584, Acc 86.11% | Val: Perda 0.1056, Acc 98.05%
+⏳ Aguardando melhoria... (4/10)
+Época 154/300 | Tempo: 29.0s | LR: 0.000125 | Treino: Perda 0.4652, Acc 85.75% | Val: Perda 0.1058, Acc 97.95%
+⏳ Aguardando melhoria... (5/10)
+Época 155/300 | Tempo: 29.0s | LR: 0.000063 | Treino: Perda 0.4396, Acc 87.13% | Val: Perda 0.1092, Acc 97.81%
+⏳ Aguardando melhoria... (6/10)
+Época 156/300 | Tempo: 29.0s | LR: 0.000063 | Treino: Perda 0.4467, Acc 86.56% | Val: Perda 0.0936, Acc 98.10%
+✅ Novo melhor modelo! Val Loss: 0.0936, Val Acc: 98.10%
+Época 157/300 | Tempo: 29.8s | LR: 0.000063 | Treino: Perda 0.4434, Acc 86.71% | Val: Perda 0.0909, Acc 98.43%
+✅ Novo melhor modelo! Val Loss: 0.0909, Val Acc: 98.43%
+Época 158/300 | Tempo: 28.6s | LR: 0.000063 | Treino: Perda 0.4460, Acc 86.68% | Val: Perda 0.0944, Acc 98.05%
+⏳ Aguardando melhoria... (1/10)
+Época 159/300 | Tempo: 29.1s | LR: 0.000063 | Treino: Perda 0.4496, Acc 86.21% | Val: Perda 0.0965, Acc 98.24%
+⏳ Aguardando melhoria... (2/10)
+Época 160/300 | Tempo: 28.4s | LR: 0.000063 | Treino: Perda 0.4303, Acc 87.19% | Val: Perda 0.0951, Acc 98.14%
+⏳ Aguardando melhoria... (3/10)
+Época 161/300 | Tempo: 29.4s | LR: 0.000063 | Treino: Perda 0.4497, Acc 86.06% | Val: Perda 0.0973, Acc 98.19%
+⏳ Aguardando melhoria... (4/10)
+Época 162/300 | Tempo: 28.4s | LR: 0.000063 | Treino: Perda 0.4553, Acc 86.54% | Val: Perda 0.0942, Acc 98.33%
+⏳ Aguardando melhoria... (5/10)
+Época 163/300 | Tempo: 29.3s | LR: 0.000031 | Treino: Perda 0.4398, Acc 86.26% | Val: Perda 0.0922, Acc 98.24%
+⏳ Aguardando melhoria... (6/10)
+Época 164/300 | Tempo: 28.8s | LR: 0.000031 | Treino: Perda 0.4461, Acc 87.30% | Val: Perda 0.0974, Acc 98.00%
+⏳ Aguardando melhoria... (7/10)
+Época 165/300 | Tempo: 28.1s | LR: 0.000031 | Treino: Perda 0.4310, Acc 87.18% | Val: Perda 0.0925, Acc 98.29%
+⏳ Aguardando melhoria... (8/10)
+Época 166/300 | Tempo: 28.4s | LR: 0.000031 | Treino: Perda 0.4283, Acc 86.73% | Val: Perda 0.0953, Acc 98.24%
+⏳ Aguardando melhoria... (9/10)
+Época 167/300 | Tempo: 30.0s | LR: 0.000031 | Treino: Perda 0.4347, Acc 86.83% | Val: Perda 0.1017, Acc 98.19%
+⏳ Aguardando melhoria... (10/10)
+🛑 Early stopping acionado após 167 épocas
+
+✅ Treinamento concluído em 81.50 minutos!
+Melhor perda de validação: 0.0909
+Modelo restaurado para o melhor checkpoint
+
+✅ Treinamento concluído em 81.50 minutos!
+💾 Modelo final salvo como 'output\deeper_20250331_103827\models\snake_cnn_deeper_deeper_20250331_103827_final.pth'
+
+================================================================================
+                     🔍 AVALIAÇÃO DE DESEMPENHO DO MODELO 🔍
+================================================================================
+
+📊 Gerando curvas de aprendizado...
+✅ Curvas de aprendizado salvas em 'output\deeper_20250331_103827\plots\learning_curves_deeper_20250331_121837.png'
+
+📊 ANÁLISE DE OVERFITTING:
+Gap médio nas últimas 5 épocas: -11.33%
+✅ SEM SINAIS DE OVERFITTING: Gap pequeno entre treino e validação.
+   O modelo aparenta estar generalizando bem.
+
+⚠️ ALERTA: A acurácia de validação não melhorou nos últimos 10 épocas.
+   Melhor acurácia de validação: 98.43% (atingida na época 157)
+   Considere usar early stopping em treinos futuros.
+✅ Análise de overfitting salva em 'output\deeper_20250331_103827\reports\overfitting_analysis_deeper_20250331_121837.json'
+
+📊 Gerando matriz de confusão...
+✅ Matriz de confusão salva em 'output\deeper_20250331_103827\plots\confusion_matrix_deeper_20250331_121842.png'
+
+📊 ANÁLISE POR CLASSE:
+Classes com maior precisão:
+   Bothrops jararaca: 100.00%
+   Helicops carinicaudus: 100.00%
+   Dipsas albifrons: 100.00%
+Classes com menor precisão:
+   Tomodon dorsatus: 94.00%
+   Chironius exoletus: 96.00%
+   Chironius foveatus: 96.00%
+✅ Relatório de classificação salvo em 'output\deeper_20250331_103827\reports\classification_report_deeper_20250331_121842.csv'
+✅ Dados da matriz de confusão salvos em 'output\deeper_20250331_103827\reports\confusion_matrix_data_deeper_20250331_121842.csv'
+✅ Análise por classe salva em 'output\deeper_20250331_103827\reports\class_analysis_deeper_20250331_121842.json'
+
+================================================================================
+                        📋 RESUMO FINAL DO TREINAMENTO 📋
+================================================================================
+Modelo: CNN (versão melhorada)
+Número de classes: 21
+Melhor acurácia de validação: 98.43%
+Acurácia de validação final: 98.19%
+Tempo total de treinamento: 81.50 minutos
+💾 Resultados finais salvos em 'output\deeper_20250331_103827\reports\final_results_deeper_20250331_103827.json'
+
+✅ O modelo parece estar generalizando bem!
+
+📁 Todos os resultados foram salvos no diretório: output\deeper_20250331_103827
+✨ Treinamento concluído com sucesso! ✨
+PS C:\tcc\modelo>
