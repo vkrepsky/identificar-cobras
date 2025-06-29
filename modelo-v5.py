@@ -233,7 +233,7 @@ class SnakeDataset(Dataset):
 
 
 class SnakeBinaryClassifier(nn.Module):
-    """Simplified classifier for binary snake classification"""
+    """Classificador para classificação binária de serpentes"""
 
     def __init__(self, base_model='resnet50', freeze_backbone=True, dropout_rate=0.5):
         super(SnakeBinaryClassifier, self).__init__()
@@ -250,10 +250,6 @@ class SnakeBinaryClassifier(nn.Module):
             base = models.efficientnet_b3(weights='IMAGENET1K_V1')
             backbone = base.features
             feature_size = 1536
-        elif base_model == 'efficientnet_b0':
-            base = models.efficientnet_b0(weights='IMAGENET1K_V1')
-            backbone = base.features
-            feature_size = 1280
         elif base_model == 'densenet169':
             base = models.densenet169(weights='IMAGENET1K_V1')
             backbone = base.features
@@ -263,7 +259,7 @@ class SnakeBinaryClassifier(nn.Module):
             backbone = base.features
             feature_size = 512
         else:
-            raise ValueError(f"Unsupported base model: {base_model}")
+            raise ValueError(f"Modelo não suportado: {base_model}")
 
         if freeze_backbone:
             for param in backbone.parameters():
@@ -272,21 +268,28 @@ class SnakeBinaryClassifier(nn.Module):
         self.backbone = backbone
         self.adaptive_pool = nn.AdaptiveAvgPool2d((1, 1))
 
-        # Simplified classifier architecture
         self.classifier = nn.Sequential(
-            nn.Flatten(),
-            nn.Linear(feature_size, 512),
-            nn.BatchNorm1d(512),
-            nn.ReLU(inplace=True),
-            nn.Dropout(dropout_rate),
-            nn.Linear(512, 128),
-            nn.BatchNorm1d(128),
-            nn.ReLU(inplace=True),
-            nn.Dropout(dropout_rate * 0.8),
-            nn.Linear(128, 2)
+            # Preparação dos dados
+            nn.Flatten(),                                              # Achata features 2D para vetor 1D 
+
+            # Primeira camada densa (redução dimensional)
+            nn.Linear(feature_size, 512),                              # Camada totalmente conectada: feature_size → 512 neurônios
+            nn.BatchNorm1d(512),                                       # Normalização em lote para estabilizar treinamento
+            nn.ReLU(inplace=True),                                     # Função de ativação ReLU (remove valores negativos)
+            nn.Dropout(dropout_rate),                                  # Dropout para prevenir overfitting (desliga neurônios aleatoriamente)
+
+            # Segunda camada densa (compressão adicional)
+            nn.Linear(512, 128),                                       # Reduz de 512 para 128 neurônios (comprime informação)
+            nn.BatchNorm1d(128),                                       # Normalização para manter gradientes estáveis
+            nn.ReLU(inplace=True),                                     # Ativação ReLU para não-linearidade
+            nn.Dropout(dropout_rate * 0.8),                           # Dropout reduzido (80% do original) - menos agressivo
+
+            # Camada de saída (classificação final)
+            nn.Linear(128, 2)                                          # Camada final: 128 → 2 classes (peçonhenta/não-peçonhenta)
+                                                                       # Sem ativação aqui - será aplicada softmax na loss function
         )
 
-        # Improved weight initialization
+        # Inicialização de peso
         for m in self.modules():
             if isinstance(m, nn.Linear):
                 nn.init.kaiming_normal_(m.weight, mode='fan_out', nonlinearity='relu')
@@ -294,15 +297,14 @@ class SnakeBinaryClassifier(nn.Module):
                     nn.init.constant_(m.bias, 0)
 
     def forward(self, x):
-        # Extract features
+        # Extrai caracteristicas
         features = self.backbone(x)
         features = self.adaptive_pool(features)
-        # Pass through the simplified classifier
         x = self.classifier(features)
         return x
 
     def unfreeze_layers(self, percentage=0.3):
-        """Unfreeze a percentage of the backbone's last layers"""
+        """Descongelar uma porcentagem das últimas camadas do backbone"""
         if not self.freeze_backbone:
             return
 
@@ -315,7 +317,7 @@ class SnakeBinaryClassifier(nn.Module):
                     for param in layer.parameters():
                         param.requires_grad = True
 
-            print(f"🔓 Unfrozen {num_layers - start_idx} of {num_layers} backbone layers")
+            print(f"🔓 Descongelou {num_layers - start_idx} de {num_layers} camadas do backbone")
 
 
 def create_output_directories(output_base_dir, with_folds=False):
@@ -374,22 +376,14 @@ def augment_training_images(train_paths, train_labels, output_dir, target_images
 
     # Transformações regulares para data augmentation
     regular_transforms = [
-        transforms.RandomHorizontalFlip(p=0.7),
-        transforms.RandomVerticalFlip(p=0.7),
-        transforms.RandomRotation(60),
-        transforms.ColorJitter(brightness=0.4, contrast=0.4, saturation=0.4, hue=0.2),
-        transforms.RandomAffine(degrees=30, translate=(0.3, 0.3), scale=(0.7, 1.3)),
-        transforms.RandomPerspective(distortion_scale=0.6, p=0.7),
-        transforms.GaussianBlur(kernel_size=5),
-        transforms.RandomGrayscale(p=0.1),
-    ]
-
-    # Transformações adicionais para aumentar a diversidade das cobras peçonhentas
-    extra_transforms = [
-        transforms.RandomAffine(degrees=45, translate=(0.4, 0.4), scale=(0.6, 1.4), shear=15),
-        transforms.ColorJitter(brightness=0.5, contrast=0.5, saturation=0.5, hue=0.3),
-        transforms.RandomPerspective(distortion_scale=0.7, p=0.8),
-        transforms.RandomResizedCrop(size=(IMAGE_SIZE, IMAGE_SIZE), scale=(0.7, 1.0), ratio=(0.7, 1.3)),
+        transforms.RandomHorizontalFlip(p=0.7),  # Espelha horizontalmente (70% chance)
+        transforms.RandomVerticalFlip(p=0.7),  # Espelha verticalmente (70% chance)
+        transforms.RandomRotation(60),  # Rotaciona até 60° em qualquer direção
+        transforms.ColorJitter(brightness=0.4, contrast=0.4, saturation=0.4, hue=0.2),  # Altera cores moderadamente
+        transforms.RandomAffine(degrees=30, translate=(0.3, 0.3), scale=(0.7, 1.3)),  # Transformação geométrica básica
+        transforms.RandomPerspective(distortion_scale=0.6, p=0.7),  # Distorce perspectiva moderadamente
+        transforms.GaussianBlur(kernel_size=5),  # Aplica desfoque gaussiano
+        transforms.RandomGrayscale(p=0.1),  # Converte para cinza (10% chance)
     ]
 
     print(f"\n📊 Alvo: {target_images_per_class} imagens por classe após aumentação")
@@ -411,9 +405,6 @@ def augment_training_images(train_paths, train_labels, output_dir, target_images
         # Definir alvo específico para a classe (mais imagens para peçonhentas)
         current_target = target_images_per_class
         is_venomous = class_label == 1
-        if is_venomous and extra_venomous:
-            current_target = int(target_images_per_class * 1.5)  # 50% mais imagens para peçonhentas
-            print(f"⚠️ Aumentando alvo para classe '{class_name}' para {current_target} imagens")
 
         print(f"\n📸 Classe: {class_name}")
         print(f"  ↳ Imagens originais: {len(class_paths)}")
@@ -445,12 +436,6 @@ def augment_training_images(train_paths, train_labels, output_dir, target_images
 
         print(f"  ↳ Gerando ~{num_augmentations_per_image} variações por imagem original")
 
-        # Usar transformações especiais para cobras peçonhentas
-        transforms_to_use = regular_transforms
-        if is_venomous and extra_venomous:
-            transforms_to_use = regular_transforms + extra_transforms
-            print(f"  ↳ Usando conjunto estendido de transformações para cobras peçonhentas")
-
         # Contador para imagens geradas
         generated_count = 0
 
@@ -472,13 +457,13 @@ def augment_training_images(train_paths, train_labels, output_dir, target_images
                 aug_img = img.copy()
 
                 # Aplicar transformações aleatórias
-                random.shuffle(transforms_to_use)
+                random.shuffle(regular_transforms)
                 # Mais transformações por imagem para cobras peçonhentas
-                num_transforms = random.randint(3, min(6 if is_venomous else 4, len(transforms_to_use)))
+                num_transforms = random.randint(3, min(6 if is_venomous else 4, len(regular_transforms)))
 
                 for t in range(num_transforms):
                     try:
-                        aug_img = transforms_to_use[t](aug_img)
+                        aug_img = regular_transforms[t](aug_img)
                     except Exception as e:
                         print(f"  ⚠️ Erro ao aplicar transformação: {e}")
                         continue
@@ -625,22 +610,38 @@ def get_advanced_transforms(use_strong_augmentation=STRONG_AUGMENTATION):
     if use_strong_augmentation:
         # Transformações mais agressivas para aumentar a generalização
         train_transform = transforms.Compose([
-            transforms.Resize((256, 256)),
-            transforms.RandomCrop((224, 224)),
-            transforms.RandomHorizontalFlip(p=0.8),
-            transforms.RandomVerticalFlip(p=0.6),
-            transforms.RandomRotation(90),
-            transforms.ColorJitter(brightness=0.5, contrast=0.5, saturation=0.5, hue=0.3),
-            transforms.RandomAffine(degrees=40, translate=(0.3, 0.3), scale=(0.7, 1.3), shear=20),
-            transforms.RandomPerspective(distortion_scale=0.6, p=0.7),
-            transforms.RandomGrayscale(p=0.1),
-            transforms.GaussianBlur(kernel_size=5, sigma=(0.1, 2.0)),
-            transforms.RandomAutocontrast(p=0.3),
-            transforms.RandomEqualize(p=0.1),
-            transforms.ToTensor(),
-            transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
-            transforms.RandomErasing(p=0.3, scale=(0.02, 0.1))
-        ])
+        # Redimensionamento e preparação da imagem
+        transforms.Resize((256, 256)),                             # Redimensiona para 256x256 (maior que o alvo)
+        transforms.RandomCrop((224, 224)),                         # Corta aleatoriamente para 224x224 (tamanho final)
+
+        # Transformações geométricas básicas
+        transforms.RandomHorizontalFlip(p=0.8),                    # Espelha horizontalmente (80% chance)
+        transforms.RandomVerticalFlip(p=0.6),                      # Espelha verticalmente (60% chance)
+        transforms.RandomRotation(90),                             # Rotaciona até 90° (mais agressivo)
+
+        # Alterações de cor e iluminação
+        transforms.ColorJitter(brightness=0.5, contrast=0.5, saturation=0.5, hue=0.3),  # Variação intensa de cores
+
+        # Transformações geométricas avançadas
+        transforms.RandomAffine(degrees=40, translate=(0.3, 0.3), scale=(0.7, 1.3), shear=20),  # Distorção geométrica completa
+        transforms.RandomPerspective(distortion_scale=0.6, p=0.7), # Simula diferentes ângulos de câmera
+
+        # Simulação de condições adversas
+        transforms.RandomGrayscale(p=0.1),                         # Simula condições de baixa luz/noturnas
+        transforms.GaussianBlur(kernel_size=5, sigma=(0.1, 2.0)),  # Simula desfoque variável da câmera
+
+        # Melhorias automáticas de contraste e equalização
+        transforms.RandomAutocontrast(p=0.3),                      # Ajusta contraste automaticamente (30% chance)
+        transforms.RandomEqualize(p=0.1),                          # Equaliza histograma (10% chance)
+
+        # Conversão para tensor e normalização
+        transforms.ToTensor(),                                      # Converte PIL Image para tensor PyTorch
+        transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),  # Normaliza com médias ImageNet
+
+        # Augmentação pós-normalização
+        transforms.RandomErasing(p=0.3, scale=(0.02, 0.1))         # Remove patches aleatórios (simula oclusão)
+    ])
+    #Em Desuso
     else:
         # Transformações padrão
         train_transform = transforms.Compose([
@@ -1397,7 +1398,6 @@ def train_with_kfold(data_dir, output_dir, model_name, epochs, batch_size, label
             use_mixup_cutmix=USE_MIXUP_CUTMIX
         )
 
-        #  Obter thresholds ótimos no conjunto de validação
         #  Obter thresholds ótimos no conjunto de validação
         val_y_true = []
         val_y_scores = []
