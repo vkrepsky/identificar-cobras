@@ -35,7 +35,7 @@ VENOMOUS_WEIGHT = 1.0  # Peso maior para a classe peçonhenta
 DROPOUT_RATE = 0.5  # Taxa de dropout para evitar overfitting
 EXTRA_VENOMOUS_AUGMENTATION = False  # Augmentation extra para cobras peçonhentas
 STRONG_AUGMENTATION = True  # Transformações agressivas durante treinamento
-USE_MIXUP_CUTMIX = False  # Usar técnicas de Mixup e CutMix
+USE_MIXUP_CUTMIX = True  # Usar técnicas de Mixup e CutMix
 EARLY_STOPING_PATIENCE = 10
 
 # Diretórios para salvar resultados
@@ -181,20 +181,28 @@ class LabelSmoothingLoss(nn.Module):
 
     def __init__(self, classes=2, smoothing=0.1, weight=None, reduction='mean'):
         super(LabelSmoothingLoss, self).__init__()
-        self.confidence = 1.0 - smoothing
-        self.smoothing = smoothing
-        self.classes = classes
-        self.weight = weight
+        self.confidence = 1.0 - smoothing  # 0.9 se smoothing=0.1
+        self.smoothing = smoothing          # 0.1
+        self.classes = classes              # 2 (binário)
+        self.weight = weight               # Pesos das classes
         self.reduction = reduction
 
     def forward(self, pred, target):
-        pred = F.log_softmax(pred, dim=1)
+        
+        pred = F.log_softmax(pred, dim=1)  # Converter para log probabilidades
+        
         with torch.no_grad():
+            # Criar distribuição suavizada
             true_dist = torch.zeros_like(pred)
+            
+            # Distribuir smoothing uniformemente entre as outras classes
             true_dist.fill_(self.smoothing / (self.classes - 1))
+            
+            # Colocar a confiança principal na classe correta
             true_dist.scatter_(1, target.unsqueeze(1), self.confidence)
 
         if self.weight is not None:
+            # Aplicar pesos das classes se fornecido
             weight_exp = self.weight.unsqueeze(0).expand_as(pred)
             loss = torch.sum(-true_dist * pred * weight_exp, dim=1)
         else:
@@ -241,7 +249,7 @@ class SnakeBinaryClassifier(nn.Module):
         self.base_model_name = base_model
         self.freeze_backbone = freeze_backbone
 
-        # Standard backbone selection logic
+        # Seleciona backbone para transfer learning
         if base_model == 'resnet50':
             base = models.resnet50(weights='IMAGENET1K_V1')
             backbone = nn.Sequential(*list(base.children())[:-2])
@@ -881,20 +889,20 @@ def find_optimal_threshold(y_true, y_scores, output_dir):
 
 def train_with_progressive_unfreezing(model, criterion, optimizer, train_loader, val_loader, device, epochs,
                                       class_names, output_dir, use_mixup_cutmix=USE_MIXUP_CUTMIX):
-    """Trains the model with gradual unfreezing of the backbone and uses Mixup/CutMix."""
-    # Initialize history
+    """Treina o modelo com descongelamento gradual do backbone e usa Mixup/CutMix."""
+    # Inicializar histórico
     history = {
         'train_loss': [], 'train_acc': [],
         'val_loss': [], 'val_acc': []
     }
 
-    # Best model tracking
+    # Rastreamento do melhor modelo
     best_val_acc = 0.0
     best_model_state = None
     best_val_loss = float('inf')
     best_model_state_loss = None
 
-    # Use OneCycleLR from the beginning
+    # Usar OneCycleLR desde o início
     scheduler = torch.optim.lr_scheduler.OneCycleLR(
         optimizer,
         max_lr=LEARNING_RATE,
@@ -904,49 +912,49 @@ def train_with_progressive_unfreezing(model, criterion, optimizer, train_loader,
         final_div_factor=100.0
     )
 
-    # Early stopping with increased patience
-    patience = 20  # Increased from 12
+    # Parada antecipada com paciência aumentada
+    patience = 20 
     counter = 0
 
-    # Define more gradual unfreezing stages
-    unfreeze_stage1 = epochs // 6  # Unfreeze just 10% at first
-    unfreeze_stage2 = epochs // 3  # Then 30%
-    unfreeze_stage3 = epochs // 2  # Then 70%
-    unfreeze_stage4 = int(epochs * 0.7)  # Then 100% but much later
+    # Definir estágios de descongelamento mais graduais
+    unfreeze_stage1 = epochs // 6  # Descongelar apenas 10% primeiro
+    unfreeze_stage2 = epochs // 3  # Depois 30%
+    unfreeze_stage3 = epochs // 2  # Depois 70%
+    unfreeze_stage4 = int(epochs * 0.7)  # Depois 100% mas muito mais tarde
 
-    # Initialize the Mixup/CutMix with adjusted parameters
+    # Inicializar o Mixup/CutMix com parâmetros ajustados
     mixup_cutmix = None
     if use_mixup_cutmix:
         mixup_cutmix = MixupCutmixAugmentation(mixup_alpha=0.8, cutmix_alpha=0.8, prob=0.5,
                                                switch_prob=0.3, label_smoothing=0.1, num_classes=len(class_names))
 
     print(f"\n{'=' * 80}")
-    print(f"🔥 Training model for binary snake classification")
+    print(f"🔥 Treinando modelo para classificação binária de cobras")
     print(f"{'=' * 80}")
-    print(f"📋 Training plan:")
-    print(f"   - Epochs 1-{unfreeze_stage1}: Backbone frozen")
-    print(f"   - Epochs {unfreeze_stage1 + 1}-{unfreeze_stage2}: 10% of backbone unfrozen")
-    print(f"   - Epochs {unfreeze_stage2 + 1}-{unfreeze_stage3}: 30% of backbone unfrozen")
-    print(f"   - Epochs {unfreeze_stage3 + 1}-{unfreeze_stage4}: 70% of backbone unfrozen")
-    print(f"   - Epochs {unfreeze_stage4 + 1}-{epochs}: Backbone completely unfrozen")
+    print(f"📋 Plano de treinamento:")
+    print(f"   - Épocas 1-{unfreeze_stage1}: Backbone congelado")
+    print(f"   - Épocas {unfreeze_stage1 + 1}-{unfreeze_stage2}: 10% do backbone descongelado")
+    print(f"   - Épocas {unfreeze_stage2 + 1}-{unfreeze_stage3}: 30% do backbone descongelado")
+    print(f"   - Épocas {unfreeze_stage3 + 1}-{unfreeze_stage4}: 70% do backbone descongelado")
+    print(f"   - Épocas {unfreeze_stage4 + 1}-{epochs}: Backbone completamente descongelado")
     if use_mixup_cutmix:
-        print(f"   - Using Mixup/CutMix with probability 0.5")
+        print(f"   - Usando Mixup/CutMix com probabilidade 0.5")
 
     for epoch in range(epochs):
-        # Update layer freezing state based on progress
+        # Atualizar estado de congelamento das camadas baseado no progresso
         if epoch == unfreeze_stage1:
-            print(f"\n🔓 Unfreezing 10% of backbone (epoch {epoch + 1})...")
-            model.unfreeze_layers(0.1)  # Unfreeze just 10%
+            print(f"\n🔓 Descongelando 10% do backbone (época {epoch + 1})...")
+            model.unfreeze_layers(0.1)  # Descongelar apenas 10%
 
-            # Create a new optimizer with specific learning rates
+            # Criar um novo otimizador com taxas de aprendizado específicas
             params = [
                 {'params': [p for n, p in model.backbone.named_parameters() if p.requires_grad],
-                 'lr': LEARNING_RATE * 0.02},  # Very low lr for newly unfrozen layers
+                 'lr': LEARNING_RATE * 0.02},  # Taxa muito baixa para camadas recém descongeladas
                 {'params': model.classifier.parameters(), 'lr': LEARNING_RATE * 0.8}
             ]
             optimizer = optim.AdamW(params, lr=LEARNING_RATE * 0.8, weight_decay=WEIGHT_DECAY)
 
-            # Restart the scheduler with the new optimizer
+            # Reiniciar o scheduler com o novo otimizador
             scheduler = torch.optim.lr_scheduler.OneCycleLR(
                 optimizer,
                 max_lr=[LEARNING_RATE * 0.02, LEARNING_RATE * 0.8],
@@ -955,29 +963,29 @@ def train_with_progressive_unfreezing(model, criterion, optimizer, train_loader,
                 div_factor=10.0,
                 final_div_factor=100.0
             )
-            print(f"   - Optimizer and scheduler reset with adjusted learning rates")
+            print(f"   - Otimizador e scheduler reiniciados com taxas de aprendizado ajustadas")
 
         elif epoch == unfreeze_stage2:
-            print(f"\n🔓 Unfreezing 30% of backbone (epoch {epoch + 1})...")
-            model.unfreeze_layers(0.3)  # Unfreeze 30%
+            print(f"\n🔓 Descongelando 30% do backbone (época {epoch + 1})...")
+            model.unfreeze_layers(0.3)  # Descongelar 30%
 
-            # Create a new optimizer with specific learning rates
+            # Criar um novo otimizador com taxas de aprendizado específicas
             params = [
                 {'params': [p for n, p in model.backbone.named_parameters() if "layer4" in n and p.requires_grad],
-                 'lr': LEARNING_RATE * 0.05},  # Slightly higher for last layers
+                 'lr': LEARNING_RATE * 0.05},  # Ligeiramente maior para últimas camadas
                 {'params': [p for n, p in model.backbone.named_parameters() if "layer3" in n and p.requires_grad],
-                 'lr': LEARNING_RATE * 0.02},  # Lower for earlier layers
+                 'lr': LEARNING_RATE * 0.02},  # Menor para camadas anteriores
                 {'params': [p for n, p in model.backbone.named_parameters()
                             if not any(x in n for x in ["layer3", "layer4"]) and p.requires_grad],
-                 'lr': LEARNING_RATE * 0.01},  # Even lower for early layers
+                 'lr': LEARNING_RATE * 0.01},  # Ainda menor para camadas iniciais
                 {'params': model.classifier.parameters(), 'lr': LEARNING_RATE * 0.5}
             ]
             optimizer = optim.AdamW(params, lr=LEARNING_RATE * 0.5, weight_decay=WEIGHT_DECAY * 0.8)
 
-            # Apply gradient clipping
+            # Aplicar recorte de gradiente
             torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm=1.0)
 
-            # Restart scheduler
+            # Reiniciar scheduler
             scheduler = torch.optim.lr_scheduler.OneCycleLR(
                 optimizer,
                 max_lr=[LEARNING_RATE * 0.05, LEARNING_RATE * 0.02, LEARNING_RATE * 0.01, LEARNING_RATE * 0.5],
@@ -986,13 +994,13 @@ def train_with_progressive_unfreezing(model, criterion, optimizer, train_loader,
                 div_factor=10.0,
                 final_div_factor=100.0
             )
-            print(f"   - Optimizer and scheduler reset with adjusted learning rates")
+            print(f"   - Otimizador e scheduler reiniciados com taxas de aprendizado ajustadas")
 
         elif epoch == unfreeze_stage3:
-            print(f"\n🔓 Unfreezing 70% of backbone (epoch {epoch + 1})...")
-            model.unfreeze_layers(0.7)  # Unfreeze 70%
+            print(f"\n🔓 Descongelando 70% do backbone (época {epoch + 1})...")
+            model.unfreeze_layers(0.7)  # Descongelar 70%
 
-            # Create a new optimizer with specific learning rates
+            # Criar um novo otimizador com taxas de aprendizado específicas
             params = [
                 {'params': [p for n, p in model.backbone.named_parameters() if "layer4" in n],
                  'lr': LEARNING_RATE * 0.05},
@@ -1009,10 +1017,10 @@ def train_with_progressive_unfreezing(model, criterion, optimizer, train_loader,
             ]
             optimizer = optim.AdamW(params, lr=LEARNING_RATE * 0.3, weight_decay=WEIGHT_DECAY * 0.6)
 
-            # Apply stronger gradient clipping
+            # Aplicar recorte de gradiente mais forte
             torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm=0.5)
 
-            # Restart scheduler
+            # Reiniciar scheduler
             scheduler = torch.optim.lr_scheduler.OneCycleLR(
                 optimizer,
                 max_lr=[LEARNING_RATE * 0.05, LEARNING_RATE * 0.02, LEARNING_RATE * 0.01,
@@ -1022,18 +1030,18 @@ def train_with_progressive_unfreezing(model, criterion, optimizer, train_loader,
                 div_factor=10.0,
                 final_div_factor=100.0
             )
-            print(f"   - Optimizer and scheduler reset with more conservative learning rates")
+            print(f"   - Otimizador e scheduler reiniciados com taxas de aprendizado mais conservadoras")
 
         elif epoch == unfreeze_stage4:
-            print(f"\n🔓 Unfreezing entire backbone (epoch {epoch + 1})...")
-            # Unfreeze all layers
+            print(f"\n🔓 Descongelando backbone inteiro (época {epoch + 1})...")
+            # Descongelar todas as camadas
             for param in model.backbone.parameters():
                 param.requires_grad = True
 
-            # Restart optimizer with very low learning rates for backbone
+            # Reiniciar otimizador com taxas de aprendizado muito baixas para backbone
             params = [
                 {'params': [p for n, p in model.backbone.named_parameters() if "layer4" in n],
-                 'lr': LEARNING_RATE * 0.03},  # Much lower than before
+                 'lr': LEARNING_RATE * 0.03},
                 {'params': [p for n, p in model.backbone.named_parameters() if "layer3" in n],
                  'lr': LEARNING_RATE * 0.01},
                 {'params': [p for n, p in model.backbone.named_parameters() if "layer2" in n],
@@ -1047,7 +1055,7 @@ def train_with_progressive_unfreezing(model, criterion, optimizer, train_loader,
             ]
             optimizer = optim.AdamW(params, lr=LEARNING_RATE * 0.1, weight_decay=WEIGHT_DECAY * 0.4)
 
-            # Apply stronger gradient clipping
+            # Aplicar recorte de gradiente mais forte
             torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm=0.5)
 
             scheduler = torch.optim.lr_scheduler.OneCycleLR(
@@ -1055,13 +1063,13 @@ def train_with_progressive_unfreezing(model, criterion, optimizer, train_loader,
                 max_lr=[LEARNING_RATE * 0.03, LEARNING_RATE * 0.01, LEARNING_RATE * 0.005,
                         LEARNING_RATE * 0.002, LEARNING_RATE * 0.001, LEARNING_RATE * 0.1],
                 total_steps=len(train_loader) * (epochs - epoch),
-                pct_start=0.2,  # Faster warmup
+                pct_start=0.2,  # Aquecimento mais rápido
                 div_factor=10.0,
                 final_div_factor=100.0
             )
-            print(f"   - Optimizer and scheduler reset with very conservative learning rates")
+            print(f"   - Otimizador e scheduler reiniciados com taxas de aprendizado muito conservadoras")
 
-        # Training phase
+        # Fase de treinamento
         model.train()
         train_loss = 0.0
         train_correct = 0
@@ -1070,17 +1078,17 @@ def train_with_progressive_unfreezing(model, criterion, optimizer, train_loader,
         for inputs, labels in train_loader:
             inputs, labels = inputs.to(device), labels.to(device)
 
-            # Apply Mixup/CutMix if enabled
+            # Aplicar Mixup/CutMix se habilitado
             if use_mixup_cutmix:
                 inputs, labels_a, labels_b, lam = mixup_cutmix(inputs, labels)
 
                 optimizer.zero_grad()
                 outputs = model(inputs)
 
-                # Calculate loss with mixed labels
+                # Calcular perda com rótulos misturados
                 loss = mixup_criterion(criterion, outputs, labels_a, labels_b, lam)
 
-                # For accuracy calculation, use the label with higher weight
+                # Para cálculo de acurácia, usar o rótulo com maior peso
                 if lam > 0.5:
                     target_for_acc = labels_a
                 else:
@@ -1093,11 +1101,11 @@ def train_with_progressive_unfreezing(model, criterion, optimizer, train_loader,
 
             loss.backward()
 
-            # Apply gradient clipping to prevent gradient explosion
+            # Aplicar recorte de gradiente para prevenir explosão de gradiente
             torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm=1.0)
 
             optimizer.step()
-            scheduler.step()  # Update the learning rate per batch
+            scheduler.step()  # Atualizar a taxa de aprendizado por batch
 
             train_loss += loss.item()
             _, predicted = outputs.max(1)
@@ -1107,7 +1115,7 @@ def train_with_progressive_unfreezing(model, criterion, optimizer, train_loader,
         train_loss = train_loss / len(train_loader)
         train_acc = 100. * train_correct / train_total
 
-        # Validation phase
+        # Fase de validação
         model.eval()
         val_loss = 0.0
         val_correct = 0
@@ -1127,40 +1135,40 @@ def train_with_progressive_unfreezing(model, criterion, optimizer, train_loader,
         val_loss = val_loss / len(val_loader)
         val_acc = 100. * val_correct / val_total
 
-        # Update history
+        # Atualizar histórico
         history['train_loss'].append(train_loss)
         history['train_acc'].append(train_acc)
         history['val_loss'].append(val_loss)
         history['val_acc'].append(val_acc)
 
-        # Save the best model based on accuracy
+        # Salvar o melhor modelo baseado na acurácia
         if val_acc > best_val_acc:
             best_val_acc = val_acc
             best_model_state = model.state_dict().copy()
-            print(f"✅ New best model (accuracy) saved! Validation accuracy: {val_acc:.2f}%")
-            counter = 0  # Reset early stopping counter
+            print(f"✅ Novo melhor modelo (acurácia) salvo! Acurácia de validação: {val_acc:.2f}%")
+            counter = 0  # Resetar contador de parada antecipada
         else:
             counter += 1
 
-        # Save also the best model based on loss (might be different)
+        # Salvar também o melhor modelo baseado na perda (pode ser diferente)
         if val_loss < best_val_loss:
             best_val_loss = val_loss
             best_model_state_loss = model.state_dict().copy()
-            print(f"✅ New best model (loss) saved! Validation loss: {val_loss:.4f}")
+            print(f"✅ Novo melhor modelo (perda) salvo! Perda de validação: {val_loss:.4f}")
 
-        # Print progress
-        print(f'Epoch {epoch + 1}/{epochs} | '
-              f'Train: Loss {train_loss:.4f}, Acc {train_acc:.2f}% | '
-              f'Val: Loss {val_loss:.4f}, Acc {val_acc:.2f}%')
+        # Imprimir progresso
+        print(f'Época {epoch + 1}/{epochs} | '
+              f'Treino: Perda {train_loss:.4f}, Acu {train_acc:.2f}% | '
+              f'Val: Perda {val_loss:.4f}, Acu {val_acc:.2f}%')
 
-        # Early stopping
+        # Parada antecipada
         if counter >= patience:
-            print(f'⚠️ Early stopping activated (no improvement for {patience} epochs)')
+            print(f'⚠️ Parada antecipada ativada (sem melhoria por {patience} épocas)')
             break
 
-        # Save checkpoint every 5 epochs
+        # Salvar checkpoint a cada 5 épocas
         if (epoch + 1) % 5 == 0 or epoch == epochs - 1:
-            checkpoint_path = os.path.join(output_dir, f'checkpoint_epoch_{epoch + 1}.pth')
+            checkpoint_path = os.path.join(output_dir, f'checkpoint_epoca_{epoch + 1}.pth')
             torch.save({
                 'epoch': epoch + 1,
                 'model_state_dict': model.state_dict(),
@@ -1168,22 +1176,22 @@ def train_with_progressive_unfreezing(model, criterion, optimizer, train_loader,
                 'scheduler_state_dict': scheduler.state_dict(),
                 'history': history,
             }, checkpoint_path)
-            print(f"💾 Checkpoint saved: {checkpoint_path}")
+            print(f"💾 Checkpoint salvo: {checkpoint_path}")
 
-    # Compare which model to use based on accuracy or loss
-    print("\n🔍 Comparing models based on accuracy and loss...")
+    # Comparar qual modelo usar baseado na acurácia ou perda
+    print("\n🔍 Comparando modelos baseado na acurácia e perda...")
 
-    # Load model with best accuracy
+    # Carregar modelo com melhor acurácia
     model_acc = model
     model_acc.load_state_dict(best_model_state)
 
-    # Create a copy of the model with best loss
+    # Criar uma cópia do modelo com melhor perda
     model_loss = SnakeBinaryClassifier(base_model=model.base_model_name, freeze_backbone=False,
                                        dropout_rate=DROPOUT_RATE)
     model_loss.to(device)
     model_loss.load_state_dict(best_model_state_loss)
 
-    # Evaluate on validation
+    # Avaliar na validação
     model_acc.eval()
     model_loss.eval()
 
@@ -1195,11 +1203,11 @@ def train_with_progressive_unfreezing(model, criterion, optimizer, train_loader,
         for inputs, labels in val_loader:
             inputs, labels = inputs.to(device), labels.to(device)
 
-            # Model with best accuracy
+            # Modelo com melhor acurácia
             outputs_acc = model_acc(inputs)
             _, predicted_acc = outputs_acc.max(1)
 
-            # Model with best loss
+            # Modelo com melhor perda
             outputs_loss = model_loss(inputs)
             _, predicted_loss = outputs_loss.max(1)
 
@@ -1210,24 +1218,23 @@ def train_with_progressive_unfreezing(model, criterion, optimizer, train_loader,
     final_acc_acc = 100. * val_correct_acc / val_total
     final_acc_loss = 100. * val_correct_loss / val_total
 
-    print(f"📊 Model with best accuracy: {final_acc_acc:.2f}%")
-    print(f"📊 Model with best loss: {final_acc_loss:.2f}%")
+    print(f"📊 Modelo com melhor acurácia: {final_acc_acc:.2f}%")
+    print(f"📊 Modelo com melhor perda: {final_acc_loss:.2f}%")
 
-    # Choose the final model based on comparison
+    # Escolher o modelo final baseado na comparação
     if final_acc_acc >= final_acc_loss:
-        print("✅ Using model with best accuracy as final model")
+        print("✅ Usando modelo com melhor acurácia como modelo final")
         final_model = model_acc
         final_state = best_model_state
     else:
-        print("✅ Using model with best loss as final model")
+        print("✅ Usando modelo com melhor perda como modelo final")
         final_model = model_loss
         final_state = best_model_state_loss
 
-    # Generate learning curves
-    generate_learning_curves("Binary Classification", history, output_dir)
+    # Gerar curvas de aprendizado
+    generate_learning_curves("Classificação Binária", history, output_dir)
 
     return final_model, history, max(final_acc_acc, final_acc_loss)
-
 
 #  Função K-Fold revisada para prevenir data leak
 def train_with_kfold(data_dir, output_dir, model_name, epochs, batch_size, label_smoothing, k=5):
@@ -1714,21 +1721,8 @@ def main():
                         help='Número de folds para validação cruzada (0 = desativado)')
     parser.add_argument('--label-smoothing', type=float, default=0.1,
                         help='Valor para label smoothing (0 = desativado)')
-    parser.add_argument('--use-mixup-cutmix', action='store_true',
-                        help='Ativar técnicas de Mixup e CutMix')
-    parser.add_argument('--no-mixup-cutmix', action='store_true',
-                        help='Desativar técnicas de Mixup e CutMix')
 
     args = parser.parse_args()
-
-    # Definir o valor de use_mixup_cutmix localmente
-    use_mixup_cutmix = USE_MIXUP_CUTMIX  # Usar o valor global como padrão
-
-    # Sobrescrever baseado nos argumentos
-    if args.use_mixup_cutmix:
-        use_mixup_cutmix = True
-    if args.no_mixup_cutmix:
-        use_mixup_cutmix = False
 
     # Adicionar timestamp ao diretório de saída
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -1747,7 +1741,7 @@ def main():
     print(f"  - Aumento extra para peçonhentas: {EXTRA_VENOMOUS_AUGMENTATION}")
     print(f"  - Augmentation forte: {STRONG_AUGMENTATION}")
     print(f"  - Label Smoothing: {args.label_smoothing}")
-    print(f"  - Mixup e CutMix: {use_mixup_cutmix}")
+    print(f"  - Mixup e CutMix: {USE_MIXUP_CUTMIX}")
 
     if args.kfold > 1:
         print(f"  - validação Cruzada: {args.kfold}-fold")
