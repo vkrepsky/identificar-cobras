@@ -11,7 +11,7 @@ import torch
 import torch.nn as nn
 import torch.optim as optim
 import torch.nn.functional as F
-from torch.utils.data import Dataset, DataLoader, WeightedRandomSampler
+from  torch.utils.data import Dataset, DataLoader, WeightedRandomSampler
 from torchvision import transforms, models
 from PIL import Image
 from sklearn.model_selection import train_test_split, KFold
@@ -23,29 +23,6 @@ import seaborn as sns
 from sklearn.metrics import confusion_matrix, classification_report, roc_curve, auc, precision_recall_curve, \
     average_precision_score
 
-"""
-Script de treinamento otimizado para classificação binária de serpentes.
-Configurado com valores padrão para tratamento de dataset desbalanceado,
-com mais amostras de cobras não peçonhentas que peçonhentas.
-
-[Comentário] Esta versão corrige problemas de data leak:
-1. Augmentação aplicada SOMENTE ao conjunto de treinamento após a divisão dos dados
-2. Otimização de threshold realizada no conjunto de validação, não no teste 
-3. Reorganização do fluxo para validação cruzada para evitar vazamento
-
-Uso básico:
-    python snake_training.py --data-dir C:/caminho/para/imagens
-
-Parâmetros opcionais:
-    --output-dir: Diretório para salvar os resultados (padrão: resultados_snake)
-    --model: Modelo base a ser usado (padrão: resnet50)
-    --epochs: Número de épocas para treinar (padrão: 30)
-    --kfold: Número de folds para validação cruzada (padrão: 0, desabilitado)
-    --label-smoothing: Valor para suavização de rótulos (padrão: 0.1)
-    --use-mixup-cutmix: Ativar técnicas de Mixup e CutMix (padrão: True)
-"""
-
-# Configurações globais (já otimizadas)
 BATCH_SIZE = 32
 NUM_EPOCHS = 60
 LEARNING_RATE = 0.01
@@ -366,7 +343,7 @@ def create_output_directories(output_base_dir, with_folds=False):
 def augment_training_images(train_paths, train_labels, output_dir, target_images_per_class=TARGET_IMAGES_PER_CLASS,
                             extra_venomous=EXTRA_VENOMOUS_AUGMENTATION):
     """
-    Gera imagens aumentadas SOMENTE para o conjunto de treinamento.
+    Gera imagens aumentadas somente para o conjunto de treinamento.
 
     Args:
         train_paths: Lista de caminhos das imagens de treinamento
@@ -379,7 +356,7 @@ def augment_training_images(train_paths, train_labels, output_dir, target_images
         Tuple contendo novos caminhos e rótulos das imagens aumentadas
     """
     print("\n" + "=" * 80)
-    print("🔄 AUMENTAÇÃO DE DADOS - GERANDO IMAGENS SINTÉTICAS (SOMENTE TREINO) 🔄".center(80))
+    print("🔄 AUMENTAÇÃO DE DADOS - GERANDO IMAGENS SINTÉTICAS (somente TREINO) 🔄".center(80))
     print("=" * 80)
 
     # Criar diretório de saída se não existir
@@ -549,7 +526,7 @@ def augment_training_images(train_paths, train_labels, output_dir, target_images
 
     return new_train_paths, new_train_labels
 
-
+#Em Desuso
 def prepare_data_with_test_set(data_dir, min_images_per_class=20):
     """Prepara os dados, dividindo em conjuntos de treino, validação e teste."""
     image_paths = []
@@ -623,7 +600,7 @@ def prepare_data_with_test_set(data_dir, min_images_per_class=20):
 
     print(f"\nDivisão dos dados:")
     print(f"  - Treinamento: {len(train_paths)} imagens")
-    print(f"  - Validação: {len(val_paths)} imagens")
+    print(f"  - validação: {len(val_paths)} imagens")
     print(f"  - Teste: {len(test_paths)} imagens")
 
     # Confirmando distribuição das classes
@@ -636,7 +613,7 @@ def prepare_data_with_test_set(data_dir, min_images_per_class=20):
         class_idx = class_to_idx[class_name]
         print(f"  - {class_name} (índice {class_idx}):")
         print(f"      Treino: {train_class_dist.get(class_idx, 0)} imagens")
-        print(f"      Validação: {val_class_dist.get(class_idx, 0)} imagens")
+        print(f"      validação: {val_class_dist.get(class_idx, 0)} imagens")
         print(f"      Teste: {test_class_dist.get(class_idx, 0)} imagens")
 
     return train_paths, train_labels, val_paths, val_labels, test_paths, test_labels, class_names, class_to_idx
@@ -699,7 +676,7 @@ def generate_learning_curves(model_name, history, output_dir):
     # Plot de acurácia
     plt.subplot(1, 2, 1)
     plt.plot(history['train_acc'], 'b-', label='Treino')
-    plt.plot(history['val_acc'], 'r-', label='Validação')
+    plt.plot(history['val_acc'], 'r-', label='validação')
     plt.title(f'Acurácia de Treinamento - {model_name}')
     plt.xlabel('Época')
     plt.ylabel('Acurácia (%)')
@@ -709,7 +686,7 @@ def generate_learning_curves(model_name, history, output_dir):
     # Plot de perda
     plt.subplot(1, 2, 2)
     plt.plot(history['train_loss'], 'b-', label='Treino')
-    plt.plot(history['val_loss'], 'r-', label='Validação')
+    plt.plot(history['val_loss'], 'r-', label='validação')
     plt.title(f'Perda de Treinamento - {model_name}')
     plt.xlabel('Época')
     plt.ylabel('Perda')
@@ -805,7 +782,7 @@ def plot_roc_curve(model, data_loader, device, class_names, output_dir):
     return roc_auc, avg_precision
 
 
-#: Função de otimização de threshold no conjunto de VALIDAÇÃO, não teste
+#: Função de otimização de threshold no conjunto de validação, não teste
 def find_optimal_threshold(y_true, y_scores, output_dir):
     """
     Enconra o threshold ótimo para classificação baseado em diferentes critérios
@@ -1336,11 +1313,11 @@ def train_with_kfold(data_dir, output_dir, model_name, epochs, batch_size, label
         val_paths = all_image_paths[val_idx].tolist()
         val_labels = all_labels[val_idx].tolist()
 
-        #  Aplicar aumentação SOMENTE nos dados de treino deste fold
+        #  Aplicar aumentação somente nos dados de treino deste fold
         fold_augmented_dir = os.path.join(folds_dir, f"fold_{fold + 1}_augmented")
         os.makedirs(fold_augmented_dir, exist_ok=True)
 
-        # Aumentar SOMENTE o conjunto de treino
+        # Aumentar somente o conjunto de treino
         train_paths, train_labels = augment_training_images(
             train_paths_original,
             train_labels_original,
@@ -1359,7 +1336,7 @@ def train_with_kfold(data_dir, output_dir, model_name, epochs, batch_size, label
             class_name = list(class_mapping.keys())[list(class_mapping.values()).index(class_idx)]
             print(f"      {class_name} (índice {class_idx}): {count} imagens")
 
-        print("  - Conjunto de Validação:")
+        print("  - Conjunto de validação:")
         for class_idx, count in val_class_dist.items():
             class_name = list(class_mapping.keys())[list(class_mapping.values()).index(class_idx)]
             print(f"      {class_name} (índice {class_idx}): {count} imagens")
@@ -1474,7 +1451,7 @@ def train_with_kfold(data_dir, output_dir, model_name, epochs, batch_size, label
     avg_val_acc = sum(result['val_acc'] for result in fold_results) / k
 
     print(f"\n{'=' * 80}")
-    print(f"📊 RESULTADOS DA VALIDAÇÃO CRUZADA {k}-FOLD")
+    print(f"📊 RESULTADOS DA validação CRUZADA {k}-FOLD")
     print(f"{'=' * 80}")
     print(f"Acurácia média: {avg_val_acc:.2f}%")
 
@@ -1491,7 +1468,7 @@ def train_with_kfold(data_dir, output_dir, model_name, epochs, batch_size, label
     plt.axhline(y=avg_val_acc, color='r', linestyle='--',
                 label=f'Média ({avg_val_acc:.2f}%)')
 
-    plt.title(f'Acurácia de Validação por Fold ({k}-Fold Cross Validation)')
+    plt.title(f'Acurácia de validação por Fold ({k}-Fold Cross Validation)')
     plt.xlabel('Época')
     plt.ylabel('Acurácia (%)')
     plt.legend()
@@ -1535,7 +1512,7 @@ def train_with_kfold(data_dir, output_dir, model_name, epochs, batch_size, label
     }
 
 
-#  Função de avaliação com threshold otimizado no conjunto de VALIDAÇÃO
+#  Em Deuso; Função de avaliação com threshold otimizado no conjunto de validação
 def evaluate_model(model, test_loader, val_optimal_thresholds, criterion, device, class_names, output_dir):
     """Avalia o modelo no conjunto de teste usando thresholds otimizados no conjunto de validação."""
     model.eval()
@@ -1773,9 +1750,9 @@ def main():
     print(f"  - Mixup e CutMix: {use_mixup_cutmix}")
 
     if args.kfold > 1:
-        print(f"  - Validação Cruzada: {args.kfold}-fold")
+        print(f"  - validação Cruzada: {args.kfold}-fold")
     else:
-        print(f"  - Validação Cruzada: Desativada")
+        print(f"  - validação Cruzada: Desativada")
 
     # Criar diretórios de saída
     os.makedirs(output_dir, exist_ok=True)
@@ -1810,13 +1787,15 @@ def main():
         print(f"✅ Modelo simplificado salvo em: {simple_model_path}")
 
     else:
+        #Comentado, pois esta parte não foi utilizada no código final
+        """
         #  Fluxo de treinamento normal (single fold) - eliminando data leak
         # Primeiro dividimos os dados em treino, validação e teste
         train_paths, train_labels, val_paths, val_labels, test_paths, test_labels, class_names, class_to_idx = prepare_data_with_test_set(
             args.data_dir, min_images_per_class=20
         )
 
-        #  Agora fazemos aumentação SOMENTE no conjunto de treinamento
+        #  Agora fazemos aumentação somente no conjunto de treinamento
         augmented_dir = os.path.join(output_dir, "augmented_train")
         os.makedirs(augmented_dir, exist_ok=True)
 
@@ -1914,7 +1893,7 @@ def main():
             use_mixup_cutmix=use_mixup_cutmix  # Passando a variável local
         )
 
-        #  Primeiro otimizar thresholds no conjunto de VALIDAÇÃO
+        #  Primeiro otimizar thresholds no conjunto de validação
         val_y_true = []
         val_y_scores = []
 
@@ -1982,7 +1961,8 @@ def main():
         print(f"  - Acurácia no teste (threshold padrão): {test_acc:.2f}%")
         print(f"  - Threshold recomendado para alta segurança: {optimal_thresholds['high_recall']:.3f}")
         print(f"  - Análise detalhada em: {output_dir}")
-
+    
+    """
     print("\n💡 Para inferência, use o script de inferência com:")
     print(f"  python snake_inference.py --model {simple_model_path} --high-recall --dir sua_pasta_com_imagens")
 
